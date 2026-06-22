@@ -14,16 +14,16 @@
     <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Plus+Jakarta+Sans:wght@400;500;700;800&family=Hind+Siliguri:wght@400;600;700&display=swap" rel="stylesheet" />
     <!-- FontAwesome Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
-    <!-- Chart.js for Beautiful Analysis -->
+    <!-- Chart.js -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js">
     </script>
 
-    <!-- Google AdSense Verification -->
+    <!-- Google AdSense -->
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6408218783867640" crossorigin="anonymous">
     </script>
 
     <style>
-        /* CSS Variables supporting Multi-Theme Neon */
+        /* ─── CSS Variables ─── */
         :root {
             --bg-dark: #060814;
             --accent: #00ffcc;
@@ -36,8 +36,6 @@
             --text-normal: #9fa9bf;
             --panel-bg: rgba(11, 15, 27, 0.6);
         }
-
-        /* Matrix Green Theme */
         .theme-matrix {
             --bg-dark: #020704;
             --accent: #33ff33;
@@ -46,8 +44,6 @@
             --correct: #88ff88;
             --panel-bg: rgba(4, 12, 6, 0.75);
         }
-
-        /* Sakura Sunset Theme */
         .theme-sunset {
             --bg-dark: #0c0509;
             --accent: #ff0077;
@@ -56,8 +52,6 @@
             --correct: #ffa700;
             --panel-bg: rgba(18, 6, 12, 0.7);
         }
-
-        /* Cyber Orange Theme */
         .theme-orange {
             --bg-dark: #0a0602;
             --accent: #ff7700;
@@ -67,24 +61,34 @@
             --panel-bg: rgba(16, 8, 3, 0.7);
         }
 
+        /* ─── Base ─── */
+        * {
+            box-sizing: border-box;
+        }
+        html,
+        body {
+            margin: 0;
+            padding: 0;
+            overflow-x: hidden;
+        }
         body {
             background: radial-gradient(circle at 50% 0%, rgba(20, 25, 45, 0.85) 0%, var(--bg-dark) 85%);
             font-family: 'Plus Jakarta Sans', sans-serif;
             color: #f3f4f6;
             min-height: 100vh;
-            overflow-x: hidden;
             transition: background 0.4s ease, color 0.4s ease;
+            display: flex;
+            flex-direction: column;
         }
 
         .font-bangla {
             font-family: 'Hind Siliguri', sans-serif !important;
         }
-
         .font-mono-custom {
             font-family: 'JetBrains Mono', monospace;
         }
 
-        /* Premium Glass Panels */
+        /* ─── Glass Panels ─── */
         .glass-panel {
             background: var(--panel-bg);
             backdrop-filter: blur(24px);
@@ -93,7 +97,6 @@
             box-shadow: 0 12px 40px 0 rgba(0, 0, 0, 0.6);
             transition: all 0.3s ease;
         }
-
         .glass-panel-neon {
             background: var(--panel-bg);
             backdrop-filter: blur(24px);
@@ -102,7 +105,7 @@
             transition: all 0.3s ease;
         }
 
-        /* Active Word Highlight with Underline Animation */
+        /* ─── Word Styles ─── */
         .word-active {
             border-bottom: 2px solid var(--accent);
             padding-bottom: 3px;
@@ -111,8 +114,6 @@
             box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
             transition: all 0.15s ease;
         }
-
-        /* Glowing Caret Custom Animation */
         .caret {
             position: relative;
         }
@@ -129,7 +130,6 @@
             border-radius: 4px;
             transition: left 0.1s cubic-bezier(0.18, 0.89, 0.32, 1.28);
         }
-
         @keyframes blink {
             0%,
             100% {
@@ -139,30 +139,23 @@
                 opacity: 0;
             }
         }
-
-        /* Letter State Transitions */
         .letter {
             transition: all 0.15s cubic-bezier(0.4, 0, 0.2, 1);
         }
-
         .letter.correct {
             color: var(--correct);
             text-shadow: 0 0 8px rgba(0, 255, 136, 0.4);
         }
-
         .letter.incorrect {
             color: var(--error);
             background-color: var(--error-dim);
             border-radius: 3px;
             text-shadow: 0 0 8px rgba(255, 74, 90, 0.4);
         }
-
-        /* Soft Fading for Completed Words */
         .word-passed {
             opacity: 0.38;
             transition: opacity 0.3s ease;
         }
-
         .pill-active {
             background: var(--accent-dim);
             color: var(--accent);
@@ -170,7 +163,7 @@
             box-shadow: 0 0 15px var(--accent-dim);
         }
 
-        /* Hidden native element */
+        /* ─── Hidden Input ─── */
         #hidden-input {
             position: absolute;
             opacity: 0;
@@ -178,78 +171,189 @@
             pointer-events: none;
         }
 
-        #liveGraph {
-            max-height: 200px;
+        /* ─── Ad Containers ─── */
+        .ad-sidebar {
+            width: 160px;
+            min-width: 140px;
+            flex-shrink: 0;
+            display: flex;
+            align-items: stretch;
+            justify-content: center;
         }
-
-        /* ---- Ad Containers ---- */
-        .ad-container {
-            background: rgba(11, 15, 27, 0.35);
-            border: 1px solid rgba(255, 255, 255, 0.04);
+        .ad-sidebar-inner {
+            width: 100%;
+            min-height: 400px;
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px dashed rgba(255, 255, 255, 0.06);
             border-radius: 16px;
-            backdrop-filter: blur(8px);
             display: flex;
             align-items: center;
             justify-content: center;
-            overflow: hidden;
-            transition: all 0.3s ease;
-        }
-        .ad-container:hover {
-            border-color: rgba(255, 255, 255, 0.08);
-        }
-        .ad-container .ad-label {
-            font-size: 9px;
-            letter-spacing: 0.08em;
-            text-transform: uppercase;
+            font-size: 11px;
             color: #4e556e;
-            font-weight: 700;
-            background: rgba(0, 0, 0, 0.4);
-            padding: 2px 10px;
-            border-radius: 20px;
-            border: 1px solid rgba(255, 255, 255, 0.04);
-        }
-
-        /* Sidebar ad wrappers */
-        .sidebar-ad {
-            width: 180px;
-            min-height: 600px;
-            flex-shrink: 0;
-        }
-        .sidebar-ad .ad-container {
-            width: 100%;
-            height: 100%;
-            min-height: 600px;
             padding: 8px;
+            text-align: center;
+            position: sticky;
+            top: 20px;
+        }
+        .ad-sidebar-inner .ad-label {
+            font-size: 9px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: #3a4155;
+            font-weight: 700;
         }
 
-        /* Bottom banner */
-        .banner-ad {
+        .ad-banner-mobile {
             width: 100%;
-            max-width: 970px;
+            max-width: 728px;
             margin: 0 auto;
-            min-height: 100px;
+            padding: 8px 0;
+            display: none;
         }
-        .banner-ad .ad-container {
-            width: 100%;
-            min-height: 100px;
-            padding: 8px 16px;
+        .ad-banner-mobile-inner {
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px dashed rgba(255, 255, 255, 0.06);
+            border-radius: 12px;
+            min-height: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 10px;
+            color: #4e556e;
+            padding: 6px;
+            text-align: center;
+        }
+        .ad-banner-mobile-inner .ad-label {
+            font-size: 8px;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            color: #3a4155;
+            font-weight: 700;
         }
 
-        /* Responsive: hide sidebars on mobile */
-        @media (max-width: 1023px) {
-            .sidebar-ad {
-                display: none !important;
+        /* ─── Main Layout ─── */
+        .main-layout {
+            display: flex;
+            gap: 16px;
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 16px;
+            width: 100%;
+            flex: 1;
+        }
+        .content-area {
+            flex: 1;
+            min-width: 0;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* ─── Typing Box Reset Button ─── */
+        .typing-box-header {
+            display: flex;
+            justify-content: flex-end;
+            align-items: flex-start;
+            padding-bottom: 8px;
+            position: relative;
+        }
+        .reset-btn-top {
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            border-radius: 10px;
+            padding: 6px 10px;
+            color: #9fa9bf;
+            font-size: 13px;
+            transition: all 0.25s ease;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .reset-btn-top:hover {
+            background: rgba(0, 255, 204, 0.08);
+            border-color: var(--accent-dim);
+            color: var(--accent);
+            box-shadow: 0 0 20px var(--accent-dim);
+        }
+        .reset-btn-top i {
+            font-size: 14px;
+        }
+
+        /* ─── Responsive Tweaks ─── */
+        @media (max-width: 1024px) {
+            .ad-sidebar {
+                width: 140px;
+                min-width: 120px;
+            }
+            .ad-sidebar-inner {
+                min-height: 320px;
             }
         }
 
-        /* Animation for page transitions */
+        @media (max-width: 820px) {
+            .ad-sidebar {
+                width: 120px;
+                min-width: 100px;
+            }
+            .ad-sidebar-inner {
+                min-height: 280px;
+            }
+            .main-layout {
+                gap: 10px;
+                padding: 0 10px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .ad-sidebar {
+                display: none !important;
+            }
+            .main-layout {
+                padding: 0 12px;
+                gap: 0;
+            }
+            .ad-banner-mobile {
+                display: block;
+            }
+            .typing-box-header {
+                padding-bottom: 4px;
+            }
+            .reset-btn-top {
+                padding: 4px 8px;
+                font-size: 11px;
+            }
+            .reset-btn-top i {
+                font-size: 12px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .main-layout {
+                padding: 0 8px;
+            }
+            .glass-panel-neon {
+                padding: 12px !important;
+            }
+            #words-display {
+                font-size: 16px !important;
+                line-height: 1.6 !important;
+                height: auto !important;
+                min-height: 100px;
+            }
+            .ad-banner-mobile-inner {
+                min-height: 50px;
+            }
+        }
+
+        /* ─── Animation ─── */
         .animate-fade-in {
-            animation: fadeIn 0.45s ease forwards;
+            animation: fadeIn 0.5s ease;
         }
         @keyframes fadeIn {
             0% {
                 opacity: 0;
-                transform: translateY(10px);
+                transform: translateY(12px);
             }
             100% {
                 opacity: 1;
@@ -257,489 +361,458 @@
             }
         }
 
-        /* Reset button in typing box */
-        .reset-mini {
-            background: rgba(11, 15, 27, 0.7);
-            backdrop-filter: blur(12px);
-            border: 1px solid rgba(255, 255, 255, 0.06);
-            border-radius: 12px;
-            padding: 8px 14px;
-            color: #9fa9bf;
-            font-size: 13px;
-            font-weight: 700;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            transition: all 0.25s ease;
-            cursor: pointer;
-            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
+        /* ─── Utilities ─── */
+        .no-horizontal-scroll {
+            overflow-x: hidden;
         }
-        .reset-mini:hover {
-            border-color: var(--accent-dim);
-            color: var(--accent);
-            box-shadow: 0 0 30px var(--accent-dim), 0 4px 16px rgba(0, 0, 0, 0.4);
-            transform: scale(1.03);
+        .max-w-5xl {
+            max-width: 1024px;
         }
-        .reset-mini i {
-            font-size: 14px;
-            color: var(--accent);
+        .container-typing {
+            max-width: 1024px;
+            margin: 0 auto;
+            width: 100%;
         }
     </style>
 </head>
-<body class="flex flex-col justify-between">
+<body>
 
-    <!-- ===== MAIN NAVIGATION HEADER ===== -->
-    <header class="container mx-auto px-4 py-5 flex flex-wrap items-center justify-between gap-4 z-10">
+    <!-- ═══ HEADER ═══ -->
+    <header class="container mx-auto px-4 py-4 flex flex-wrap items-center justify-between gap-3 z-10">
         <div class="flex items-center gap-3">
-            <div class="w-12 h-12 rounded-2xl bg-gradient-to-br from-[#00ffcc] to-indigo-600 flex items-center justify-center shadow-lg shadow-teal-500/20">
-                <i class="fa-solid fa-fire-flame-curved text-[#060814] text-2xl"></i>
+            <div class="w-11 h-11 rounded-2xl bg-gradient-to-br from-[#00ffcc] to-indigo-600 flex items-center justify-center shadow-lg shadow-teal-500/20">
+                <i class="fa-solid fa-fire-flame-curved text-[#060814] text-xl"></i>
             </div>
             <div>
-                <h1 class="text-2xl font-black tracking-tight text-white flex items-center gap-2">
-                    SwiftType <span class="text-[10px] bg-teal-500/10 text-[#00ffcc] px-2 py-0.5 rounded border border-teal-500/20 uppercase tracking-widest font-extrabold">Ultra 3.0</span>
+                <h1 class="text-xl md:text-2xl font-black tracking-tight text-white flex items-center gap-2">
+                    SwiftType <span class="text-[8px] md:text-[10px] bg-teal-500/10 text-[#00ffcc] px-2 py-0.5 rounded border border-teal-500/20 uppercase tracking-widest font-extrabold">Ultra 3.0</span>
                 </h1>
-                <p class="text-[10px] text-slate-400 tracking-wider uppercase font-bold">প্রফেশনাল টাইপিং এনভায়রনমেন্ট</p>
+                <p class="text-[9px] md:text-[10px] text-slate-400 tracking-wider uppercase font-bold">প্রফেশনাল টাইপিং এনভায়রনমেন্ট</p>
             </div>
         </div>
 
-        <!-- Theme Selector -->
-        <div class="flex items-center gap-2 bg-slate-900/60 px-3 py-2 rounded-2xl border border-slate-800">
-            <span class="text-[10px] text-slate-500 font-bold uppercase mr-1">থিমস:</span>
-            <button onclick="setTheme('cyber')" class="w-6 h-6 rounded-full bg-cyan-400 border border-slate-900 shadow transition transform hover:scale-125" title="Cyber Cyan"></button>
-            <button onclick="setTheme('matrix')" class="w-6 h-6 rounded-full bg-green-500 border border-slate-900 shadow transition transform hover:scale-125" title="Digital Matrix"></button>
-            <button onclick="setTheme('sunset')" class="w-6 h-6 rounded-full bg-pink-500 border border-slate-900 shadow transition transform hover:scale-125" title="Sakura Sunset"></button>
-            <button onclick="setTheme('orange')" class="w-6 h-6 rounded-full bg-orange-500 border border-slate-900 shadow transition transform hover:scale-125" title="Cyber Orange"></button>
+        <div class="flex items-center gap-2 bg-slate-900/60 px-2 md:px-3 py-1.5 md:py-2 rounded-2xl border border-slate-800 flex-wrap">
+            <span class="text-[8px] md:text-[10px] text-slate-500 font-bold uppercase mr-0.5">থিমস:</span>
+            <button onclick="setTheme('cyber')" class="w-5 h-5 md:w-6 md:h-6 rounded-full bg-cyan-400 border border-slate-900 shadow transition transform hover:scale-125" title="Cyber Cyan"></button>
+            <button onclick="setTheme('matrix')" class="w-5 h-5 md:w-6 md:h-6 rounded-full bg-green-500 border border-slate-900 shadow transition transform hover:scale-125" title="Digital Matrix"></button>
+            <button onclick="setTheme('sunset')" class="w-5 h-5 md:w-6 md:h-6 rounded-full bg-pink-500 border border-slate-900 shadow transition transform hover:scale-125" title="Sakura Sunset"></button>
+            <button onclick="setTheme('orange')" class="w-5 h-5 md:w-6 md:h-6 rounded-full bg-orange-500 border border-slate-900 shadow transition transform hover:scale-125" title="Cyber Orange"></button>
         </div>
 
-        <!-- Sound & Stats -->
-        <div class="flex items-center gap-3">
-            <div class="flex items-center gap-1 bg-slate-900/60 p-1 rounded-xl border border-slate-800">
-                <span class="text-[9px] text-slate-500 uppercase px-2 font-bold">সাউন্ড:</span>
-                <button onclick="setSoundProfile('blue')" id="sp-blue" class="px-2 py-1 rounded bg-slate-800 text-[10px] text-slate-300 font-bold hover:text-white transition">Blue</button>
-                <button onclick="setSoundProfile('brown')" id="sp-brown" class="px-2 py-1 rounded text-[10px] text-slate-400 hover:text-white transition">Brown</button>
-                <button onclick="setSoundProfile('bubble')" id="sp-bubble" class="px-2 py-1 rounded text-[10px] text-slate-400 hover:text-white transition">Bubble</button>
+        <div class="flex items-center gap-2 md:gap-3 flex-wrap">
+            <div class="flex items-center gap-0.5 bg-slate-900/60 p-0.5 md:p-1 rounded-xl border border-slate-800">
+                <span class="text-[7px] md:text-[9px] text-slate-500 uppercase px-1.5 font-bold">সাউন্ড:</span>
+                <button onclick="setSoundProfile('blue')" id="sp-blue" class="px-1.5 md:px-2 py-0.5 md:py-1 rounded bg-slate-800 text-[8px] md:text-[10px] text-[#00ffcc] font-bold border border-teal-500/30 transition">Blue</button>
+                <button onclick="setSoundProfile('brown')" id="sp-brown" class="px-1.5 md:px-2 py-0.5 md:py-1 rounded text-[8px] md:text-[10px] text-slate-400 hover:text-white transition">Brown</button>
+                <button onclick="setSoundProfile('bubble')" id="sp-bubble" class="px-1.5 md:px-2 py-0.5 md:py-1 rounded text-[8px] md:text-[10px] text-slate-400 hover:text-white transition">Bubble</button>
             </div>
 
-            <button id="sound-btn" class="p-2 rounded-xl bg-slate-900/60 border border-slate-800 text-[#00ffcc] hover:text-white transition">
-                <i class="fa-solid fa-volume-high" id="sound-icon"></i>
+            <button id="sound-btn" class="p-1.5 md:p-2 rounded-xl bg-slate-900/60 border border-slate-800 text-[#00ffcc] hover:text-white transition">
+                <i class="fa-solid fa-volume-high text-sm md:text-base" id="sound-icon"></i>
             </button>
 
-            <button id="stats-nav-btn" class="px-4 py-2 rounded-xl bg-slate-900/60 border border-slate-800 text-xs font-bold text-slate-300 hover:text-[#00ffcc] hover:border-[#00ffcc]/30 transition flex items-center gap-1.5">
-                <i class="fa-solid fa-chart-simple text-[#00ffcc]"></i>
-                <span>ড্যাশবোর্ড</span>
+            <button id="stats-nav-btn" class="px-3 md:px-4 py-1.5 md:py-2 rounded-xl bg-slate-900/60 border border-slate-800 text-[10px] md:text-xs font-bold text-slate-300 hover:text-[#00ffcc] hover:border-[#00ffcc]/30 transition flex items-center gap-1.5">
+                <i class="fa-solid fa-chart-simple text-[#00ffcc] text-sm"></i>
+                <span class="hidden sm:inline">ড্যাশবোর্ড</span>
+                <span class="sm:hidden">স্ট্যাট</span>
             </button>
         </div>
     </header>
 
-    <!-- ===== MAIN DISPLAY ===== -->
-    <main class="container mx-auto px-4 py-3 flex-grow flex flex-col z-10">
+    <!-- ═══ MAIN LAYOUT: Left Ad | Content | Right Ad ═══ -->
+    <div class="main-layout">
 
-        <!-- ===== 3-COLUMN LAYOUT: LEFT AD | CONTENT | RIGHT AD ===== -->
-        <div class="flex flex-col lg:flex-row items-start justify-center gap-5 w-full">
-
-            <!-- ===== LEFT SIDEBAR AD (hidden on mobile) ===== -->
-            <div class="sidebar-ad hidden lg:block">
-                <div class="ad-container flex flex-col gap-2">
-                    <!-- AdSense Left Sidebar - 160x600 or responsive -->
+        <!-- ─── LEFT SIDEBAR AD ─── -->
+        <aside class="ad-sidebar" id="left-ad">
+            <div class="ad-sidebar-inner">
+                <div>
+                    <div class="ad-label">Advertisement</div>
+                    <!-- Google AdSense: Left Sidebar -->
                     <ins class="adsbygoogle"
-                    style="display:block; width:160px; height:600px;"
+                    style="display:block; width:100%; min-height:250px;"
                     data-ad-client="ca-pub-6408218783867640"
                     data-ad-slot="1234567890"
-                    data-ad-format="rectangle"
+                    data-ad-format="vertical"
                     data-full-width-responsive="false">
                 </ins>
-                <span class="ad-label">Advertisement</span>
+                <script>
+                    (adsbygoogle = window.adsbygoogle || []).push({});
+                </script>
             </div>
         </div>
+    </aside>
 
-        <!-- ===== MAIN CONTENT (pages) ===== -->
-        <div class="flex-1 w-full max-w-4xl mx-auto" id="pages-container">
+    <!-- ─── CONTENT AREA ─── -->
+    <main class="content-area">
 
-            <!-- ===== PAGE 1: TYPING BOARD ===== -->
-            <section id="page-typing" class="space-y-6">
+        <!-- Pages Container -->
+        <div id="pages-container" class="container-typing">
 
-                <!-- Interactive Controls -->
-                <div class="glass-panel rounded-2xl p-4 flex flex-wrap items-center justify-between gap-4">
+            <!-- ═══ PAGE 1: TYPING BOARD ═══ -->
+            <section id="page-typing" class="space-y-4 md:space-y-6">
 
-                    <!-- Difficulty -->
-                    <div class="flex items-center gap-1.5 bg-slate-950/80 p-1 rounded-xl border border-slate-800">
-                        <span class="text-[10px] text-slate-500 font-bold uppercase px-2">ডিফিকাল্টি:</span>
-                        <button onclick="setDifficulty('easy')" id="diff-easy" class="px-3.5 py-1.5 rounded-lg text-xs font-bold transition-all pill-active">
-                            Easy
-                        </button>
-                        <button onclick="setDifficulty('hard')" id="diff-hard" class="px-3.5 py-1.5 rounded-lg text-xs font-bold transition-all text-slate-400 hover:text-white">
-                            Hard 🔥
-                        </button>
+                <!-- Interactive Controls (Glassmorphism) -->
+                <div class="glass-panel rounded-2xl p-3 md:p-4 flex flex-wrap items-center justify-between gap-3">
+
+                    <div class="flex items-center gap-1.5 bg-slate-950/80 p-0.5 md:p-1 rounded-xl border border-slate-800 flex-wrap">
+                        <span class="text-[8px] md:text-[10px] text-slate-500 font-bold uppercase px-1.5 md:px-2">ডিফিকাল্টি:</span>
+                        <button onclick="setDifficulty('easy')" id="diff-easy" class="px-2 md:px-3.5 py-1 md:py-1.5 rounded-lg text-[9px] md:text-xs font-bold transition-all pill-active">Easy</button>
+                        <button onclick="setDifficulty('hard')" id="diff-hard" class="px-2 md:px-3.5 py-1 md:py-1.5 rounded-lg text-[9px] md:text-xs font-bold transition-all text-slate-400 hover:text-white">Hard 🔥</button>
                     </div>
 
-                    <!-- Mode -->
-                    <div class="flex items-center gap-1.5 bg-slate-950/80 p-1 rounded-xl border border-slate-800">
-                        <button onclick="setTestMode('sentence')" id="mode-sentence" class="px-3.5 py-1.5 rounded-lg text-xs font-bold transition-all pill-active">
-                            Sentence Mode
-                        </button>
-                        <button onclick="setTestMode('paragraph')" id="mode-paragraph" class="px-3.5 py-1.5 rounded-lg text-xs font-bold transition-all text-slate-400 hover:text-white">
-                            Paragraph Mode
-                        </button>
+                    <div class="flex items-center gap-1.5 bg-slate-950/80 p-0.5 md:p-1 rounded-xl border border-slate-800 flex-wrap">
+                        <button onclick="setTestMode('sentence')" id="mode-sentence" class="px-2 md:px-3.5 py-1 md:py-1.5 rounded-lg text-[9px] md:text-xs font-bold transition-all pill-active">Sentence</button>
+                        <button onclick="setTestMode('paragraph')" id="mode-paragraph" class="px-2 md:px-3.5 py-1 md:py-1.5 rounded-lg text-[9px] md:text-xs font-bold transition-all text-slate-400 hover:text-white">Paragraph</button>
                     </div>
 
-                    <!-- Language -->
-                    <div class="flex items-center gap-1.5 bg-slate-950/80 p-1 rounded-xl border border-slate-800">
-                        <button onclick="setLanguage('english')" id="lang-english" class="px-3.5 py-1.5 rounded-lg text-xs font-bold transition-all pill-active">English</button>
-                        <button onclick="setLanguage('bangla')" id="lang-bangla" class="px-3.5 py-1.5 rounded-lg text-xs font-bold transition-all text-slate-400 hover:text-white">বাংলা</button>
+                    <div class="flex items-center gap-1.5 bg-slate-950/80 p-0.5 md:p-1 rounded-xl border border-slate-800 flex-wrap">
+                        <button onclick="setLanguage('english')" id="lang-english" class="px-2 md:px-3.5 py-1 md:py-1.5 rounded-lg text-[9px] md:text-xs font-bold transition-all pill-active">English</button>
+                        <button onclick="setLanguage('bangla')" id="lang-bangla" class="px-2 md:px-3.5 py-1 md:py-1.5 rounded-lg text-[9px] md:text-xs font-bold transition-all text-slate-400 hover:text-white">বাংলা</button>
                     </div>
 
-                    <!-- Limit Type & Options -->
-                    <div class="flex items-center gap-3">
-                        <div class="flex items-center gap-1 bg-slate-950/80 p-1 rounded-xl border border-slate-800" id="limit-type-container">
-                            <button onclick="setLimitType('time')" id="lim-time-btn" class="px-2.5 py-1.5 rounded-lg text-xs font-bold transition-all pill-active">সময়</button>
-                            <button onclick="setLimitType('words')" id="lim-words-btn" class="px-2.5 py-1.5 rounded-lg text-xs font-bold transition-all text-slate-400">শব্দ</button>
+                    <div class="flex items-center gap-2 md:gap-3 flex-wrap">
+                        <div class="flex items-center gap-0.5 bg-slate-950/80 p-0.5 md:p-1 rounded-xl border border-slate-800" id="limit-type-container">
+                            <button onclick="setLimitType('time')" id="lim-time-btn" class="px-1.5 md:px-2.5 py-1 md:py-1.5 rounded-lg text-[9px] md:text-xs font-bold transition-all pill-active">সময়</button>
+                            <button onclick="setLimitType('words')" id="lim-words-btn" class="px-1.5 md:px-2.5 py-1 md:py-1.5 rounded-lg text-[9px] md:text-xs font-bold transition-all text-slate-400">শব্দ</button>
                         </div>
-                        <div id="options-selector" class="flex items-center gap-1 bg-slate-950/80 p-1 rounded-xl border border-slate-800"></div>
+                        <div id="options-selector" class="flex items-center gap-0.5 bg-slate-950/80 p-0.5 md:p-1 rounded-xl border border-slate-800"></div>
                     </div>
-
                 </div>
 
                 <!-- Live Diagnostics HUD -->
-                <div class="grid grid-cols-2 md:grid-cols-4 gap-4 px-2">
-                    <div class="bg-slate-950/40 p-4 rounded-xl border border-slate-800/50 flex items-center justify-between">
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-2 md:gap-4 px-1 md:px-2">
+                    <div class="bg-slate-950/40 p-2 md:p-4 rounded-xl border border-slate-800/50 flex items-center justify-between">
                         <div>
-                            <span class="text-[10px] text-slate-500 uppercase font-bold block">লাইভ স্পীড</span>
-                            <span id="live-wpm" class="text-2xl font-black text-white font-mono-custom">0</span>
+                            <span class="text-[7px] md:text-[10px] text-slate-500 uppercase font-bold block">লাইভ স্পীড</span>
+                            <span id="live-wpm" class="text-lg md:text-2xl font-black text-white font-mono-custom">0</span>
                         </div>
-                        <div class="w-10 h-10 rounded-lg bg-[#00ffcc]/10 flex items-center justify-center text-xs font-bold text-[#00ffcc]">WPM</div>
+                        <div class="w-7 h-7 md:w-10 md:h-10 rounded-lg bg-[#00ffcc]/10 flex items-center justify-center text-[9px] md:text-xs font-bold text-[#00ffcc]">WPM</div>
                     </div>
-                    <div class="bg-slate-950/40 p-4 rounded-xl border border-slate-800/50 flex items-center justify-between">
+                    <div class="bg-slate-950/40 p-2 md:p-4 rounded-xl border border-slate-800/50 flex items-center justify-between">
                         <div>
-                            <span class="text-[10px] text-slate-500 uppercase font-bold block">সঠিকতা</span>
-                            <span id="live-accuracy" class="text-2xl font-black text-[#00ffcc] font-mono-custom">100%</span>
+                            <span class="text-[7px] md:text-[10px] text-slate-500 uppercase font-bold block">সঠিকতা</span>
+                            <span id="live-accuracy" class="text-lg md:text-2xl font-black text-[#00ffcc] font-mono-custom">100%</span>
                         </div>
-                        <div class="w-10 h-10 rounded-lg bg-teal-500/10 flex items-center justify-center text-xs font-bold text-teal-400">ACC</div>
+                        <div class="w-7 h-7 md:w-10 md:h-10 rounded-lg bg-teal-500/10 flex items-center justify-center text-[9px] md:text-xs font-bold text-teal-400">ACC</div>
                     </div>
-                    <div class="bg-slate-950/40 p-4 rounded-xl border border-slate-800/50 flex items-center justify-between">
+                    <div class="bg-slate-950/40 p-2 md:p-4 rounded-xl border border-slate-800/50 flex items-center justify-between">
                         <div>
-                            <span class="text-[10px] text-slate-500 uppercase font-bold block">অবশিষ্ট সময়</span>
-                            <span id="live-timer" class="text-2xl font-black text-rose-400 font-mono-custom">30</span>
+                            <span class="text-[7px] md:text-[10px] text-slate-500 uppercase font-bold block">অবশিষ্ট সময়</span>
+                            <span id="live-timer" class="text-lg md:text-2xl font-black text-rose-400 font-mono-custom">30</span>
                         </div>
-                        <div class="w-10 h-10 rounded-lg bg-rose-500/10 flex items-center justify-center text-xs font-bold text-rose-400">SEC</div>
+                        <div class="w-7 h-7 md:w-10 md:h-10 rounded-lg bg-rose-500/10 flex items-center justify-center text-[9px] md:text-xs font-bold text-rose-400">SEC</div>
                     </div>
-                    <div class="bg-slate-950/40 p-4 rounded-xl border border-slate-800/50 flex items-center justify-between">
+                    <div class="bg-slate-950/40 p-2 md:p-4 rounded-xl border border-slate-800/50 flex items-center justify-between">
                         <div>
-                            <span class="text-[10px] text-slate-500 uppercase font-bold block">ত্রুটি (Typos)</span>
-                            <span id="live-errors" class="text-2xl font-black text-red-400 font-mono-custom">0</span>
+                            <span class="text-[7px] md:text-[10px] text-slate-500 uppercase font-bold block">ত্রুটি (Typos)</span>
+                            <span id="live-errors" class="text-lg md:text-2xl font-black text-red-400 font-mono-custom">0</span>
                         </div>
-                        <div class="w-10 h-10 rounded-lg bg-red-500/10 flex items-center justify-center text-xs font-bold text-red-400">ERR</div>
+                        <div class="w-7 h-7 md:w-10 md:h-10 rounded-lg bg-red-500/10 flex items-center justify-center text-[9px] md:text-xs font-bold text-red-400">ERR</div>
                     </div>
                 </div>
 
-                <!-- Progress Loader -->
-                <div class="w-full h-1.5 bg-slate-950 rounded-full overflow-hidden border border-slate-900">
+                <!-- Glowing Progress Loader -->
+                <div class="w-full h-1 md:h-1.5 bg-slate-950 rounded-full overflow-hidden border border-slate-900">
                     <div id="progress-bar" class="h-full w-0 bg-gradient-to-r from-teal-400 to-[#00ffcc] shadow-[0_0_15px_var(--accent)] transition-all duration-300"></div>
                 </div>
 
-                <!-- ===== IMMERSIVE TYPING ZONE ===== -->
-                <div class="relative glass-panel-neon rounded-3xl p-8 md:p-12 transition-all duration-300 cursor-text min-h-[240px]" id="typing-area-container" onclick="focusTypingInput()">
+                <!-- ═══ TYPING ZONE ═══ -->
+                <div class="relative glass-panel-neon rounded-3xl p-5 md:p-8 lg:p-10 transition-all duration-300 cursor-text" id="typing-area-container" onclick="focusTypingInput()">
 
-                    <!-- Focus overlay -->
-                    <div id="focus-overlay" class="absolute inset-0 bg-slate-950/90 backdrop-blur-md rounded-3xl flex flex-col items-center justify-center gap-3 z-30 transition-all opacity-0 pointer-events-none">
-                        <div class="w-14 h-14 rounded-full bg-teal-500/10 flex items-center justify-center text-2xl text-[#00ffcc] border border-teal-500/20 animate-bounce">
+                    <!-- Focus Overlay -->
+                    <div id="focus-overlay" class="absolute inset-0 bg-slate-950/90 backdrop-blur-md rounded-3xl flex flex-col items-center justify-center gap-2 md:gap-3 z-30 transition-all opacity-0 pointer-events-none">
+                        <div class="w-10 h-10 md:w-14 md:h-14 rounded-full bg-teal-500/10 flex items-center justify-center text-xl md:text-2xl text-[#00ffcc] border border-teal-500/20 animate-bounce">
                             <i class="fa-solid fa-gamepad"></i>
                         </div>
-                        <p class="text-lg font-bold text-slate-200">এখানে ক্লিক করুন বা যেকোনো কি চাপুন</p>
-                        <span class="text-xs text-slate-500 font-mono-custom">ফোকাস হারিয়ে গেলে টাইপিং সাময়িকভাবে বন্ধ থাকে</span>
+                        <p class="text-base md:text-lg font-bold text-slate-200">এখানে ক্লিক করুন বা যেকোনো কি চাপুন</p>
+                        <span class="text-[9px] md:text-xs text-slate-500 font-mono-custom">ফোকাস হারিয়ে গেলে টাইপিং সাময়িকভাবে বন্ধ থাকে</span>
                     </div>
 
-                    <!-- ===== RESET BUTTON (top-right corner) ===== -->
-                    <button onclick="initTest()" class="reset-mini absolute top-5 right-5 z-20" title="রিস্টার্ট (Esc)">
-                        <i class="fa-solid fa-rotate-right"></i>
-                        <span class="hidden sm:inline">রিস্টার্ট</span>
-                    </button>
+                    <!-- Top-right Reset Button -->
+                    <div class="typing-box-header">
+                        <button onclick="initTest()" class="reset-btn-top" title="Restart Test (Esc)">
+                            <i class="fa-solid fa-rotate-left"></i>
+                            <span class="hidden sm:inline">রিস্টার্ট</span>
+                        </button>
+                    </div>
 
-                    <!-- Text Display -->
-                    <div id="words-display" class="font-mono-custom text-xl md:text-2xl leading-relaxed tracking-wide text-slate-500 text-justify overflow-hidden h-[140px] select-none">
-                        <!-- Letters are dynamic -->
+                    <!-- Words Display -->
+                    <div id="words-display" class="font-mono-custom text-xl md:text-2xl leading-relaxed tracking-wide text-slate-500 text-justify overflow-hidden select-none min-h-[120px] md:min-h-[140px]">
+                        <!-- Dynamic -->
                     </div>
 
                     <!-- HUD Info -->
-                    <div class="absolute bottom-4 left-6 flex items-center gap-2 text-[10px] text-slate-500 font-bold">
-                        <span class="inline-block w-2.5 h-2.5 rounded-full bg-[#00ffcc] animate-ping mr-1"></span>
-                        <span>সিস্টেম সম্পূর্ণ প্রস্তুত • আপনার পার্সোনাল রেকর্ড অটোমেটিক সেভ হবে</span>
+                    <div class="absolute bottom-3 left-4 md:bottom-4 md:left-6 flex items-center gap-1.5 md:gap-2 text-[8px] md:text-[10px] text-slate-500 font-bold">
+                        <span class="inline-block w-2 h-2 md:w-2.5 md:h-2.5 rounded-full bg-[#00ffcc] animate-ping mr-0.5 md:mr-1"></span>
+                        <span class="hidden sm:inline">সিস্টেম প্রস্তুত • পার্সোনাল রেকর্ড অটোমেটিক সেভ হবে</span>
+                        <span class="sm:hidden">প্রস্তুত • রেকর্ড সেভ হবে</span>
                     </div>
-                    <div class="absolute bottom-4 right-6 text-[10px] text-slate-500 font-mono-custom select-none">
-                        রিস্টার্ট: <kbd class="px-1.5 py-0.5 bg-slate-900 border border-slate-800 rounded">Esc</kbd>
+
+                    <div class="absolute bottom-3 right-4 md:bottom-4 md:right-6 text-[8px] md:text-[10px] text-slate-500 font-mono-custom select-none">
+                        <kbd class="px-1 md:px-1.5 py-0.5 bg-slate-900 border border-slate-800 rounded">Esc</kbd>
+                        <span class="hidden sm:inline"> রিস্টার্ট</span>
                     </div>
                 </div>
 
-                <!-- Bottom action row (reset removed from here) -->
-                <div class="flex items-center justify-center gap-4">
-                    <!-- empty now – reset moved to typing box -->
+                <!-- Bottom action row (only for mobile fallback, but we already have reset in top-right) -->
+                <div class="flex items-center justify-center gap-3 md:hidden">
+                    <button onclick="initTest()" class="px-5 py-2.5 rounded-2xl bg-gradient-to-r from-slate-950 to-slate-900 border border-slate-800 hover:border-teal-500/40 text-slate-300 hover:text-white transition-all flex items-center gap-2 shadow-lg hover:shadow-cyan-500/5">
+                        <i class="fa-solid fa-rotate-left text-[#00ffcc] text-sm"></i>
+                        <span class="font-extrabold text-xs tracking-wide">রিস্টার্ট</span>
+                    </button>
                 </div>
 
             </section>
 
-            <!-- ===== PAGE 2: RESULT & ANALYTICS ===== -->
-            <section id="page-result" class="hidden space-y-8 animate-fade-in">
+            <!-- ═══ PAGE 2: RESULT ═══ -->
+            <section id="page-result" class="hidden space-y-5 md:space-y-8 animate-fade-in">
 
-                <div class="glass-panel rounded-3xl p-8 flex flex-col md:flex-row justify-between items-center gap-6 relative overflow-hidden">
+                <div class="glass-panel rounded-3xl p-5 md:p-8 flex flex-col md:flex-row justify-between items-center gap-4 md:gap-6 relative overflow-hidden">
                     <div class="absolute -right-20 -top-20 w-60 h-60 rounded-full bg-cyan-500/5 filter blur-3xl"></div>
                     <div>
-                        <div class="text-[10px] font-black text-teal-400 uppercase tracking-widest mb-1">কনগ্রাচুলেশন্স</div>
-                        <h2 class="text-3xl font-black text-white">টাইপিং সেশন সফলভাবে বিশ্লেষণ করা হয়েছে!</h2>
-                        <p id="result-meta-subtitle" class="text-slate-400 text-xs mt-1">Language: English • Sentence Mode</p>
+                        <div class="text-[9px] md:text-[10px] font-black text-teal-400 uppercase tracking-widest mb-1">কনগ্রাচুলেশন্স</div>
+                        <h2 class="text-2xl md:text-3xl font-black text-white">টাইপিং সেশন সফলভাবে বিশ্লেষণ করা হয়েছে!</h2>
+                        <p id="result-meta-subtitle" class="text-slate-400 text-[10px] md:text-xs mt-1">Language: English • Sentence Mode</p>
                     </div>
-                    <div class="flex items-center gap-4 bg-slate-950/80 px-6 py-4 rounded-2xl border border-slate-800">
+                    <div class="flex items-center gap-3 md:gap-4 bg-slate-950/80 px-4 md:px-6 py-3 md:py-4 rounded-2xl border border-slate-800">
                         <div>
-                            <span class="text-[9px] text-slate-500 uppercase tracking-wider block">টাইপিং টাইটেল</span>
-                            <span id="grade-label" class="text-xs font-bold text-[#00ffcc] uppercase">Extreme Typer</span>
+                            <span class="text-[7px] md:text-[9px] text-slate-500 uppercase tracking-wider block">টাইপিং টাইটেল</span>
+                            <span id="grade-label" class="text-[10px] md:text-xs font-bold text-[#00ffcc] uppercase">Extreme Typer</span>
                         </div>
-                        <div id="grade-badge" class="w-14 h-14 rounded-2xl bg-gradient-to-tr from-[#00ffcc] to-indigo-500 text-slate-950 flex items-center justify-center font-black text-2xl shadow-xl shadow-cyan-500/10">S</div>
+                        <div id="grade-badge" class="w-10 h-10 md:w-14 md:h-14 rounded-2xl bg-gradient-to-tr from-[#00ffcc] to-indigo-500 text-slate-950 flex items-center justify-center font-black text-xl md:text-2xl shadow-xl shadow-cyan-500/10">S</div>
                     </div>
                 </div>
 
-                <!-- Stats Grid -->
-                <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
-                    <div class="glass-panel rounded-2xl p-6 text-center">
-                        <span class="text-xs font-bold text-slate-500 uppercase block mb-1">টাইপিং গতি (WPM)</span>
-                        <div class="text-4xl md:text-5xl font-black text-[#00ffcc] font-mono-custom" id="res-wpm">0</div>
-                        <span class="text-[10px] text-slate-400 mt-1 block">নিখুঁত গতি</span>
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-2 md:gap-4">
+                    <div class="glass-panel rounded-2xl p-3 md:p-6 text-center">
+                        <span class="text-[9px] md:text-xs font-bold text-slate-500 uppercase block mb-0.5 md:mb-1">গতি (WPM)</span>
+                        <div class="text-3xl md:text-5xl font-black text-[#00ffcc] font-mono-custom" id="res-wpm">0</div>
+                        <span class="text-[8px] md:text-[10px] text-slate-400 mt-0.5 md:mt-1 block">নিখুঁত গতি</span>
                     </div>
-                    <div class="glass-panel rounded-2xl p-6 text-center">
-                        <span class="text-xs font-bold text-slate-500 uppercase block mb-1">নির্ভুলতা (Accuracy)</span>
-                        <div class="text-4xl md:text-5xl font-black text-white font-mono-custom" id="res-accuracy">100%</div>
-                        <span class="text-[10px] text-slate-400 mt-1 block">সঠিকতার হার</span>
+                    <div class="glass-panel rounded-2xl p-3 md:p-6 text-center">
+                        <span class="text-[9px] md:text-xs font-bold text-slate-500 uppercase block mb-0.5 md:mb-1">নির্ভুলতা</span>
+                        <div class="text-3xl md:text-5xl font-black text-white font-mono-custom" id="res-accuracy">100%</div>
+                        <span class="text-[8px] md:text-[10px] text-slate-400 mt-0.5 md:mt-1 block">সঠিকতার হার</span>
                     </div>
-                    <div class="glass-panel rounded-2xl p-6 text-center">
-                        <span class="text-xs font-bold text-slate-500 uppercase block mb-1">রিয়েল CPM</span>
-                        <div class="text-4xl md:text-5xl font-black text-slate-300 font-mono-custom" id="res-cpm">0</div>
-                        <span class="text-[10px] text-slate-400 mt-1 block">কীস্ট্রোক প্রতি মিনিট</span>
+                    <div class="glass-panel rounded-2xl p-3 md:p-6 text-center">
+                        <span class="text-[9px] md:text-xs font-bold text-slate-500 uppercase block mb-0.5 md:mb-1">রিয়েল CPM</span>
+                        <div class="text-3xl md:text-5xl font-black text-slate-300 font-mono-custom" id="res-cpm">0</div>
+                        <span class="text-[8px] md:text-[10px] text-slate-400 mt-0.5 md:mt-1 block">কীস্ট্রোক প্রতি মিনিট</span>
                     </div>
-                    <div class="glass-panel rounded-2xl p-6 text-center">
-                        <span class="text-xs font-bold text-slate-500 uppercase block mb-1">মোট সময়</span>
-                        <div class="text-4xl md:text-5xl font-black text-rose-400 font-mono-custom" id="res-time">0s</div>
-                        <span class="text-[10px] text-slate-400 mt-1 block">কমপ্লিশন ডিউরেশন</span>
+                    <div class="glass-panel rounded-2xl p-3 md:p-6 text-center">
+                        <span class="text-[9px] md:text-xs font-bold text-slate-500 uppercase block mb-0.5 md:mb-1">মোট সময়</span>
+                        <div class="text-3xl md:text-5xl font-black text-rose-400 font-mono-custom" id="res-time">0s</div>
+                        <span class="text-[8px] md:text-[10px] text-slate-400 mt-0.5 md:mt-1 block">কমপ্লিশন ডিউরেশন</span>
                     </div>
                 </div>
 
-                <!-- Chart & Breakdown -->
-                <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
-                    <div class="glass-panel rounded-2xl p-6 lg:col-span-2 space-y-4">
-                        <h3 class="text-sm font-bold text-slate-300 uppercase tracking-wider flex items-center gap-2">
-                            <i class="fa-solid fa-chart-line text-[#00ffcc]"></i> আপনার গতি ও টাইপিং স্ট্যাবিলিটি গ্রাফ
+                <div class="grid grid-cols-1 lg:grid-cols-3 gap-4 md:gap-6">
+                    <div class="glass-panel rounded-2xl p-4 md:p-6 lg:col-span-2 space-y-3 md:space-y-4">
+                        <h3 class="text-xs md:text-sm font-bold text-slate-300 uppercase tracking-wider flex items-center gap-2">
+                            <i class="fa-solid fa-chart-line text-[#00ffcc]"></i> গতি ও স্ট্যাবিলিটি গ্রাফ
                         </h3>
-                        <div class="relative w-full h-[200px]">
+                        <div class="relative w-full h-[160px] md:h-[200px]">
                             <canvas id="liveGraph"></canvas>
                         </div>
                     </div>
-                    <div class="glass-panel rounded-2xl p-6 flex flex-col justify-between space-y-4">
-                        <h3 class="text-sm font-bold text-slate-300 uppercase tracking-wider flex items-center gap-2">
-                            <i class="fa-solid fa-folder-tree text-teal-400"></i> সূক্ষ্ম ডাটা হিস্টোগ্রাম
+                    <div class="glass-panel rounded-2xl p-4 md:p-6 flex flex-col justify-between space-y-3 md:space-y-4">
+                        <h3 class="text-xs md:text-sm font-bold text-slate-300 uppercase tracking-wider flex items-center gap-2">
+                            <i class="fa-solid fa-folder-tree text-teal-400"></i> সূক্ষ্ম ডাটা
                         </h3>
-                        <div class="space-y-3">
-                            <div class="flex justify-between items-center text-xs border-b border-slate-800 pb-2.5">
-                                <span class="text-slate-400">সঠিক ক্যারেক্টারসমূহ</span>
+                        <div class="space-y-2 md:space-y-3">
+                            <div class="flex justify-between items-center text-[10px] md:text-xs border-b border-slate-800 pb-1.5 md:pb-2.5">
+                                <span class="text-slate-400">সঠিক ক্যারেক্টার</span>
                                 <span class="font-bold text-emerald-400 font-mono-custom" id="res-correct-chars">0</span>
                             </div>
-                            <div class="flex justify-between items-center text-xs border-b border-slate-800 pb-2.5">
-                                <span class="text-slate-400">ভুল ক্যারেক্টারসমূহ</span>
+                            <div class="flex justify-between items-center text-[10px] md:text-xs border-b border-slate-800 pb-1.5 md:pb-2.5">
+                                <span class="text-slate-400">ভুল ক্যারেক্টার</span>
                                 <span class="font-bold text-red-400 font-mono-custom" id="res-wrong-chars">0</span>
                             </div>
-                            <div class="flex justify-between items-center text-xs border-b border-slate-800 pb-2.5">
-                                <span class="text-slate-400">সঠিক কমপ্লিট শব্দ</span>
+                            <div class="flex justify-between items-center text-[10px] md:text-xs border-b border-slate-800 pb-1.5 md:pb-2.5">
+                                <span class="text-slate-400">সঠিক শব্দ</span>
                                 <span class="font-bold text-white font-mono-custom" id="res-correct-words">0</span>
                             </div>
-                            <div class="flex justify-between items-center text-xs">
-                                <span class="text-slate-400">ভুল কমপ্লিট শব্দ</span>
+                            <div class="flex justify-between items-center text-[10px] md:text-xs">
+                                <span class="text-slate-400">ভুল শব্দ</span>
                                 <span class="font-bold text-slate-500 font-mono-custom" id="res-wrong-words">0</span>
                             </div>
                         </div>
-                        <button onclick="gotoPracticePage()" class="w-full py-4 rounded-xl bg-gradient-to-r from-teal-400 to-[#00ffcc] text-slate-950 font-extrabold hover:opacity-95 transition-all shadow-xl shadow-teal-500/10 flex items-center justify-center gap-2">
+                        <button onclick="gotoPracticePage()" class="w-full py-3 md:py-4 rounded-xl bg-gradient-to-r from-teal-400 to-[#00ffcc] text-slate-950 font-extrabold hover:opacity-95 transition-all shadow-xl shadow-teal-500/10 flex items-center justify-center gap-2 text-sm md:text-base">
                             <i class="fa-solid fa-play"></i>
                             <span>পরবর্তী সেশন শুরু করুন</span>
                         </button>
                     </div>
                 </div>
-
             </section>
 
-            <!-- ===== PAGE 3: STATS & LEADERBOARD ===== -->
-            <section id="page-stats" class="hidden space-y-8 animate-fade-in">
+            <!-- ═══ PAGE 3: STATS ═══ -->
+            <section id="page-stats" class="hidden space-y-5 md:space-y-8 animate-fade-in">
 
-                <div class="flex items-center justify-between border-b border-slate-800 pb-4">
-                    <div class="flex items-center gap-3">
-                        <button onclick="gotoPracticePage()" class="p-2 rounded-xl bg-slate-900 border border-slate-800 text-slate-300 hover:text-white transition">
-                            <i class="fa-solid fa-arrow-left"></i>
+                <div class="flex items-center justify-between border-b border-slate-800 pb-3 md:pb-4">
+                    <div class="flex items-center gap-2 md:gap-3">
+                        <button onclick="gotoPracticePage()" class="p-1.5 md:p-2 rounded-xl bg-slate-900 border border-slate-800 text-slate-300 hover:text-white transition">
+                            <i class="fa-solid fa-arrow-left text-sm md:text-base"></i>
                         </button>
-                        <h2 class="text-xl font-bold text-white">পরিসংখ্যান বিশ্লেষণ ও সার্বজনীন র‍্যাঙ্কিং</h2>
+                        <h2 class="text-lg md:text-xl font-bold text-white">পরিসংখ্যান ও র‍্যাংকিং</h2>
                     </div>
-                    <div class="flex items-center gap-1.5 bg-slate-950 p-1 rounded-xl border border-slate-800">
-                        <button onclick="switchStatsSubTab('history')" id="sub-history-btn" class="px-4 py-2 rounded-lg text-xs font-bold transition-all pill-active">
-                            আমার প্র্যাকটিস ইতিহাস
-                        </button>
-                        <button onclick="switchStatsSubTab('leaderboard')" id="sub-leaderboard-btn" class="px-4 py-2 rounded-lg text-xs font-bold transition-all text-slate-400 hover:text-white">
-                            সার্বজনীন র‍্যাংক (Global Leaderboard)
-                        </button>
+                    <div class="flex items-center gap-0.5 bg-slate-950 p-0.5 md:p-1 rounded-xl border border-slate-800">
+                        <button onclick="switchStatsSubTab('history')" id="sub-history-btn" class="px-2 md:px-4 py-1 md:py-2 rounded-lg text-[9px] md:text-xs font-bold transition-all pill-active">ইতিহাস</button>
+                        <button onclick="switchStatsSubTab('leaderboard')" id="sub-leaderboard-btn" class="px-2 md:px-4 py-1 md:py-2 rounded-lg text-[9px] md:text-xs font-bold transition-all text-slate-400 hover:text-white">র‍্যাংক</button>
                     </div>
                 </div>
 
-                <!-- PB Cards -->
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-                    <div class="glass-panel rounded-2xl p-5 border-l-4 border-l-amber-400 flex items-center gap-4">
-                        <div class="w-12 h-12 rounded-xl bg-amber-400/10 text-amber-400 flex items-center justify-center text-xl">
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-3 md:gap-4">
+                    <div class="glass-panel rounded-2xl p-4 md:p-5 border-l-4 border-l-amber-400 flex items-center gap-3 md:gap-4">
+                        <div class="w-10 h-10 md:w-12 md:h-12 rounded-xl bg-amber-400/10 text-amber-400 flex items-center justify-center text-lg md:text-xl">
                             <i class="fa-solid fa-crown"></i>
                         </div>
                         <div>
-                            <span class="text-[10px] text-slate-500 uppercase font-bold block">ব্যক্তিগত সর্বোচ্চ গতি</span>
-                            <span id="pbs-wpm" class="text-2xl font-black text-white font-mono-custom">0 WPM</span>
+                            <span class="text-[8px] md:text-[10px] text-slate-500 uppercase font-bold block">সর্বোচ্চ গতি</span>
+                            <span id="pbs-wpm" class="text-xl md:text-2xl font-black text-white font-mono-custom">0 WPM</span>
                         </div>
                     </div>
-                    <div class="glass-panel rounded-2xl p-5 border-l-4 border-l-cyan-400 flex items-center gap-4">
-                        <div class="w-12 h-12 rounded-xl bg-cyan-400/10 text-cyan-400 flex items-center justify-center text-xl">
+                    <div class="glass-panel rounded-2xl p-4 md:p-5 border-l-4 border-l-cyan-400 flex items-center gap-3 md:gap-4">
+                        <div class="w-10 h-10 md:w-12 md:h-12 rounded-xl bg-cyan-400/10 text-cyan-400 flex items-center justify-center text-lg md:text-xl">
                             <i class="fa-solid fa-bullseye"></i>
                         </div>
                         <div>
-                            <span class="text-[10px] text-slate-500 uppercase font-bold block">ব্যক্তিগত সর্বোচ্চ নির্ভুলতা</span>
-                            <span id="pbs-acc" class="text-2xl font-black text-white font-mono-custom">0%</span>
+                            <span class="text-[8px] md:text-[10px] text-slate-500 uppercase font-bold block">সর্বোচ্চ নির্ভুলতা</span>
+                            <span id="pbs-acc" class="text-xl md:text-2xl font-black text-white font-mono-custom">0%</span>
                         </div>
                     </div>
-                    <div class="glass-panel rounded-2xl p-5 border-l-4 border-l-emerald-400 flex items-center gap-4">
-                        <div class="w-12 h-12 rounded-xl bg-emerald-400/10 text-emerald-400 flex items-center justify-center text-xl">
+                    <div class="glass-panel rounded-2xl p-4 md:p-5 border-l-4 border-l-emerald-400 flex items-center gap-3 md:gap-4">
+                        <div class="w-10 h-10 md:w-12 md:h-12 rounded-xl bg-emerald-400/10 text-emerald-400 flex items-center justify-center text-lg md:text-xl">
                             <i class="fa-solid fa-keyboard"></i>
                         </div>
                         <div>
-                            <span class="text-[10px] text-slate-500 uppercase font-bold block">মোট প্র্যাকটিস সেশন</span>
-                            <span id="pbs-count" class="text-2xl font-black text-white font-mono-custom">0 Tests</span>
+                            <span class="text-[8px] md:text-[10px] text-slate-500 uppercase font-bold block">মোট সেশন</span>
+                            <span id="pbs-count" class="text-xl md:text-2xl font-black text-white font-mono-custom">0 Tests</span>
                         </div>
                     </div>
                 </div>
 
-                <!-- History -->
-                <div id="stats-history-sub" class="space-y-4">
+                <div id="stats-history-sub" class="space-y-3 md:space-y-4">
                     <div class="flex items-center justify-between">
-                        <h3 class="text-xs font-bold text-slate-300 uppercase">সম্পন্ন করা টাইপিং সেশনের তালিকা</h3>
-                        <button onclick="clearLocalHistory()" class="px-3 py-1.5 rounded-lg bg-red-500/10 hover:bg-red-500/20 text-red-400 text-xs font-bold border border-red-500/15 transition flex items-center gap-1">
-                            <i class="fa-solid fa-trash"></i> হিস্ট্রি মুছুন
+                        <h3 class="text-[10px] md:text-xs font-bold text-slate-300 uppercase">সম্পন্ন সেশনের তালিকা</h3>
+                        <button onclick="clearLocalHistory()" class="px-2 md:px-3 py-1 md:py-1.5 rounded-lg bg-red-500/10 hover:bg-red-500/20 text-red-400 text-[9px] md:text-xs font-bold border border-red-500/15 transition flex items-center gap-1">
+                            <i class="fa-solid fa-trash text-xs"></i> <span class="hidden sm:inline">হিস্ট্রি মুছুন</span>
+                            <span class="sm:hidden">মুছুন</span>
                         </button>
                     </div>
                     <div class="glass-panel rounded-2xl overflow-hidden">
                         <div class="overflow-x-auto">
-                            <table class="w-full text-left text-slate-300 text-sm">
-                                <thead class="bg-slate-950/80 text-xs font-bold text-slate-500 uppercase border-b border-slate-800">
+                            <table class="w-full text-left text-slate-300 text-xs md:text-sm">
+                                <thead class="bg-slate-950/80 text-[9px] md:text-xs font-bold text-slate-500 uppercase border-b border-slate-800">
                                     <tr>
-                                        <th class="px-6 py-4">তারিখ ও সময়</th>
-                                        <th class="px-6 py-4">গতি (WPM)</th>
-                                        <th class="px-6 py-4">সঠিকতার হার</th>
-                                        <th class="px-6 py-4">ভাষা ও মোড</th>
-                                        <th class="px-6 py-4">ভুল শব্দের সংখ্যা</th>
+                                        <th class="px-3 md:px-6 py-2 md:py-4">তারিখ</th>
+                                        <th class="px-3 md:px-6 py-2 md:py-4">WPM</th>
+                                        <th class="px-3 md:px-6 py-2 md:py-4">সঠিকতা</th>
+                                        <th class="px-3 md:px-6 py-2 md:py-4">ভাষা</th>
+                                        <th class="px-3 md:px-6 py-2 md:py-4">ভুল শব্দ</th>
                                     </tr>
                                 </thead>
                                 <tbody id="history-rows">
-                                    <tr>
-                                        <td colspan="5" class="px-6 py-10 text-center text-slate-500">
-                                            কোথাও কোনো টাইপিং হিস্ট্রি রেকর্ড পাওয়া যায়নি!
-                                        </td>
-                                    </tr>
+                                    <tr><td colspan="5" class="px-3 md:px-6 py-6 md:py-10 text-center text-slate-500">কোথাও কোনো ইতিহাস পাওয়া যায়নি!</td></tr>
                                 </tbody>
                             </table>
                         </div>
                     </div>
                 </div>
 
-                <!-- Leaderboard -->
-                <div id="stats-leaderboard-sub" class="space-y-4 hidden">
+                <div id="stats-leaderboard-sub" class="space-y-3 md:space-y-4 hidden">
                     <div class="flex justify-between items-center">
-                        <h3 class="text-xs font-bold text-slate-300 uppercase">বৈশ্বিক প্রতিযোগী তালিকা (লাইভ সিঙ্কড)</h3>
-                        <span class="text-[10px] bg-teal-500/10 text-teal-300 px-2.5 py-1 rounded-full font-bold border border-teal-500/20">Live Cloud Sync</span>
+                        <h3 class="text-[10px] md:text-xs font-bold text-slate-300 uppercase">বৈশ্বিক র‍্যাংকিং</h3>
+                        <span class="text-[8px] md:text-[10px] bg-teal-500/10 text-teal-300 px-1.5 md:px-2.5 py-0.5 md:py-1 rounded-full font-bold border border-teal-500/20">Live Cloud</span>
                     </div>
                     <div class="glass-panel rounded-2xl overflow-hidden">
                         <div class="overflow-x-auto">
-                            <table class="w-full text-left text-slate-300 text-sm">
-                                <thead class="bg-slate-950/80 text-xs font-bold text-slate-500 uppercase border-b border-slate-800">
+                            <table class="w-full text-left text-slate-300 text-xs md:text-sm">
+                                <thead class="bg-slate-950/80 text-[9px] md:text-xs font-bold text-slate-500 uppercase border-b border-slate-800">
                                     <tr>
-                                        <th class="px-6 py-4">র‍্যাংক</th>
-                                        <th class="px-6 py-4">গোপন ইউজার আইডি</th>
-                                        <th class="px-6 py-4">গতি (WPM)</th>
-                                        <th class="px-6 py-4">নির্ভুলতা</th>
-                                        <th class="px-6 py-4">ভাষা</th>
-                                        <th class="px-6 py-4">আপডেটের সময়</th>
+                                        <th class="px-3 md:px-6 py-2 md:py-4">র‍্যাংক</th>
+                                        <th class="px-3 md:px-6 py-2 md:py-4">ইউজার</th>
+                                        <th class="px-3 md:px-6 py-2 md:py-4">WPM</th>
+                                        <th class="px-3 md:px-6 py-2 md:py-4">নির্ভুলতা</th>
+                                        <th class="px-3 md:px-6 py-2 md:py-4">ভাষা</th>
                                     </tr>
                                 </thead>
                                 <tbody id="leaderboard-rows">
-                                    <tr>
-                                        <td colspan="6" class="px-6 py-10 text-center text-slate-500">
-                                            লোডিং ক্লাউড ডেটাবেস...
-                                        </td>
-                                    </tr>
+                                    <tr><td colspan="5" class="px-3 md:px-6 py-6 md:py-10 text-center text-slate-500">লোডিং ক্লাউড ডেটাবেস...</td></tr>
                                 </tbody>
                             </table>
                         </div>
                     </div>
                 </div>
-
             </section>
 
-        </div><!-- /pages-container -->
+        </div>
 
-        <!-- ===== RIGHT SIDEBAR AD (hidden on mobile) ===== -->
-        <div class="sidebar-ad hidden lg:block">
-            <div class="ad-container flex flex-col gap-2">
-                <!-- AdSense Right Sidebar - 160x600 or responsive -->
-                <ins class="adsbygoogle"
-                style="display:block; width:160px; height:600px;"
-                data-ad-client="ca-pub-6408218783867640"
-                data-ad-slot="1234567891"
-                data-ad-format="rectangle"
-                data-full-width-responsive="false">
-            </ins>
-            <span class="ad-label">Advertisement</span>
+        <!-- ─── BOTTOM BANNER AD (Mobile only, Home Page only) ─── -->
+        <div class="ad-banner-mobile" id="bottom-banner">
+            <div class="ad-banner-mobile-inner">
+                <div>
+                    <div class="ad-label">Advertisement</div>
+                    <ins class="adsbygoogle"
+                    style="display:block; width:100%; min-height:60px;"
+                    data-ad-client="ca-pub-6408218783867640"
+                    data-ad-slot="0987654321"
+                    data-ad-format="horizontal"
+                    data-full-width-responsive="true">
+                </ins>
+                <script>
+                    (adsbygoogle = window.adsbygoogle || []).push({});
+                </script>
+            </div>
         </div>
     </div>
 
-</div><!-- /3-column layout -->
-
-<!-- ===== BOTTOM BANNER AD (Home Page only) ===== -->
-<div id="bottom-banner-wrapper" class="mt-8 w-full">
-    <div class="banner-ad">
-        <div class="ad-container flex flex-col gap-1">
-            <!-- AdSense Bottom Banner - 728x90 responsive -->
-            <ins class="adsbygoogle"
-            style="display:block; width:100%; height:90px; max-width:728px; margin:0 auto;"
-            data-ad-client="ca-pub-6408218783867640"
-            data-ad-slot="1234567892"
-            data-ad-format="horizontal"
-            data-full-width-responsive="true">
-        </ins>
-        <span class="ad-label">Advertisement</span>
-    </div>
-</div>
-</div>
-
 </main>
 
-<!-- ===== HIDDEN INPUT ===== -->
+<!-- ─── RIGHT SIDEBAR AD ─── -->
+<aside class="ad-sidebar" id="right-ad">
+    <div class="ad-sidebar-inner">
+        <div>
+            <div class="ad-label">Advertisement</div>
+            <ins class="adsbygoogle"
+            style="display:block; width:100%; min-height:250px;"
+            data-ad-client="ca-pub-6408218783867640"
+            data-ad-slot="1234567890"
+            data-ad-format="vertical"
+            data-full-width-responsive="false">
+        </ins>
+        <script>
+            (adsbygoogle = window.adsbygoogle || []).push({});
+        </script>
+    </div>
+</div>
+</aside>
+
+</div> <!-- /main-layout -->
+
+<!-- ═══ HIDDEN INPUT ═══ -->
 <input type="text" id="hidden-input" autocomplete="off" autocapitalize="off" spellcheck="false" />
 
-<!-- ===== FOOTER ===== -->
-<footer class="bg-slate-950/50 border-t border-slate-900 py-5 mt-8 z-10">
-    <div class="container mx-auto px-4 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-slate-500">
-        <div class="flex items-center gap-3">
+<!-- ═══ FOOTER ═══ -->
+<footer class="bg-slate-950/50 border-t border-slate-900 py-3 md:py-5 mt-4 md:mt-10 z-10">
+    <div class="container mx-auto px-4 flex flex-col sm:flex-row items-center justify-between gap-2 md:gap-4 text-[9px] md:text-xs text-slate-500">
+        <div class="flex items-center gap-2 md:gap-3 flex-wrap">
             <span>© 2026 SwiftType Premium Pro</span>
             <span>•</span>
             <span class="text-teal-400 font-bold" id="cloud-status-indicator">Cloud Sync: Offline</span>
         </div>
         <div>
-            <span>রিস্টার্ট করার শর্টকাট কী: <kbd class="px-1.5 py-0.5 bg-slate-900 border border-slate-800 rounded">Esc</kbd></span>
+            <span>রিস্টার্ট: <kbd class="px-1 md:px-1.5 py-0.5 bg-slate-900 border border-slate-800 rounded">Esc</kbd></span>
         </div>
     </div>
 </footer>
 
-<!-- ===== FIREBASE & CORE ENGINE ===== -->
+<!-- ═══ FIREBASE & CORE ENGINE ═══ -->
 <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
     import { getAuth, signInAnonymously, onAuthStateChanged, signInWithCustomToken } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
     import { getFirestore, collection, doc, setDoc, getDocs, serverTimestamp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
 
-    // -------------------------------------------------------------
-    // HIGH FIDELITY SENTENCE LIBRARIES
-    // -------------------------------------------------------------
+    // ─── WORD LIBRARIES ───
     const ENGLISH_EASY = [
         "the", "be", "to", "of", "and", "a", "in", "that", "have", "i", "it", "for", "not", "on", "with", "he",
         "as", "you", "do", "at", "this", "but", "his", "by", "from", "they", "we", "say", "her", "she", "or",
@@ -749,7 +822,6 @@
         "now", "look", "only", "come", "its", "over", "think", "also", "back", "after", "use", "two", "how", "our",
         "work", "first", "well", "way", "even", "new", "want", "because", "any", "these", "give", "day", "most"
     ];
-
     const ENGLISH_HARD = [
         "extraordinary", "bureaucracy", "artificial", "consequence", "revolutionary", "sustainability",
         "unprecedented", "comprehensive", "cryptocurrency", "sophisticated", "infrastructure", "synchronization",
@@ -758,13 +830,11 @@
         "implementation", "differentiation", "discrepancy", "phenomenal", "characteristic", "philosophical",
         "idiosyncrasy", "ubiquitous", "juxtaposition", "exacerbate", "anachronistic", "cacophony", "quintessential"
     ];
-
     const BANGLA_EASY = [
         "এবং", "করে", "হলো", "আমাদের", "নতুন", "জীবন", "মানুষ", "শিক্ষা", "কাজ", "সময়", "জন্য",
         "সাথে", "বই", "পড়া", "জল", "নদী", "দেশ", "বাড়ি", "আলো", "গাছ", "ফুল", "দিন", "রাত্রি",
         "পাখি", "ভাষা", "আজ", "গতকাল", "আগামী", "সুস্থ", "সবল", "পথ", "খাবার", "মাটি", "আকাশ", "বাতাস", "মেঘ"
     ];
-
     const BANGLA_HARD = [
         "উন্মোচন", "প্রযুক্তিগত", "জলবায়ুপরিবর্তন", "আত্মনিয়োগ", "সাংস্কৃতিক", "মনস্তাত্ত্বিক", "ধারাবাহিকতা",
         "স্বাতন্ত্র্যসূচক", "অর্থনৈতিকভাবে", "বৈশিষ্ট্যপূর্ণ", "উদ্ভাবনীমূলক", "আন্তর্জাতিকভাবে", "সহযোগিতামূলক",
@@ -772,9 +842,7 @@
         "ঐতিহাসিকতা", "উত্তরআধুনিকতা", "বিশ্বায়নপ্রক্রিয়া", "নৃবিজ্ঞান", "দার্শনিক দৃষ্টিভঙ্গি", "সংবিধান"
     ];
 
-    // -------------------------------------------------------------
-    // PRO-LEVEL MECHANICAL SOUND ENGINE (SYNTH PACKS)
-    // -------------------------------------------------------------
+    // ─── SOUND ENGINE ───
     class MechanicalAudioEngine {
         constructor() {
             this.ctx = null;
@@ -790,7 +858,6 @@
             if (!this.enabled) return;
             this.init();
             if (!this.ctx) return;
-
             const osc = this.ctx.createOscillator();
             const gain = this.ctx.createGain();
             osc.connect(gain);
@@ -849,16 +916,13 @@
                     gain.gain.exponentialRampToValueAtTime(0.001, this.ctx.currentTime + 0.15);
                 }
             }
-
             osc.start();
             osc.stop(this.ctx.currentTime + 0.15);
         }
     }
     const sound = new MechanicalAudioEngine();
 
-    // -------------------------------------------------------------
-    // GLOBAL APP STATES
-    // -------------------------------------------------------------
+    // ─── GLOBAL STATE ───
     let testMode = 'sentence';
     let language = 'english';
     let difficulty = 'easy';
@@ -900,53 +964,22 @@
         measurementId: "G-DQNKD0NEK9"
     };
 
-    // ---- Bottom Banner Visibility ----
-    function updateBottomBannerVisibility() {
-        const wrapper = document.getElementById('bottom-banner-wrapper');
-        if (!wrapper) return;
-        // Show only on page-typing (home)
-        const typingPage = document.getElementById('page-typing');
-        const isHome = typingPage && !typingPage.classList.contains('hidden');
-        wrapper.style.display = isHome ? 'block' : 'none';
-    }
-
-    // ---- Override gotoPage to control bottom banner ----
-    const originalGotoPage = window.gotoPage;
-    window.gotoPage = function(pageId) {
-        ['page-typing', 'page-result', 'page-stats'].forEach(p => {
-            document.getElementById(p).classList.toggle('hidden', p !== pageId);
-        });
-        updateBottomBannerVisibility();
-        // Also re-sync leaderboard/history when stats page opens
-        if (pageId === 'page-stats') {
-            syncPersonalBestDashboard();
-            syncLeaderboard();
-        }
-    };
-
+    // ─── INIT ───
     window.onload = async () => {
         initAppFirebase();
         registerDomTriggers();
         initTest();
-        updateBottomBannerVisibility();
-
-        // ---- Push AdSense ads ----
-        try {
-            (adsbygoogle = window.adsbygoogle || []).push({});
-            (adsbygoogle = window.adsbygoogle || []).push({});
-            (adsbygoogle = window.adsbygoogle || []).push({});
-        } catch (e) {
-            // AdSense may need time to load; ignore
-        }
+        // Show bottom banner only on home page (typing page)
+        updateBottomBannerVisibility('page-typing');
     };
 
+    // ─── FIREBASE ───
     async function initAppFirebase() {
         const statusIndicator = document.getElementById('cloud-status-indicator');
         try {
             const app = initializeApp(firebaseConfig);
             auth = getAuth(app);
             db = getFirestore(app);
-
             const initAuth = async () => {
                 if (typeof __initial_auth_token !== 'undefined' && __initial_auth_token) {
                     await signInWithCustomToken(auth, __initial_auth_token);
@@ -955,7 +988,6 @@
                 }
             };
             await initAuth();
-
             onAuthStateChanged(auth, (firebaseUser) => {
                 if (firebaseUser) {
                     user = firebaseUser;
@@ -969,37 +1001,12 @@
                 }
             });
         } catch (err) {
-            console.error("Firebase Initialization Failed: ", err);
+            console.error("Firebase Init Failed: ", err);
             statusIndicator.textContent = "Cloud Sync: Offline";
         }
     }
 
-    function renderLimitOptions() {
-        const container = document.getElementById('options-selector');
-        container.innerHTML = "";
-        const options = limitType === 'time' ? [15, 30, 60, 120] : [25, 50, 100, 200];
-        const currentActive = limitType === 'time' ? timeLimit : wordLimit;
-        const suffix = limitType === 'time' ? 's' : 'w';
-
-        options.forEach(opt => {
-            const btn = document.createElement('button');
-            btn.textContent = `${opt}${suffix}`;
-            btn.className = `px-3.5 py-1.5 rounded-lg text-xs font-bold uppercase transition-all ${
-                opt === currentActive ? 'pill-active' : 'text-slate-400 hover:text-white'
-            }`;
-            btn.onclick = () => {
-                if (limitType === 'time') {
-                    timeLimit = opt;
-                } else {
-                    wordLimit = opt;
-                }
-                renderLimitOptions();
-                initTest();
-            };
-            container.appendChild(btn);
-        });
-    }
-
+    // ─── DOM TRIGGERS ───
     function registerDomTriggers() {
         const soundBtn = document.getElementById('sound-btn');
         soundBtn.addEventListener('click', () => {
@@ -1019,10 +1026,8 @@
         input.addEventListener('keydown', handleKeyDown);
 
         window.addEventListener('keydown', (e) => {
-            if (e.key === 'Escape') {
-                e.preventDefault();
-                initTest();
-            }
+            if (e.key === 'Escape') { e.preventDefault();
+                initTest(); }
             if (!isTestFinished && document.activeElement !== input && e.key.length === 1) {
                 focusTypingInput();
             }
@@ -1037,31 +1042,69 @@
             }
         });
 
-        document.getElementById('stats-nav-btn').addEventListener('click', () => {
-            openStatsPage();
-        });
+        document.getElementById('stats-nav-btn').addEventListener('click', () => { openStatsPage(); });
 
         let tabHeld = false;
         window.addEventListener('keydown', (e) => {
-            if (e.key === 'Tab') {
-                tabHeld = true;
-                e.preventDefault();
-            }
-            if (tabHeld && e.key === 'Enter') {
-                e.preventDefault();
-                initTest();
-            }
+            if (e.key === 'Tab') { tabHeld = true;
+                e.preventDefault(); }
+            if (tabHeld && e.key === 'Enter') { e.preventDefault();
+                initTest(); }
         });
-        window.addEventListener('keyup', (e) => {
-            if (e.key === 'Tab') tabHeld = false;
-        });
+        window.addEventListener('keyup', (e) => { if (e.key === 'Tab') tabHeld = false; });
 
         renderLimitOptions();
+
+        // Observe page changes to control bottom banner
+        const observer = new MutationObserver(() => {
+            const typingPage = document.getElementById('page-typing');
+            const isTypingVisible = typingPage && !typingPage.classList.contains('hidden');
+            updateBottomBannerVisibility(isTypingVisible ? 'page-typing' : 'other');
+        });
+        const pages = document.getElementById('pages-container');
+        if (pages) {
+            observer.observe(pages, { attributes: true, attributeFilter: ['class'], subtree: true });
+        }
     }
 
-    // -------------------------------------------------------------
-    // SENTENCE BUILDER
-    // -------------------------------------------------------------
+    function updateBottomBannerVisibility(pageId) {
+        const banner = document.getElementById('bottom-banner');
+        if (!banner) return;
+        const isMobile = window.innerWidth <= 768;
+        if (isMobile && pageId === 'page-typing') {
+            banner.style.display = 'block';
+        } else {
+            banner.style.display = 'none';
+        }
+    }
+    window.addEventListener('resize', () => {
+        const typingPage = document.getElementById('page-typing');
+        const isTypingVisible = typingPage && !typingPage.classList.contains('hidden');
+        updateBottomBannerVisibility(isTypingVisible ? 'page-typing' : 'other');
+    });
+
+    // ─── LIMIT OPTIONS ───
+    function renderLimitOptions() {
+        const container = document.getElementById('options-selector');
+        container.innerHTML = "";
+        const options = limitType === 'time' ? [15, 30, 60, 120] : [25, 50, 100, 200];
+        const currentActive = limitType === 'time' ? timeLimit : wordLimit;
+        const suffix = limitType === 'time' ? 's' : 'w';
+        options.forEach(opt => {
+            const btn = document.createElement('button');
+            btn.textContent = `${opt}${suffix}`;
+            btn.className = `px-2 md:px-3.5 py-0.5 md:py-1.5 rounded-lg text-[9px] md:text-xs font-bold uppercase transition-all ${opt === currentActive ? 'pill-active' : 'text-slate-400 hover:text-white'}`;
+            btn.onclick = () => {
+                if (limitType === 'time') timeLimit = opt;
+                else wordLimit = opt;
+                renderLimitOptions();
+                initTest();
+            };
+            container.appendChild(btn);
+        });
+    }
+
+    // ─── SENTENCE BUILDER ───
     function generateDynamicSentence(lang, targetLength) {
         let vocabulary = [];
         if (lang === 'english') {
@@ -1069,89 +1112,86 @@
         } else {
             vocabulary = difficulty === 'easy' ? BANGLA_EASY : BANGLA_HARD;
         }
-
         let sentence = [];
         let currentLen = 0;
-
         while (currentLen < targetLength) {
             let randomIndex = Math.floor(Math.random() * vocabulary.length);
             let word = vocabulary[randomIndex];
-            if (sentence.length > 0 && sentence[sentence.length - 1] === word) {
-                continue;
-            }
+            if (sentence.length > 0 && sentence[sentence.length - 1] === word) continue;
             sentence.push(word);
             currentLen++;
         }
-
         let output = sentence.join(" ");
         if (lang === 'english') {
             output = output.charAt(0).toUpperCase() + output.slice(1);
-            if (testMode === 'sentence') {
-                output += ".";
-            }
+            if (testMode === 'sentence') output += ".";
         } else {
-            if (testMode === 'sentence') {
-                output += "।";
-            }
+            if (testMode === 'sentence') output += "।";
         }
         return output;
     }
 
+    // ─── CONFIGURATION HELPERS ───
     window.setTestMode = function(mode) {
         testMode = mode;
-        document.getElementById('mode-sentence').className = mode === 'sentence' ? "px-3.5 py-1.5 rounded-lg text-xs font-bold transition-all pill-active" : "px-3.5 py-1.5 rounded-lg text-xs font-bold transition-all text-slate-400 hover:text-white";
-        document.getElementById('mode-paragraph').className = mode === 'paragraph' ? "px-3.5 py-1.5 rounded-lg text-xs font-bold transition-all pill-active" : "px-3.5 py-1.5 rounded-lg text-xs font-bold transition-all text-slate-400 hover:text-white";
+        document.getElementById('mode-sentence').className = mode === 'sentence' ?
+            "px-2 md:px-3.5 py-1 md:py-1.5 rounded-lg text-[9px] md:text-xs font-bold transition-all pill-active" :
+            "px-2 md:px-3.5 py-1 md:py-1.5 rounded-lg text-[9px] md:text-xs font-bold transition-all text-slate-400 hover:text-white";
+        document.getElementById('mode-paragraph').className = mode === 'paragraph' ?
+            "px-2 md:px-3.5 py-1 md:py-1.5 rounded-lg text-[9px] md:text-xs font-bold transition-all pill-active" :
+            "px-2 md:px-3.5 py-1 md:py-1.5 rounded-lg text-[9px] md:text-xs font-bold transition-all text-slate-400 hover:text-white";
         initTest();
     };
-
     window.setLanguage = function(lang) {
         language = lang;
-        document.getElementById('lang-english').className = lang === 'english' ? "px-3.5 py-1.5 rounded-lg text-xs font-bold transition-all pill-active" : "px-3.5 py-1.5 rounded-lg text-xs font-bold transition-all text-slate-400 hover:text-white";
-        document.getElementById('lang-bangla').className = lang === 'bangla' ? "px-3.5 py-1.5 rounded-lg text-xs font-bold transition-all pill-active" : "px-3.5 py-1.5 rounded-lg text-xs font-bold transition-all text-slate-400 hover:text-white";
+        document.getElementById('lang-english').className = lang === 'english' ?
+            "px-2 md:px-3.5 py-1 md:py-1.5 rounded-lg text-[9px] md:text-xs font-bold transition-all pill-active" :
+            "px-2 md:px-3.5 py-1 md:py-1.5 rounded-lg text-[9px] md:text-xs font-bold transition-all text-slate-400 hover:text-white";
+        document.getElementById('lang-bangla').className = lang === 'bangla' ?
+            "px-2 md:px-3.5 py-1 md:py-1.5 rounded-lg text-[9px] md:text-xs font-bold transition-all pill-active" :
+            "px-2 md:px-3.5 py-1 md:py-1.5 rounded-lg text-[9px] md:text-xs font-bold transition-all text-slate-400 hover:text-white";
         initTest();
     };
-
     window.setDifficulty = function(diff) {
         difficulty = diff;
-        document.getElementById('diff-easy').className = diff === 'easy' ? "px-3.5 py-1.5 rounded-lg text-xs font-bold transition-all pill-active" : "px-3.5 py-1.5 rounded-lg text-xs font-bold transition-all text-slate-400 hover:text-white";
-        document.getElementById('diff-hard').className = diff === 'hard' ? "px-3.5 py-1.5 rounded-lg text-xs font-bold transition-all pill-active" : "px-3.5 py-1.5 rounded-lg text-xs font-bold transition-all text-slate-400 hover:text-white";
+        document.getElementById('diff-easy').className = diff === 'easy' ?
+            "px-2 md:px-3.5 py-1 md:py-1.5 rounded-lg text-[9px] md:text-xs font-bold transition-all pill-active" :
+            "px-2 md:px-3.5 py-1 md:py-1.5 rounded-lg text-[9px] md:text-xs font-bold transition-all text-slate-400 hover:text-white";
+        document.getElementById('diff-hard').className = diff === 'hard' ?
+            "px-2 md:px-3.5 py-1 md:py-1.5 rounded-lg text-[9px] md:text-xs font-bold transition-all pill-active" :
+            "px-2 md:px-3.5 py-1 md:py-1.5 rounded-lg text-[9px] md:text-xs font-bold transition-all text-slate-400 hover:text-white";
         initTest();
     };
-
     window.setLimitType = function(type) {
         limitType = type;
-        document.getElementById('lim-time-btn').className = type === 'time' ? "px-2.5 py-1.5 rounded-lg text-xs font-bold transition-all pill-active" : "px-2.5 py-1.5 rounded-lg text-xs font-bold transition-all text-slate-400";
-        document.getElementById('lim-words-btn').className = type === 'words' ? "px-2.5 py-1.5 rounded-lg text-xs font-bold transition-all pill-active" : "px-2.5 py-1.5 rounded-lg text-xs font-bold transition-all text-slate-400";
+        document.getElementById('lim-time-btn').className = type === 'time' ?
+            "px-1.5 md:px-2.5 py-1 md:py-1.5 rounded-lg text-[9px] md:text-xs font-bold transition-all pill-active" :
+            "px-1.5 md:px-2.5 py-1 md:py-1.5 rounded-lg text-[9px] md:text-xs font-bold transition-all text-slate-400";
+        document.getElementById('lim-words-btn').className = type === 'words' ?
+            "px-1.5 md:px-2.5 py-1 md:py-1.5 rounded-lg text-[9px] md:text-xs font-bold transition-all pill-active" :
+            "px-1.5 md:px-2.5 py-1 md:py-1.5 rounded-lg text-[9px] md:text-xs font-bold transition-all text-slate-400";
         renderLimitOptions();
         initTest();
     };
-
     window.setTheme = function(themeName) {
         document.body.classList.remove('theme-matrix', 'theme-sunset', 'theme-orange');
-        if (themeName === 'matrix') {
-            document.body.classList.add('theme-matrix');
-        } else if (themeName === 'sunset') {
-            document.body.classList.add('theme-sunset');
-        } else if (themeName === 'orange') {
-            document.body.classList.add('theme-orange');
-        }
+        if (themeName === 'matrix') document.body.classList.add('theme-matrix');
+        else if (themeName === 'sunset') document.body.classList.add('theme-sunset');
+        else if (themeName === 'orange') document.body.classList.add('theme-orange');
     };
-
     window.setSoundProfile = function(profileName) {
         sound.profile = profileName;
         ['sp-blue', 'sp-brown', 'sp-bubble'].forEach(id => {
             const btn = document.getElementById(id);
             if (id === `sp-${profileName}`) {
-                btn.className = "px-2 py-1 rounded bg-slate-800 text-[10px] text-[#00ffcc] font-bold border border-teal-500/30 transition";
+                btn.className = "px-1.5 md:px-2 py-0.5 md:py-1 rounded bg-slate-800 text-[8px] md:text-[10px] text-[#00ffcc] font-bold border border-teal-500/30 transition";
             } else {
-                btn.className = "px-2 py-1 rounded text-[10px] text-slate-400 hover:text-white transition";
+                btn.className = "px-1.5 md:px-2 py-0.5 md:py-1 rounded text-[8px] md:text-[10px] text-slate-400 hover:text-white transition";
             }
         });
     };
 
-    // -------------------------------------------------------------
-    // TYPING RUNTIME CONTROLLER
-    // -------------------------------------------------------------
+    // ─── TYPING RUNTIME ───
     window.initTest = function() {
         clearInterval(timerInterval);
         isTestRunning = false;
@@ -1167,7 +1207,6 @@
         plotWpmRecord = [];
 
         secondsRemaining = limitType === 'time' ? timeLimit : 0;
-
         const limitCount = limitType === 'words' ? wordLimit : (timeLimit >= 60 ? 100 : 35);
         currentSentenceText = generateDynamicSentence(language, limitCount);
         wordsArray = currentSentenceText.split(" ");
@@ -1177,31 +1216,24 @@
 
         const input = document.getElementById('hidden-input');
         input.value = "";
-
         setTimeout(() => { focusTypingInput(); }, 50);
         gotoPage('page-typing');
     };
 
     function focusTypingInput() {
-        const input = document.getElementById('hidden-input');
-        input.focus();
+        document.getElementById('hidden-input').focus();
     }
 
     function renderWordsDisplay() {
         const display = document.getElementById('words-display');
         display.innerHTML = "";
-
-        if (language === 'bangla') {
-            display.classList.add('font-bangla');
-        } else {
-            display.classList.remove('font-bangla');
-        }
+        if (language === 'bangla') display.classList.add('font-bangla');
+        else display.classList.remove('font-bangla');
 
         wordsArray.forEach((word, wIdx) => {
             const wordSpan = document.createElement('span');
             wordSpan.id = `word-${wIdx}`;
-            wordSpan.className = "inline-block mr-3 mb-2 whitespace-nowrap transition-all";
-
+            wordSpan.className = "inline-block mr-2 md:mr-3 mb-1 md:mb-2 whitespace-nowrap transition-all";
             for (let i = 0; i < word.length; i++) {
                 const letterSpan = document.createElement('span');
                 letterSpan.className = "letter text-slate-600";
@@ -1209,16 +1241,13 @@
                 letterSpan.id = `word-${wIdx}-char-${i}`;
                 wordSpan.appendChild(letterSpan);
             }
-
             const spaceSpan = document.createElement('span');
             spaceSpan.className = "letter text-slate-600/30";
             spaceSpan.textContent = " ";
             spaceSpan.id = `word-${wIdx}-space`;
             wordSpan.appendChild(spaceSpan);
-
             display.appendChild(wordSpan);
         });
-
         highlightActiveCharacter();
     }
 
@@ -1238,21 +1267,16 @@
                 targetChar.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
             }
         }
-
         for (let i = 0; i < activeWordIndex; i++) {
             const prevWord = document.getElementById(`word-${i}`);
-            if (prevWord) {
-                prevWord.classList.add('word-passed');
-            }
+            if (prevWord) prevWord.classList.add('word-passed');
         }
     }
 
     function handleKeyDown(e) {
         if (isTestFinished) return;
         if (!isTestRunning) startTestTimer();
-
         const activeWord = wordsArray[activeWordIndex];
-
         if (e.key === 'Backspace') {
             sound.playKey('click');
             if (activeLetterIndex > 0) {
@@ -1271,7 +1295,6 @@
 
     function handleTextInput(e) {
         if (isTestFinished) return;
-
         const input = e.target;
         const typedVal = input.value;
         input.value = "";
@@ -1293,10 +1316,8 @@
                 typedWordsLog[activeWordIndex] = false;
                 wrongKeystrokes += (activeWord.length - activeLetterIndex);
             }
-
             activeWordIndex++;
             activeLetterIndex = 0;
-
             if (activeWordIndex >= wordsArray.length) {
                 finishTest();
             } else {
@@ -1307,7 +1328,6 @@
 
         const expectedChar = activeWord[activeLetterIndex];
         const charSpan = document.getElementById(`word-${activeWordIndex}-char-${activeLetterIndex}`);
-
         if (charSpan) {
             if (charTyped === expectedChar) {
                 sound.playKey('click');
@@ -1320,7 +1340,6 @@
             }
             activeLetterIndex++;
             highlightActiveCharacter();
-
             if (activeWordIndex === wordsArray.length - 1 && activeLetterIndex >= activeWord.length) {
                 typedWordsLog[activeWordIndex] = true;
                 finishTest();
@@ -1331,20 +1350,16 @@
     function startTestTimer() {
         isTestRunning = true;
         timeElapsed = 0;
-
         timerInterval = setInterval(() => {
             timeElapsed++;
-
             plotTimeline.push(timeElapsed);
             plotWpmRecord.push(calculateWpm());
-
             if (limitType === 'time') {
                 secondsRemaining--;
                 if (secondsRemaining <= 0) finishTest();
             } else {
                 secondsRemaining = timeElapsed;
             }
-
             updateLiveStatsDisplay();
         }, 1000);
     }
@@ -1358,7 +1373,6 @@
             progressPct = Math.round((activeWordIndex / wordsArray.length) * 100);
             document.getElementById('live-timer').textContent = timeElapsed;
         }
-
         document.getElementById('live-wpm').textContent = calculateWpm();
         document.getElementById('live-accuracy').textContent = `${calculateAccuracy()}%`;
         document.getElementById('live-errors').textContent = wrongKeystrokes;
@@ -1377,9 +1391,7 @@
         return isNaN(pct) ? 0 : pct;
     }
 
-    // -------------------------------------------------------------
-    // POST TEST ANALYSIS & DATABASE SYNC
-    // -------------------------------------------------------------
+    // ─── FINISH TEST ───
     async function finishTest() {
         clearInterval(timerInterval);
         isTestRunning = false;
@@ -1392,8 +1404,8 @@
         const correctWordsCount = typedWordsLog.filter(x => x === true).length;
         const wrongWordsCount = wordsArray.slice(0, activeWordIndex + 1).length - correctWordsCount;
 
-        let grade = "D";
-        let label = "Need Practice";
+        let grade = "D",
+            label = "Need Practice";
         if (finalWpm >= 85 && finalAccuracy >= 95) { grade = "S";
             label = "Elite God Speed"; } else if (finalWpm >= 70) { grade = "A+";
             label = "Elite Pro"; } else if (finalWpm >= 55) { grade = "A";
@@ -1404,31 +1416,26 @@
         document.getElementById('res-accuracy').textContent = `${finalAccuracy}%`;
         document.getElementById('res-cpm').textContent = finalCpm;
         document.getElementById('res-time').textContent = `${timeElapsed}s`;
-
         document.getElementById('res-correct-chars').textContent = correctKeystrokes;
         document.getElementById('res-wrong-chars').textContent = wrongKeystrokes;
         document.getElementById('res-correct-words').textContent = correctWordsCount;
         document.getElementById('res-wrong-words').textContent = wrongWordsCount;
-
         document.getElementById('grade-badge').textContent = grade;
         document.getElementById('grade-label').textContent = label;
-        document.getElementById('result-meta-subtitle').textContent = `ক্যাবিনেট: ${difficulty.toUpperCase()} • ${language.toUpperCase()} • ${testMode.toUpperCase()}`;
+        document.getElementById('result-meta-subtitle').textContent =
+            `ক্যাবিনেট: ${difficulty.toUpperCase()} • ${language.toUpperCase()} • ${testMode.toUpperCase()}`;
 
         saveResultToDatabase(finalWpm, finalAccuracy, correctWordsCount, wrongWordsCount, totalKeystrokes);
         saveLocalSessionLog(finalWpm, finalAccuracy, correctWordsCount, wrongWordsCount, timeElapsed);
-
         renderPerformanceChart();
         gotoPage('page-result');
     }
 
+    // ─── CHART ───
     function renderPerformanceChart() {
         const ctx = document.getElementById('liveGraph').getContext('2d');
-        if (liveGraphInstance) {
-            liveGraphInstance.destroy();
-        }
-
+        if (liveGraphInstance) liveGraphInstance.destroy();
         const accentColor = getComputedStyle(document.documentElement).getPropertyValue('--accent').trim() || '#00ffcc';
-
         liveGraphInstance = new Chart(ctx, {
             type: 'line',
             data: {
@@ -1450,19 +1457,16 @@
                 maintainAspectRatio: false,
                 plugins: { legend: { display: false } },
                 scales: {
-                    x: {
-                        grid: { color: 'rgba(255, 255, 255, 0.02)' },
-                        ticks: { color: '#4e556e', font: { family: 'JetBrains Mono', size: 10 } }
-                    },
-                    y: {
-                        grid: { color: 'rgba(255, 255, 255, 0.02)' },
-                        ticks: { color: '#4e556e', font: { family: 'JetBrains Mono', size: 10 } }
-                    }
+                    x: { grid: { color: 'rgba(255,255,255,0.02)' }, ticks: { color: '#4e556e', font: { family: 'JetBrains Mono',
+                                size: 10 } } },
+                    y: { grid: { color: 'rgba(255,255,255,0.02)' }, ticks: { color: '#4e556e', font: { family: 'JetBrains Mono',
+                                size: 10 } } }
                 }
             }
         });
     }
 
+    // ─── DATABASE ───
     async function saveResultToDatabase(wpm, accuracy, correctWords, wrongWords, totalChars) {
         if (!db || !user) return;
         try {
@@ -1477,7 +1481,6 @@
                 language: String(language),
                 createdAt: serverTimestamp()
             });
-
             const leaderId = crypto.randomUUID();
             const leaderRef = doc(db, 'artifacts', appId, 'public', 'data', 'leaderboard', leaderId);
             await setDoc(leaderRef, {
@@ -1487,19 +1490,13 @@
                 language: String(language),
                 createdAt: serverTimestamp()
             });
-
             syncLeaderboard();
-        } catch (err) {
-            console.error("Cloud Synced Failed: ", err);
-        }
+        } catch (err) { console.error("Cloud Sync Failed: ", err); }
     }
 
     function saveLocalSessionLog(wpm, accuracy, correctWords, wrongWords, duration) {
         let logs = [];
-        try {
-            logs = JSON.parse(localStorage.getItem('swifttype_v3_history') || '[]');
-        } catch (e) { logs = []; }
-
+        try { logs = JSON.parse(localStorage.getItem('swifttype_v3_history') || '[]'); } catch (e) { logs = []; }
         logs.unshift({
             timestamp: new Date().toISOString(),
             wpm,
@@ -1510,7 +1507,6 @@
             lang: language,
             difficulty
         });
-
         if (logs.length > 25) logs.pop();
         localStorage.setItem('swifttype_v3_history', JSON.stringify(logs));
         syncPersonalBestDashboard();
@@ -1519,35 +1515,29 @@
     function syncPersonalBestDashboard() {
         let logs = [];
         try { logs = JSON.parse(localStorage.getItem('swifttype_v3_history') || '[]'); } catch (e) {}
-
         const rows = document.getElementById('history-rows');
         if (logs.length === 0) {
-            rows.innerHTML = `<tr><td colspan="5" class="px-6 py-10 text-center text-slate-500">এখনো কোনো প্র্যাকটিস সেশন সম্পন্ন করা হয়নি।</td></tr>`;
+            rows.innerHTML =
+                `<tr><td colspan="5" class="px-3 md:px-6 py-6 md:py-10 text-center text-slate-500">এখনো কোনো প্র্যাকটিস সেশন সম্পন্ন করা হয়নি।</td></tr>`;
             return;
         }
-
         let maxWpm = 0,
             maxAcc = 0;
-        logs.forEach(l => {
-            if (l.wpm > maxWpm) maxWpm = l.wpm;
-            if (l.accuracy > maxAcc) maxAcc = l.accuracy;
-        });
-
+        logs.forEach(l => { if (l.wpm > maxWpm) maxWpm = l.wpm; if (l.accuracy > maxAcc) maxAcc = l.accuracy; });
         document.getElementById('pbs-wpm').textContent = `${maxWpm} WPM`;
         document.getElementById('pbs-acc').textContent = `${maxAcc}%`;
         document.getElementById('pbs-count').textContent = `${logs.length} Tests`;
-
         rows.innerHTML = "";
         logs.forEach(l => {
             const tr = document.createElement('tr');
             tr.className = "border-b border-slate-900/60 hover:bg-slate-900/25 transition";
             const d = new Date(l.timestamp).toLocaleDateString();
             tr.innerHTML = `
-                <td class="px-6 py-4 text-slate-400 font-mono-custom text-xs">${d}</td>
-                <td class="px-6 py-4 font-bold text-white font-mono-custom">${l.wpm} WPM</td>
-                <td class="px-6 py-4 font-bold text-teal-400 font-mono-custom">${l.accuracy}%</td>
-                <td class="px-6 py-4 text-xs font-bold uppercase text-slate-500">${l.lang} (${l.difficulty})</td>
-                <td class="px-6 py-4 text-xs text-red-400 font-mono-custom">${l.wrongWords} টি ভুল</td>
+                <td class="px-3 md:px-6 py-2 md:py-4 text-slate-400 font-mono-custom text-[10px] md:text-xs">${d}</td>
+                <td class="px-3 md:px-6 py-2 md:py-4 font-bold text-white font-mono-custom">${l.wpm} WPM</td>
+                <td class="px-3 md:px-6 py-2 md:py-4 font-bold text-teal-400 font-mono-custom">${l.accuracy}%</td>
+                <td class="px-3 md:px-6 py-2 md:py-4 text-[9px] md:text-xs font-bold uppercase text-slate-500">${l.lang} (${l.difficulty})</td>
+                <td class="px-3 md:px-6 py-2 md:py-4 text-[9px] md:text-xs text-red-400 font-mono-custom">${l.wrongWords} টি</td>
             `;
             rows.appendChild(tr);
         });
@@ -1560,34 +1550,28 @@
             const querySnapshot = await getDocs(collection(db, 'artifacts', appId, 'public', 'data', 'leaderboard'));
             let list = [];
             querySnapshot.forEach(doc => { list.push(doc.data()); });
-
             list = list.filter(x => typeof x.wpm === 'number');
             list.sort((a, b) => b.wpm - a.wpm);
             const topTen = list.slice(0, 10);
-
             if (topTen.length === 0) {
-                body.innerHTML = `<tr><td colspan="6" class="px-6 py-10 text-center text-slate-500">লিডারবোর্ড খালি রয়েছে।</td></tr>`;
+                body.innerHTML = `<tr><td colspan="5" class="px-3 md:px-6 py-6 md:py-10 text-center text-slate-500">লিডারবোর্ড খালি রয়েছে।</td></tr>`;
                 return;
             }
-
             body.innerHTML = "";
             topTen.forEach((data, index) => {
                 const rank = index + 1;
                 const tr = document.createElement('tr');
                 tr.className = `border-b border-slate-900/60 ${data.userId === user?.uid ? 'bg-teal-500/5' : ''}`;
                 tr.innerHTML = `
-                    <td class="px-6 py-4 font-extrabold text-[#00ffcc]">${rank}</td>
-                    <td class="px-6 py-4 font-mono-custom text-xs text-slate-400">${data.userId ? data.userId.substring(0, 12) + "..." : "Anonymous"}</td>
-                    <td class="px-6 py-4 font-bold text-white">${data.wpm} WPM</td>
-                    <td class="px-6 py-4 font-bold text-emerald-400">${data.accuracy || 100}%</td>
-                    <td class="px-6 py-4 text-xs font-bold uppercase text-slate-500">${data.language}</td>
-                    <td class="px-6 py-4 text-xs text-slate-600">Active Competitor</td>
+                    <td class="px-3 md:px-6 py-2 md:py-4 font-extrabold text-[#00ffcc]">${rank}</td>
+                    <td class="px-3 md:px-6 py-2 md:py-4 font-mono-custom text-[10px] md:text-xs text-slate-400">${data.userId ? data.userId.substring(0, 10) + "..." : "Anonymous"}</td>
+                    <td class="px-3 md:px-6 py-2 md:py-4 font-bold text-white">${data.wpm} WPM</td>
+                    <td class="px-3 md:px-6 py-2 md:py-4 font-bold text-emerald-400">${data.accuracy || 100}%</td>
+                    <td class="px-3 md:px-6 py-2 md:py-4 text-[9px] md:text-xs font-bold uppercase text-slate-500">${data.language}</td>
                 `;
                 body.appendChild(tr);
             });
-        } catch (err) {
-            console.error("Leaderboard database error: ", err);
-        }
+        } catch (err) { console.error("Leaderboard error: ", err); }
     }
 
     window.clearLocalHistory = function() {
@@ -1595,11 +1579,16 @@
         syncPersonalBestDashboard();
     };
 
-    // ---- Override gotoPracticePage and openStatsPage ----
-    window.gotoPracticePage = function() {
-        initTest();
+    // ─── PAGE NAVIGATION ───
+    window.gotoPage = function(pageId) {
+        ['page-typing', 'page-result', 'page-stats'].forEach(p => {
+            const el = document.getElementById(p);
+            if (el) el.classList.toggle('hidden', p !== pageId);
+        });
+        updateBottomBannerVisibility(pageId);
     };
 
+    window.gotoPracticePage = function() { initTest(); };
     window.openStatsPage = function() {
         syncPersonalBestDashboard();
         syncLeaderboard();
@@ -1612,12 +1601,6 @@
         document.getElementById('sub-history-btn').classList.toggle('pill-active', subTab === 'history');
         document.getElementById('sub-leaderboard-btn').classList.toggle('pill-active', subTab === 'leaderboard');
     };
-
-    // ---- Expose updateBottomBannerVisibility to global scope ----
-    window.updateBottomBannerVisibility = updateBottomBannerVisibility;
-
-    console.log('✅ SwiftType Pro with Ad System initialized.');
 </script>
-
 </body>
 </html>
