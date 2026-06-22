@@ -373,6 +373,136 @@
             margin: 0 auto;
             width: 100%;
         }
+
+        /* ─── Settings Page ─── */
+        .settings-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+        }
+        @media (max-width: 640px) {
+            .settings-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+        .settings-group {
+            background: var(--panel-bg);
+            backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.04);
+            border-radius: 16px;
+            padding: 16px 20px;
+            transition: all 0.3s ease;
+        }
+        .settings-group:hover {
+            border-color: var(--accent-dim);
+        }
+        .settings-group-label {
+            font-size: 9px;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            color: #4e556e;
+            font-weight: 700;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .settings-group-label i {
+            color: var(--accent);
+            font-size: 12px;
+        }
+        .settings-option-btn {
+            padding: 6px 14px;
+            border-radius: 10px;
+            font-size: 12px;
+            font-weight: 700;
+            transition: all 0.25s ease;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            color: #9fa9bf;
+            cursor: pointer;
+        }
+        .settings-option-btn:hover {
+            color: #fff;
+            background: rgba(255, 255, 255, 0.06);
+        }
+        .settings-option-btn.pill-active {
+            background: var(--accent-dim);
+            color: var(--accent);
+            border-color: var(--accent);
+            box-shadow: 0 0 15px var(--accent-dim);
+        }
+        .settings-option-btn-small {
+            padding: 4px 10px;
+            font-size: 10px;
+        }
+        .settings-word-option {
+            min-width: 36px;
+            text-align: center;
+        }
+        .settings-save-bar {
+            margin-top: 12px;
+            display: flex;
+            justify-content: flex-end;
+            gap: 12px;
+        }
+        .settings-save-btn {
+            padding: 10px 28px;
+            border-radius: 12px;
+            background: linear-gradient(135deg, var(--accent), #00ccaa);
+            color: #060814;
+            font-weight: 800;
+            font-size: 13px;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 0 30px var(--accent-dim);
+        }
+        .settings-save-btn:hover {
+            transform: scale(1.02);
+            box-shadow: 0 0 50px var(--accent-glow);
+        }
+        .settings-back-btn {
+            padding: 10px 22px;
+            border-radius: 12px;
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            color: #9fa9bf;
+            font-weight: 700;
+            font-size: 13px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .settings-back-btn:hover {
+            color: #fff;
+            background: rgba(255, 255, 255, 0.08);
+        }
+
+        /* ─── Settings page header ─── */
+        .settings-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding-bottom: 16px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+            margin-bottom: 20px;
+        }
+        .settings-header h2 {
+            font-size: 20px;
+            font-weight: 800;
+            color: #fff;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .settings-header h2 i {
+            color: var(--accent);
+        }
+        .settings-header .sub {
+            font-size: 11px;
+            color: #4e556e;
+            font-weight: 500;
+        }
     </style>
 </head>
 <body>
@@ -411,6 +541,12 @@
                 <i class="fa-solid fa-volume-high text-sm md:text-base" id="sound-icon"></i>
             </button>
 
+            <button id="settings-nav-btn" class="px-3 md:px-4 py-1.5 md:py-2 rounded-xl bg-slate-900/60 border border-slate-800 text-[10px] md:text-xs font-bold text-slate-300 hover:text-[#00ffcc] hover:border-[#00ffcc]/30 transition flex items-center gap-1.5">
+                <i class="fa-solid fa-sliders text-[#00ffcc] text-sm"></i>
+                <span class="hidden sm:inline">সেটিংস</span>
+                <span class="sm:hidden">সেটিং</span>
+            </button>
+
             <button id="stats-nav-btn" class="px-3 md:px-4 py-1.5 md:py-2 rounded-xl bg-slate-900/60 border border-slate-800 text-[10px] md:text-xs font-bold text-slate-300 hover:text-[#00ffcc] hover:border-[#00ffcc]/30 transition flex items-center gap-1.5">
                 <i class="fa-solid fa-chart-simple text-[#00ffcc] text-sm"></i>
                 <span class="hidden sm:inline">ড্যাশবোর্ড</span>
@@ -427,7 +563,6 @@
             <div class="ad-sidebar-inner">
                 <div>
                     <div class="ad-label">Advertisement</div>
-                    <!-- Google AdSense: Left Sidebar -->
                     <ins class="adsbygoogle"
                     style="display:block; width:100%; min-height:250px;"
                     data-ad-client="ca-pub-6408218783867640"
@@ -449,35 +584,7 @@
         <div id="pages-container" class="container-typing">
 
             <!-- ═══ PAGE 1: TYPING BOARD ═══ -->
-            <section id="page-typing" class="space-y-4 md:space-y-6">
-
-                <!-- Interactive Controls (Glassmorphism) -->
-                <div class="glass-panel rounded-2xl p-3 md:p-4 flex flex-wrap items-center justify-between gap-3">
-
-                    <div class="flex items-center gap-1.5 bg-slate-950/80 p-0.5 md:p-1 rounded-xl border border-slate-800 flex-wrap">
-                        <span class="text-[8px] md:text-[10px] text-slate-500 font-bold uppercase px-1.5 md:px-2">ডিফিকাল্টি:</span>
-                        <button onclick="setDifficulty('easy')" id="diff-easy" class="px-2 md:px-3.5 py-1 md:py-1.5 rounded-lg text-[9px] md:text-xs font-bold transition-all pill-active">Easy</button>
-                        <button onclick="setDifficulty('hard')" id="diff-hard" class="px-2 md:px-3.5 py-1 md:py-1.5 rounded-lg text-[9px] md:text-xs font-bold transition-all text-slate-400 hover:text-white">Hard 🔥</button>
-                    </div>
-
-                    <div class="flex items-center gap-1.5 bg-slate-950/80 p-0.5 md:p-1 rounded-xl border border-slate-800 flex-wrap">
-                        <button onclick="setTestMode('sentence')" id="mode-sentence" class="px-2 md:px-3.5 py-1 md:py-1.5 rounded-lg text-[9px] md:text-xs font-bold transition-all pill-active">Sentence</button>
-                        <button onclick="setTestMode('paragraph')" id="mode-paragraph" class="px-2 md:px-3.5 py-1 md:py-1.5 rounded-lg text-[9px] md:text-xs font-bold transition-all text-slate-400 hover:text-white">Paragraph</button>
-                    </div>
-
-                    <div class="flex items-center gap-1.5 bg-slate-950/80 p-0.5 md:p-1 rounded-xl border border-slate-800 flex-wrap">
-                        <button onclick="setLanguage('english')" id="lang-english" class="px-2 md:px-3.5 py-1 md:py-1.5 rounded-lg text-[9px] md:text-xs font-bold transition-all pill-active">English</button>
-                        <button onclick="setLanguage('bangla')" id="lang-bangla" class="px-2 md:px-3.5 py-1 md:py-1.5 rounded-lg text-[9px] md:text-xs font-bold transition-all text-slate-400 hover:text-white">বাংলা</button>
-                    </div>
-
-                    <div class="flex items-center gap-2 md:gap-3 flex-wrap">
-                        <div class="flex items-center gap-0.5 bg-slate-950/80 p-0.5 md:p-1 rounded-xl border border-slate-800" id="limit-type-container">
-                            <button onclick="setLimitType('time')" id="lim-time-btn" class="px-1.5 md:px-2.5 py-1 md:py-1.5 rounded-lg text-[9px] md:text-xs font-bold transition-all pill-active">সময়</button>
-                            <button onclick="setLimitType('words')" id="lim-words-btn" class="px-1.5 md:px-2.5 py-1 md:py-1.5 rounded-lg text-[9px] md:text-xs font-bold transition-all text-slate-400">শব্দ</button>
-                        </div>
-                        <div id="options-selector" class="flex items-center gap-0.5 bg-slate-950/80 p-0.5 md:p-1 rounded-xl border border-slate-800"></div>
-                    </div>
-                </div>
+            <section id="page-typing" class="space-y-4 md:space-y-5">
 
                 <!-- Live Diagnostics HUD -->
                 <div class="grid grid-cols-2 md:grid-cols-4 gap-2 md:gap-4 px-1 md:px-2">
@@ -554,7 +661,7 @@
                     </div>
                 </div>
 
-                <!-- Bottom action row (only for mobile fallback, but we already have reset in top-right) -->
+                <!-- Bottom action row (only for mobile fallback) -->
                 <div class="flex items-center justify-center gap-3 md:hidden">
                     <button onclick="initTest()" class="px-5 py-2.5 rounded-2xl bg-gradient-to-r from-slate-950 to-slate-900 border border-slate-800 hover:border-teal-500/40 text-slate-300 hover:text-white transition-all flex items-center gap-2 shadow-lg hover:shadow-cyan-500/5">
                         <i class="fa-solid fa-rotate-left text-[#00ffcc] text-sm"></i>
@@ -742,6 +849,109 @@
                             </table>
                         </div>
                     </div>
+                </div>
+            </section>
+
+            <!-- ═══ PAGE 4: SETTINGS ═══ -->
+            <section id="page-settings" class="hidden animate-fade-in">
+
+                <div class="glass-panel rounded-3xl p-5 md:p-8 lg:p-10">
+
+                    <div class="settings-header">
+                        <div>
+                            <h2><i class="fa-solid fa-sliders"></i> সেটিংস প্যানেল</h2>
+                            <div class="sub">আপনার টাইপিং পছন্দগুলি কাস্টমাইজ করুন — পরিবর্তনগুলি স্বয়ংক্রিয়ভাবে সংরক্ষিত হবে</div>
+                        </div>
+                        <button onclick="closeSettings()" class="settings-back-btn flex items-center gap-2">
+                            <i class="fa-solid fa-arrow-left"></i> ফিরে যান
+                        </button>
+                    </div>
+
+                    <div class="settings-grid">
+
+                        <!-- Difficulty -->
+                        <div class="settings-group">
+                            <div class="settings-group-label">
+                                <i class="fa-solid fa-bolt"></i> ডিফিকাল্টি
+                            </div>
+                            <div class="flex flex-wrap gap-2">
+                                <button onclick="settingsSetDifficulty('easy')" id="sdiff-easy" class="settings-option-btn pill-active">Easy</button>
+                                <button onclick="settingsSetDifficulty('hard')" id="sdiff-hard" class="settings-option-btn">Hard 🔥</button>
+                            </div>
+                        </div>
+
+                        <!-- Mode -->
+                        <div class="settings-group">
+                            <div class="settings-group-label">
+                                <i class="fa-solid fa-align-left"></i> মোড
+                            </div>
+                            <div class="flex flex-wrap gap-2">
+                                <button onclick="settingsSetMode('sentence')" id="smode-sentence" class="settings-option-btn pill-active">Sentence</button>
+                                <button onclick="settingsSetMode('paragraph')" id="smode-paragraph" class="settings-option-btn">Paragraph</button>
+                            </div>
+                        </div>
+
+                        <!-- Language -->
+                        <div class="settings-group">
+                            <div class="settings-group-label">
+                                <i class="fa-solid fa-language"></i> ভাষা
+                            </div>
+                            <div class="flex flex-wrap gap-2">
+                                <button onclick="settingsSetLanguage('english')" id="slang-english" class="settings-option-btn pill-active">English</button>
+                                <button onclick="settingsSetLanguage('bangla')" id="slang-bangla" class="settings-option-btn">বাংলা</button>
+                            </div>
+                        </div>
+
+                        <!-- Limit Type -->
+                        <div class="settings-group">
+                            <div class="settings-group-label">
+                                <i class="fa-solid fa-gauge-high"></i> লিমিট টাইপ
+                            </div>
+                            <div class="flex flex-wrap gap-2">
+                                <button onclick="settingsSetLimitType('time')" id="slim-time" class="settings-option-btn pill-active">সময়</button>
+                                <button onclick="settingsSetLimitType('words')" id="slim-words" class="settings-option-btn">শব্দ</button>
+                            </div>
+                        </div>
+
+                        <!-- Time Options (shown when limitType = time) -->
+                        <div id="settings-time-options" class="settings-group">
+                            <div class="settings-group-label">
+                                <i class="fa-solid fa-clock"></i> সময় (সেকেন্ড)
+                            </div>
+                            <div class="flex flex-wrap gap-2">
+                                <button onclick="settingsSetTimeLimit(15)" id="stime-15" class="settings-option-btn settings-option-btn-small">15s</button>
+                                <button onclick="settingsSetTimeLimit(30)" id="stime-30" class="settings-option-btn settings-option-btn-small pill-active">30s</button>
+                                <button onclick="settingsSetTimeLimit(60)" id="stime-60" class="settings-option-btn settings-option-btn-small">60s</button>
+                                <button onclick="settingsSetTimeLimit(120)" id="stime-120" class="settings-option-btn settings-option-btn-small">120s</button>
+                            </div>
+                        </div>
+
+                        <!-- Word Options (shown when limitType = words) -->
+                        <div id="settings-word-options" class="settings-group hidden">
+                            <div class="settings-group-label">
+                                <i class="fa-solid fa-words"></i> শব্দ সংখ্যা (সর্বোচ্চ ৫০)
+                            </div>
+                            <div class="flex flex-wrap gap-1.5">
+                                <button onclick="settingsSetWordLimit(5)" id="sword-5" class="settings-option-btn settings-option-btn-small settings-word-option">5</button>
+                                <button onclick="settingsSetWordLimit(10)" id="sword-10" class="settings-option-btn settings-option-btn-small settings-word-option">10</button>
+                                <button onclick="settingsSetWordLimit(15)" id="sword-15" class="settings-option-btn settings-option-btn-small settings-word-option">15</button>
+                                <button onclick="settingsSetWordLimit(20)" id="sword-20" class="settings-option-btn settings-option-btn-small settings-word-option">20</button>
+                                <button onclick="settingsSetWordLimit(25)" id="sword-25" class="settings-option-btn settings-option-btn-small settings-word-option">25</button>
+                                <button onclick="settingsSetWordLimit(30)" id="sword-30" class="settings-option-btn settings-option-btn-small settings-word-option">30</button>
+                                <button onclick="settingsSetWordLimit(40)" id="sword-40" class="settings-option-btn settings-option-btn-small settings-word-option">40</button>
+                                <button onclick="settingsSetWordLimit(50)" id="sword-50" class="settings-option-btn settings-option-btn-small settings-word-option pill-active">50</button>
+                            </div>
+                            <div class="text-[9px] text-slate-500 mt-2">* সর্বোচ্চ ৫০টি শব্দ পর্যন্ত সীমাবদ্ধ</div>
+                        </div>
+
+                    </div><!-- /settings-grid -->
+
+                    <div class="settings-save-bar">
+                        <button onclick="closeSettings()" class="settings-back-btn flex items-center gap-2">
+                            <i class="fa-solid fa-check"></i> সেভ করুন &amp; ফিরে যান
+                        </button>
+                    </div>
+
                 </div>
             </section>
 
@@ -964,12 +1174,139 @@
         measurementId: "G-DQNKD0NEK9"
     };
 
+    // ─── SETTINGS PERSISTENCE ───
+    function loadSettings() {
+        try {
+            const saved = localStorage.getItem('swifttype_settings_v3');
+            if (saved) {
+                const s = JSON.parse(saved);
+                if (s.testMode) testMode = s.testMode;
+                if (s.language) language = s.language;
+                if (s.difficulty) difficulty = s.difficulty;
+                if (s.limitType) limitType = s.limitType;
+                if (typeof s.timeLimit === 'number') timeLimit = s.timeLimit;
+                if (typeof s.wordLimit === 'number') wordLimit = Math.min(s.wordLimit, 50);
+                if (s.soundProfile) sound.profile = s.soundProfile;
+            }
+        } catch (e) {}
+        // Ensure wordLimit is within bounds
+        if (wordLimit > 50) wordLimit = 50;
+        if (![5, 10, 15, 20, 25, 30, 40, 50].includes(wordLimit)) wordLimit = 25;
+        syncSettingsUI();
+    }
+
+    function saveSettings() {
+        try {
+            localStorage.setItem('swifttype_settings_v3', JSON.stringify({
+                testMode,
+                language,
+                difficulty,
+                limitType,
+                timeLimit,
+                wordLimit,
+                soundProfile: sound.profile
+            }));
+        } catch (e) {}
+    }
+
+    function syncSettingsUI() {
+        // Difficulty
+        document.getElementById('sdiff-easy').className = `settings-option-btn ${difficulty === 'easy' ? 'pill-active' : ''}`;
+        document.getElementById('sdiff-hard').className = `settings-option-btn ${difficulty === 'hard' ? 'pill-active' : ''}`;
+        // Mode
+        document.getElementById('smode-sentence').className =
+            `settings-option-btn ${testMode === 'sentence' ? 'pill-active' : ''}`;
+        document.getElementById('smode-paragraph').className =
+            `settings-option-btn ${testMode === 'paragraph' ? 'pill-active' : ''}`;
+        // Language
+        document.getElementById('slang-english').className =
+            `settings-option-btn ${language === 'english' ? 'pill-active' : ''}`;
+        document.getElementById('slang-bangla').className =
+            `settings-option-btn ${language === 'bangla' ? 'pill-active' : ''}`;
+        // Limit Type
+        document.getElementById('slim-time').className = `settings-option-btn ${limitType === 'time' ? 'pill-active' : ''}`;
+        document.getElementById('slim-words').className =
+            `settings-option-btn ${limitType === 'words' ? 'pill-active' : ''}`;
+
+        // Time options
+        const timeOpts = [15, 30, 60, 120];
+        timeOpts.forEach(t => {
+            document.getElementById(`stime-${t}`).className =
+                `settings-option-btn settings-option-btn-small ${timeLimit === t ? 'pill-active' : ''}`;
+        });
+
+        // Word options
+        const wordOpts = [5, 10, 15, 20, 25, 30, 40, 50];
+        wordOpts.forEach(w => {
+            document.getElementById(`sword-${w}`).className =
+                `settings-option-btn settings-option-btn-small settings-word-option ${wordLimit === w ? 'pill-active' : ''}`;
+        });
+
+        // Show/hide time/word option groups
+        document.getElementById('settings-time-options').classList.toggle('hidden', limitType !== 'time');
+        document.getElementById('settings-word-options').classList.toggle('hidden', limitType !== 'words');
+
+        // Sound profile
+        ['blue', 'brown', 'bubble'].forEach(p => {
+            const btn = document.getElementById(`sp-${p}`);
+            if (p === sound.profile) {
+                btn.className =
+                    "px-1.5 md:px-2 py-0.5 md:py-1 rounded bg-slate-800 text-[8px] md:text-[10px] text-[#00ffcc] font-bold border border-teal-500/30 transition";
+            } else {
+                btn.className = "px-1.5 md:px-2 py-0.5 md:py-1 rounded text-[8px] md:text-[10px] text-slate-400 hover:text-white transition";
+            }
+        });
+    }
+
+    // ─── SETTINGS HELPERS ───
+    window.settingsSetDifficulty = function(val) {
+        difficulty = val;
+        saveSettings();
+        syncSettingsUI();
+    };
+    window.settingsSetMode = function(val) {
+        testMode = val;
+        saveSettings();
+        syncSettingsUI();
+    };
+    window.settingsSetLanguage = function(val) {
+        language = val;
+        saveSettings();
+        syncSettingsUI();
+    };
+    window.settingsSetLimitType = function(val) {
+        limitType = val;
+        saveSettings();
+        syncSettingsUI();
+    };
+    window.settingsSetTimeLimit = function(val) {
+        timeLimit = val;
+        saveSettings();
+        syncSettingsUI();
+    };
+    window.settingsSetWordLimit = function(val) {
+        if (val > 50) val = 50;
+        wordLimit = val;
+        saveSettings();
+        syncSettingsUI();
+    };
+
+    // ─── NAVIGATION ───
+    window.closeSettings = function() {
+        gotoPage('page-typing');
+        initTest();
+    };
+    window.openSettings = function() {
+        syncSettingsUI();
+        gotoPage('page-settings');
+    };
+
     // ─── INIT ───
     window.onload = async () => {
+        loadSettings();
         initAppFirebase();
         registerDomTriggers();
         initTest();
-        // Show bottom banner only on home page (typing page)
         updateBottomBannerVisibility('page-typing');
     };
 
@@ -1043,6 +1380,7 @@
         });
 
         document.getElementById('stats-nav-btn').addEventListener('click', () => { openStatsPage(); });
+        document.getElementById('settings-nav-btn').addEventListener('click', () => { openSettings(); });
 
         let tabHeld = false;
         window.addEventListener('keydown', (e) => {
@@ -1052,8 +1390,6 @@
                 initTest(); }
         });
         window.addEventListener('keyup', (e) => { if (e.key === 'Tab') tabHeld = false; });
-
-        renderLimitOptions();
 
         // Observe page changes to control bottom banner
         const observer = new MutationObserver(() => {
@@ -1083,27 +1419,6 @@
         updateBottomBannerVisibility(isTypingVisible ? 'page-typing' : 'other');
     });
 
-    // ─── LIMIT OPTIONS ───
-    function renderLimitOptions() {
-        const container = document.getElementById('options-selector');
-        container.innerHTML = "";
-        const options = limitType === 'time' ? [15, 30, 60, 120] : [25, 50, 100, 200];
-        const currentActive = limitType === 'time' ? timeLimit : wordLimit;
-        const suffix = limitType === 'time' ? 's' : 'w';
-        options.forEach(opt => {
-            const btn = document.createElement('button');
-            btn.textContent = `${opt}${suffix}`;
-            btn.className = `px-2 md:px-3.5 py-0.5 md:py-1.5 rounded-lg text-[9px] md:text-xs font-bold uppercase transition-all ${opt === currentActive ? 'pill-active' : 'text-slate-400 hover:text-white'}`;
-            btn.onclick = () => {
-                if (limitType === 'time') timeLimit = opt;
-                else wordLimit = opt;
-                renderLimitOptions();
-                initTest();
-            };
-            container.appendChild(btn);
-        });
-    }
-
     // ─── SENTENCE BUILDER ───
     function generateDynamicSentence(lang, targetLength) {
         let vocabulary = [];
@@ -1130,66 +1445,6 @@
         }
         return output;
     }
-
-    // ─── CONFIGURATION HELPERS ───
-    window.setTestMode = function(mode) {
-        testMode = mode;
-        document.getElementById('mode-sentence').className = mode === 'sentence' ?
-            "px-2 md:px-3.5 py-1 md:py-1.5 rounded-lg text-[9px] md:text-xs font-bold transition-all pill-active" :
-            "px-2 md:px-3.5 py-1 md:py-1.5 rounded-lg text-[9px] md:text-xs font-bold transition-all text-slate-400 hover:text-white";
-        document.getElementById('mode-paragraph').className = mode === 'paragraph' ?
-            "px-2 md:px-3.5 py-1 md:py-1.5 rounded-lg text-[9px] md:text-xs font-bold transition-all pill-active" :
-            "px-2 md:px-3.5 py-1 md:py-1.5 rounded-lg text-[9px] md:text-xs font-bold transition-all text-slate-400 hover:text-white";
-        initTest();
-    };
-    window.setLanguage = function(lang) {
-        language = lang;
-        document.getElementById('lang-english').className = lang === 'english' ?
-            "px-2 md:px-3.5 py-1 md:py-1.5 rounded-lg text-[9px] md:text-xs font-bold transition-all pill-active" :
-            "px-2 md:px-3.5 py-1 md:py-1.5 rounded-lg text-[9px] md:text-xs font-bold transition-all text-slate-400 hover:text-white";
-        document.getElementById('lang-bangla').className = lang === 'bangla' ?
-            "px-2 md:px-3.5 py-1 md:py-1.5 rounded-lg text-[9px] md:text-xs font-bold transition-all pill-active" :
-            "px-2 md:px-3.5 py-1 md:py-1.5 rounded-lg text-[9px] md:text-xs font-bold transition-all text-slate-400 hover:text-white";
-        initTest();
-    };
-    window.setDifficulty = function(diff) {
-        difficulty = diff;
-        document.getElementById('diff-easy').className = diff === 'easy' ?
-            "px-2 md:px-3.5 py-1 md:py-1.5 rounded-lg text-[9px] md:text-xs font-bold transition-all pill-active" :
-            "px-2 md:px-3.5 py-1 md:py-1.5 rounded-lg text-[9px] md:text-xs font-bold transition-all text-slate-400 hover:text-white";
-        document.getElementById('diff-hard').className = diff === 'hard' ?
-            "px-2 md:px-3.5 py-1 md:py-1.5 rounded-lg text-[9px] md:text-xs font-bold transition-all pill-active" :
-            "px-2 md:px-3.5 py-1 md:py-1.5 rounded-lg text-[9px] md:text-xs font-bold transition-all text-slate-400 hover:text-white";
-        initTest();
-    };
-    window.setLimitType = function(type) {
-        limitType = type;
-        document.getElementById('lim-time-btn').className = type === 'time' ?
-            "px-1.5 md:px-2.5 py-1 md:py-1.5 rounded-lg text-[9px] md:text-xs font-bold transition-all pill-active" :
-            "px-1.5 md:px-2.5 py-1 md:py-1.5 rounded-lg text-[9px] md:text-xs font-bold transition-all text-slate-400";
-        document.getElementById('lim-words-btn').className = type === 'words' ?
-            "px-1.5 md:px-2.5 py-1 md:py-1.5 rounded-lg text-[9px] md:text-xs font-bold transition-all pill-active" :
-            "px-1.5 md:px-2.5 py-1 md:py-1.5 rounded-lg text-[9px] md:text-xs font-bold transition-all text-slate-400";
-        renderLimitOptions();
-        initTest();
-    };
-    window.setTheme = function(themeName) {
-        document.body.classList.remove('theme-matrix', 'theme-sunset', 'theme-orange');
-        if (themeName === 'matrix') document.body.classList.add('theme-matrix');
-        else if (themeName === 'sunset') document.body.classList.add('theme-sunset');
-        else if (themeName === 'orange') document.body.classList.add('theme-orange');
-    };
-    window.setSoundProfile = function(profileName) {
-        sound.profile = profileName;
-        ['sp-blue', 'sp-brown', 'sp-bubble'].forEach(id => {
-            const btn = document.getElementById(id);
-            if (id === `sp-${profileName}`) {
-                btn.className = "px-1.5 md:px-2 py-0.5 md:py-1 rounded bg-slate-800 text-[8px] md:text-[10px] text-[#00ffcc] font-bold border border-teal-500/30 transition";
-            } else {
-                btn.className = "px-1.5 md:px-2 py-0.5 md:py-1 rounded text-[8px] md:text-[10px] text-slate-400 hover:text-white transition";
-            }
-        });
-    };
 
     // ─── TYPING RUNTIME ───
     window.initTest = function() {
@@ -1581,7 +1836,7 @@
 
     // ─── PAGE NAVIGATION ───
     window.gotoPage = function(pageId) {
-        ['page-typing', 'page-result', 'page-stats'].forEach(p => {
+        ['page-typing', 'page-result', 'page-stats', 'page-settings'].forEach(p => {
             const el = document.getElementById(p);
             if (el) el.classList.toggle('hidden', p !== pageId);
         });
@@ -1600,6 +1855,27 @@
         document.getElementById('stats-leaderboard-sub').classList.toggle('hidden', subTab !== 'leaderboard');
         document.getElementById('sub-history-btn').classList.toggle('pill-active', subTab === 'history');
         document.getElementById('sub-leaderboard-btn').classList.toggle('pill-active', subTab === 'leaderboard');
+    };
+
+    // ─── THEME & SOUND ───
+    window.setTheme = function(themeName) {
+        document.body.classList.remove('theme-matrix', 'theme-sunset', 'theme-orange');
+        if (themeName === 'matrix') document.body.classList.add('theme-matrix');
+        else if (themeName === 'sunset') document.body.classList.add('theme-sunset');
+        else if (themeName === 'orange') document.body.classList.add('theme-orange');
+    };
+    window.setSoundProfile = function(profileName) {
+        sound.profile = profileName;
+        saveSettings();
+        ['blue', 'brown', 'bubble'].forEach(p => {
+            const btn = document.getElementById(`sp-${p}`);
+            if (p === profileName) {
+                btn.className =
+                    "px-1.5 md:px-2 py-0.5 md:py-1 rounded bg-slate-800 text-[8px] md:text-[10px] text-[#00ffcc] font-bold border border-teal-500/30 transition";
+            } else {
+                btn.className = "px-1.5 md:px-2 py-0.5 md:py-1 rounded text-[8px] md:text-[10px] text-slate-400 hover:text-white transition";
+            }
+        });
     };
 </script>
 </body>
