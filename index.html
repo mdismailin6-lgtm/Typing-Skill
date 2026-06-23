@@ -1317,7 +1317,7 @@
                 </section>
 
                 <!-- ═══ PAGE 3: STATS ═══ -->
-                <section id="page-stats"class="hidden space-y-5 md:space-y-8 animate-fade-in px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
+                <section id="page-stats"class="hidden space-y-5 md:space-y-8 animate-fade-in px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto mt-6">
                     <div class="flex items-center justify-between border-b border-slate-800 pb-3 md:pb-4">
                         <div class="flex items-center gap-2 md:gap-3">
                             <button onclick="gotoPracticePage()" class="p-1.5 md:p-2 rounded-xl bg-slate-900 border border-slate-800 text-slate-300 hover:text-white transition">
@@ -1372,7 +1372,7 @@
                                 <span class="sm:hidden">Clear</span>
                             </button>
                         </div>
-                        <div class="glass-panel rounded-2xl overflow-hidden">
+                        <div class="glass-panel rounded-2xl overflow-hidden p-4 sm:p-6">
                             <div class="overflow-x-auto">
                                 <table class="w-full text-left text-slate-300 text-xs md:text-sm">
                                     <thead class="bg-slate-950/80 text-[9px] md:text-xs font-bold text-slate-500 uppercase border-b border-slate-800">
@@ -1398,7 +1398,7 @@
                             <h3 class="text-[10px] md:text-xs font-bold text-slate-300 uppercase">Global Ranking</h3>
                             <span class="text-[8px] md:text-[10px] bg-teal-500/10 text-teal-300 px-1.5 md:px-2.5 py-0.5 md:py-1 rounded-full font-bold border border-teal-500/20">Live Cloud</span>
                         </div>
-                        <div class="glass-panel rounded-2xl overflow-hidden">
+                        <div class="glass-panel rounded-2xl overflow-hidden p-4 sm:p-6">
                             <div class="overflow-x-auto">
                                 <table class="w-full text-left text-slate-300 text-xs md:text-sm">
                                     <thead class="bg-slate-950/80 text-[9px] md:text-xs font-bold text-slate-500 uppercase border-b border-slate-800">
@@ -3047,7 +3047,7 @@
                     const achData = doc.data();
                     if (achData.requiredWpm <= newBestWpm) {
                         eligibleAchievements.push({ id: doc.id, ...achData });
-                        totalReward += (achData.reward || 0);
+                        totalReward += Number(achData.reward || 0);
                     }
                 });
 
@@ -3321,7 +3321,7 @@
 
             snap.forEach(doc => {
                 const data = doc.data();
-                totalReward += (data.reward || 0);
+                totalReward += Number(data.reward || 0);
                 items.push(data);
                 if (items.length === 1) latestBadge = data.title || 'Badge';
             });
