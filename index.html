@@ -517,13 +517,12 @@
             font-size: 14px;
             color: #060814;
             flex-shrink: 0;
+            overflow: hidden;
         }
         .user-avatar-img {
-            width: 32px;
-            height: 32px;
-            border-radius: 50%;
+            width: 100%;
+            height: 100%;
             object-fit: cover;
-            flex-shrink: 0;
         }
 
         /* ─── USER DROPDOWN ─── */
@@ -582,6 +581,116 @@
             color: #4e556e;
             font-size: 11px;
             display: block;
+        }
+
+        /* ─── PHOTO EDIT MODAL ─── */
+        #photo-modal {
+            position: fixed;
+            inset: 0;
+            z-index: 99999;
+            background: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(16px);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            padding: 16px;
+        }
+        #photo-modal.open {
+            display: flex;
+        }
+        .photo-card {
+            background: var(--panel-bg);
+            backdrop-filter: blur(32px);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            border-radius: 28px;
+            padding: 32px 28px;
+            max-width: 440px;
+            width: 100%;
+            box-shadow: 0 24px 80px rgba(0, 0, 0, 0.8);
+            animation: fadeIn 0.3s ease;
+        }
+        .photo-card h2 {
+            font-size: 20px;
+            font-weight: 800;
+            color: #fff;
+            margin-bottom: 4px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .photo-card .sub {
+            font-size: 12px;
+            color: #4e556e;
+            margin-bottom: 20px;
+        }
+        .photo-input {
+            width: 100%;
+            padding: 12px 16px;
+            border-radius: 12px;
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            color: #f3f4f6;
+            font-size: 14px;
+            transition: all 0.3s ease;
+            outline: none;
+        }
+        .photo-input:focus {
+            border-color: var(--accent);
+            box-shadow: 0 0 20px var(--accent-dim);
+        }
+        .photo-input::placeholder {
+            color: #4e556e;
+        }
+        .photo-preview {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            background: var(--panel-bg);
+            border: 2px solid rgba(255, 255, 255, 0.06);
+            margin: 12px auto;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 40px;
+            color: #4e556e;
+            overflow: hidden;
+        }
+        .photo-preview img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        .photo-save-btn {
+            width: 100%;
+            padding: 12px;
+            border-radius: 12px;
+            background: linear-gradient(135deg, var(--accent), #00ccaa);
+            color: #060814;
+            font-weight: 800;
+            font-size: 14px;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 0 30px var(--accent-dim);
+            margin-top: 12px;
+        }
+        .photo-save-btn:hover {
+            transform: scale(1.01);
+            box-shadow: 0 0 50px var(--accent-glow);
+        }
+        .photo-close {
+            position: absolute;
+            top: 16px;
+            right: 20px;
+            background: none;
+            border: none;
+            color: #4e556e;
+            font-size: 20px;
+            cursor: pointer;
+            transition: color 0.3s ease;
+        }
+        .photo-close:hover {
+            color: #fff;
         }
 
         .settings-grid {
@@ -824,6 +933,27 @@
         #announcement-badge.show {
             display: flex;
         }
+
+        /* ─── COUNTRY SELECT DROPDOWN ─── */
+        .country-select {
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            border-radius: 12px;
+            padding: 8px 12px;
+            color: #f3f4f6;
+            font-size: 13px;
+            outline: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .country-select:focus {
+            border-color: var(--accent);
+            box-shadow: 0 0 20px var(--accent-dim);
+        }
+        .country-select option {
+            background: #060814;
+            color: #f3f4f6;
+        }
     </style>
 </head>
 <body>
@@ -886,22 +1016,30 @@
                     <div class="item" onclick="openProfilePage()"><i class="fa-solid fa-id-card"></i> Profile</div>
                     <div class="item" onclick="openStatsPage()"><i class="fa-solid fa-chart-simple"></i> Dashboard</div>
                     <div class="item" onclick="openSettings()"><i class="fa-solid fa-sliders"></i> Settings</div>
+                    <div id="dropdown-edit-photo" class="item hidden" onclick="openPhotoEditor()"><i class="fa-solid fa-camera"></i> Edit Photo</div>
                     <div class="divider"></div>
                     <div id="dropdown-auth-action" class="item" onclick="openAuthModal()"><i class="fa-solid fa-right-to-bracket"></i> <span>Sign In</span></div>
                     <div id="dropdown-logout-action" class="item hidden" onclick="handleLogout()"><i class="fa-solid fa-right-from-bracket"></i> <span>Sign Out</span></div>
                 </div>
             </div>
 
-            <button id="settings-nav-btn" class="px-3 md:px-4 py-1.5 md:py-2 rounded-xl bg-slate-900/60 border border-slate-800 text-[10px] md:text-xs font-bold text-slate-300 hover:text-[#00ffcc] hover:border-[#00ffcc]/30 transition flex items-center gap-1.5 hidden sm:flex">
-                <i class="fa-solid fa-sliders text-[#00ffcc] text-sm"></i>
-                <span>Setting</span>
-            </button>
-            <button id="stats-nav-btn" class="px-3 md:px-4 py-1.5 md:py-2 rounded-xl bg-slate-900/60 border border-slate-800 text-[10px] md:text-xs font-bold text-slate-300 hover:text-[#00ffcc] hover:border-[#00ffcc]/30 transition flex items-center gap-1.5 hidden sm:flex">
-                <i class="fa-solid fa-chart-simple text-[#00ffcc] text-sm"></i>
-                <span>Dashboard</span>
-            </button>
+            <!-- Removed Settings and Dashboard buttons -->
         </div>
     </header>
+
+    <!-- ═══ PHOTO EDIT MODAL ═══ -->
+    <div id="photo-modal">
+        <div class="photo-card relative">
+            <button class="photo-close" onclick="closePhotoEditor()">&times;</button>
+            <h2><i class="fa-solid fa-camera text-[#00ffcc]"></i> Edit Profile Photo</h2>
+            <div class="sub">Enter the URL of your profile image</div>
+            <div class="photo-preview" id="photo-preview">
+                <i class="fa-solid fa-user"></i>
+            </div>
+            <input type="text" id="photo-url-input" class="photo-input" placeholder="https://example.com/photo.jpg" />
+            <button onclick="saveProfilePhoto()" class="photo-save-btn">Save Photo</button>
+        </div>
+    </div>
 
     <!-- ═══ AUTH MODAL ═══ -->
     <div id="auth-modal">
@@ -1345,12 +1483,48 @@
 
                         <div class="flex flex-col md:flex-row gap-6 md:gap-8">
                             <div class="flex flex-col items-center gap-3 md:gap-4 flex-shrink-0">
-                                <div id="profile-avatar" class="w-24 h-24 md:w-32 md:h-32 rounded-full bg-gradient-to-br from-[#00ffcc] to-indigo-600 flex items-center justify-center text-4xl md:text-6xl font-black text-slate-950 shadow-xl shadow-cyan-500/20">
+                                <div id="profile-avatar" class="w-24 h-24 md:w-32 md:h-32 rounded-full bg-gradient-to-br from-[#00ffcc] to-indigo-600 flex items-center justify-center text-4xl md:text-6xl font-black text-slate-950 shadow-xl shadow-cyan-500/20 cursor-pointer transition hover:scale-105" onclick="openPhotoEditor()">
                                     <i class="fa-solid fa-user"></i>
                                 </div>
                                 <div class="text-center">
                                     <div id="profile-name" class="text-xl md:text-2xl font-bold text-white">Guest User</div>
                                     <div id="profile-email" class="text-xs text-slate-500">guest@swifttype.com</div>
+                                    <div class="mt-2 flex items-center gap-2 justify-center">
+                                        <span class="text-xs text-slate-400">Country:</span>
+                                        <select id="country-select" class="country-select" onchange="updateCountry()">
+                                            <option value="BD">🇧🇩 Bangladesh</option>
+                                            <option value="US">🇺🇸 United States</option>
+                                            <option value="IN">🇮🇳 India</option>
+                                            <option value="PK">🇵🇰 Pakistan</option>
+                                            <option value="JP">🇯🇵 Japan</option>
+                                            <option value="GB">🇬🇧 United Kingdom</option>
+                                            <option value="CA">🇨🇦 Canada</option>
+                                            <option value="AU">🇦🇺 Australia</option>
+                                            <option value="DE">🇩🇪 Germany</option>
+                                            <option value="FR">🇫🇷 France</option>
+                                            <option value="IT">🇮🇹 Italy</option>
+                                            <option value="ES">🇪🇸 Spain</option>
+                                            <option value="BR">🇧🇷 Brazil</option>
+                                            <option value="RU">🇷🇺 Russia</option>
+                                            <option value="CN">🇨🇳 China</option>
+                                            <option value="KR">🇰🇷 South Korea</option>
+                                            <option value="SA">🇸🇦 Saudi Arabia</option>
+                                            <option value="AE">🇦🇪 UAE</option>
+                                            <option value="EG">🇪🇬 Egypt</option>
+                                            <option value="NG">🇳🇬 Nigeria</option>
+                                            <option value="ZA">🇿🇦 South Africa</option>
+                                            <option value="AR">🇦🇷 Argentina</option>
+                                            <option value="MX">🇲🇽 Mexico</option>
+                                            <option value="TR">🇹🇷 Turkey</option>
+                                            <option value="ID">🇮🇩 Indonesia</option>
+                                            <option value="MY">🇲🇾 Malaysia</option>
+                                            <option value="SG">🇸🇬 Singapore</option>
+                                            <option value="PH">🇵🇭 Philippines</option>
+                                            <option value="VN">🇻🇳 Vietnam</option>
+                                            <option value="TH">🇹🇭 Thailand</option>
+                                            <option value="BD">🇧🇩 Bangladesh</option>
+                                        </select>
+                                    </div>
                                 </div>
                             </div>
 
@@ -1824,7 +1998,7 @@
                     username: name.toLowerCase().replace(/\s+/g, '_') + '_' + uid.substring(0, 4),
                     email: email,
                     photoUrl: photoUrl,
-                    country: 'Unknown',
+                    countryCode: 'BD', // default
                     totalTests: 0,
                     totalWords: 0,
                     totalTime: 0,
@@ -1866,6 +2040,7 @@
             const profileAuth = document.getElementById('profile-auth-action');
             const profileLogout = document.getElementById('profile-logout-action');
             const profileBadge = document.getElementById('profile-badge');
+            const editPhoto = document.getElementById('dropdown-edit-photo');
 
             if (user) {
                 const name = user.displayName || user.email?.split('@')[0] || 'User';
@@ -1891,6 +2066,7 @@
                 document.getElementById('cloud-status-indicator').textContent = 'Cloud Sync: Connected';
                 document.getElementById('cloud-status-indicator').classList.add('text-[#00ffcc]');
                 document.getElementById('cloud-status-indicator').classList.remove('text-slate-500');
+                editPhoto.classList.remove('hidden');
                 if (!document.getElementById('page-profile').classList.contains('hidden')) {
                     refreshProfilePage();
                 }
@@ -1912,6 +2088,7 @@
                 document.getElementById('cloud-status-indicator').textContent = 'Cloud Sync: Offline';
                 document.getElementById('cloud-status-indicator').classList.remove('text-[#00ffcc]');
                 document.getElementById('cloud-status-indicator').classList.add('text-slate-500');
+                editPhoto.classList.add('hidden');
                 if (!document.getElementById('page-profile').classList.contains('hidden')) {
                     refreshProfilePage();
                 }
@@ -1930,9 +2107,13 @@
                     if (snap.exists()) {
                         userProfileData = snap.data();
                         const d = userProfileData;
-                        document.getElementById('profile-avatar').innerHTML = d.photoUrl ?
-                            `<img src="${d.photoUrl}" class="w-24 h-24 md:w-32 md:h-32 rounded-full object-cover" alt="Avatar" />` :
-                            `<i class="fa-solid fa-user"></i>`;
+                        // Avatar
+                        const avatarEl = document.getElementById('profile-avatar');
+                        if (d.photoUrl) {
+                            avatarEl.innerHTML = `<img src="${d.photoUrl}" class="w-full h-full object-cover rounded-full" alt="Avatar" />`;
+                        } else {
+                            avatarEl.innerHTML = `<i class="fa-solid fa-user"></i>`;
+                        }
                         document.getElementById('profile-name').textContent = d.name || 'User';
                         document.getElementById('profile-email').textContent = d.email || '';
                         document.getElementById('p-wpm').textContent = d.bestWpm || 0;
@@ -1940,11 +2121,17 @@
                         document.getElementById('p-tests').textContent = d.totalTests || 0;
                         document.getElementById('p-words').textContent = d.totalWords || 0;
                         document.getElementById('p-rank').textContent = d.rank || '—';
-                        document.getElementById('p-country').textContent = d.country || '🌍';
+                        // Country flag
+                        const flag = getFlagEmoji(d.countryCode || 'BD');
+                        document.getElementById('p-country').textContent = flag;
+                        // Set select value
+                        const select = document.getElementById('country-select');
+                        if (select) select.value = d.countryCode || 'BD';
                     }
                 } catch (err) { console.error('Profile refresh error:', err); }
             } else {
-                document.getElementById('profile-avatar').innerHTML = '<i class="fa-solid fa-user"></i>';
+                const avatarEl = document.getElementById('profile-avatar');
+                avatarEl.innerHTML = `<i class="fa-solid fa-user"></i>`;
                 document.getElementById('profile-name').textContent = 'Guest User';
                 document.getElementById('profile-email').textContent = 'guest@swifttype.com';
                 document.getElementById('p-wpm').textContent = '0';
@@ -1953,7 +2140,112 @@
                 document.getElementById('p-words').textContent = '0';
                 document.getElementById('p-rank').textContent = '—';
                 document.getElementById('p-country').textContent = '🌍';
+                const select = document.getElementById('country-select');
+                if (select) select.value = 'BD';
             }
+        }
+
+        // ─── FLAG EMOJI HELPER ───
+        function getFlagEmoji(countryCode) {
+            if (!countryCode) return '🌍';
+            const codePoints = countryCode.toUpperCase().split('').map(char => 127397 + char.charCodeAt(0));
+            return String.fromCodePoint(...codePoints);
+        }
+
+        // ─── COUNTRY UPDATE ───
+        window.updateCountry = async function() {
+            if (!isRegisteredUser || !currentUser) {
+                showToast('Please sign in to change country.');
+                return;
+            }
+            const select = document.getElementById('country-select');
+            const countryCode = select.value;
+            if (!countryCode) return;
+            try {
+                const userRef = doc(db, 'users', currentUser.uid);
+                await setDoc(userRef, { countryCode: countryCode }, { merge: true });
+                userProfileData.countryCode = countryCode;
+                refreshProfilePage();
+                syncLeaderboard();
+                showToast('Country updated successfully.');
+            } catch (err) {
+                console.error('Country update error:', err);
+                showToast('Failed to update country.');
+            }
+        };
+
+        // ─── PHOTO EDITOR ───
+        window.openPhotoEditor = function() {
+            if (!isRegisteredUser || !currentUser) {
+                showToast('Please sign in to edit photo.');
+                return;
+            }
+            document.getElementById('photo-modal').classList.add('open');
+            const input = document.getElementById('photo-url-input');
+            input.value = userProfileData?.photoUrl || '';
+            updatePhotoPreview(input.value);
+        };
+
+        window.closePhotoEditor = function() {
+            document.getElementById('photo-modal').classList.remove('open');
+        };
+
+        function updatePhotoPreview(url) {
+            const preview = document.getElementById('photo-preview');
+            if (url && url.trim() !== '') {
+                preview.innerHTML = `<img src="${url}" alt="Preview" onerror="this.style.display='none'; this.parentElement.innerHTML='<i class=\\'fa-solid fa-user\\'></i>'" />`;
+            } else {
+                preview.innerHTML = '<i class="fa-solid fa-user"></i>';
+            }
+        }
+
+        // Listen to input changes for preview
+        document.getElementById('photo-url-input')?.addEventListener('input', function(e) {
+            updatePhotoPreview(e.target.value);
+        });
+
+        window.saveProfilePhoto = async function() {
+            if (!isRegisteredUser || !currentUser) {
+                showToast('Please sign in to save photo.');
+                return;
+            }
+            const url = document.getElementById('photo-url-input').value.trim();
+            if (url === '') {
+                showToast('Please enter a valid image URL.');
+                return;
+            }
+            try {
+                const userRef = doc(db, 'users', currentUser.uid);
+                await setDoc(userRef, { photoUrl: url }, { merge: true });
+                userProfileData.photoUrl = url;
+                // Update current user's photoURL in auth as well
+                try {
+                    await updateProfile(currentUser, { photoURL: url });
+                } catch (e) { /* ignore if not possible */ }
+                closePhotoEditor();
+                refreshProfilePage();
+                updateUserUI(currentUser);
+                syncLeaderboard();
+                showToast('Profile photo updated successfully.');
+            } catch (err) {
+                console.error('Photo save error:', err);
+                showToast('Failed to save photo.');
+            }
+        };
+
+        // ─── TOAST MESSAGE ───
+        function showToast(message) {
+            const existing = document.querySelector('.toast-message');
+            if (existing) existing.remove();
+            const toast = document.createElement('div');
+            toast.className = 'toast-message fixed bottom-10 left-1/2 transform -translate-x-1/2 bg-slate-900/90 backdrop-blur-lg border border-slate-800 text-white px-6 py-3 rounded-2xl shadow-2xl z-[999999] font-bold text-sm md:text-base animate-fade-in';
+            toast.textContent = message;
+            document.body.appendChild(toast);
+            setTimeout(() => {
+                toast.style.opacity = '0';
+                toast.style.transition = 'opacity 0.5s';
+                setTimeout(() => toast.remove(), 500);
+            }, 3000);
         }
 
         // ─── DROPDOWN ───
@@ -2044,9 +2336,7 @@
                 }
             });
 
-            document.getElementById('stats-nav-btn')?.addEventListener('click', () => { openStatsPage(); });
-            document.getElementById('settings-nav-btn')?.addEventListener('click', () => { openSettings(); });
-
+            // Removed stats and settings nav buttons (they are now in dropdown)
             // Announcement bell
             document.getElementById('announcement-btn')?.addEventListener('click', () => {
                 openAnnouncements();
@@ -2127,7 +2417,7 @@
                     });
                 });
                 // Sort by sortOrder (ascending), then by createdAt (newest first)
-                Cache.sort((a, b) => {
+                announcementsCache.sort((a, b) => {
                     if (a.sortOrder !== b.sortOrder) return a.sortOrder - b.sortOrder;
                     return (b.createdAt?.toMillis?.() || 0) - (a.createdAt?.toMillis?.() || 0);
                 });
@@ -2800,10 +3090,12 @@
                     const name = userProfileData?.name || currentUser.displayName || currentUser.email?.split('@')[0] ||
                     'User';
                     const photo = userProfileData?.photoUrl || currentUser.photoURL || '';
+                    const countryCode = userProfileData?.countryCode || 'BD';
                     await setDoc(lbRef, {
                         userId: uid,
                         name: name,
                         photoUrl: photo,
+                        countryCode: countryCode,
                         bestWpm: Number(wpm),
                         bestAccuracy: Number(accuracy),
                         averageWpm: Number(wpm),
@@ -2965,11 +3257,12 @@
                     const isMe = isRegisteredUser && currentUser && data.userId === currentUser.uid;
                     tr.className = `border-b border-slate-900/60 ${isMe ? 'bg-teal-500/5' : ''}`;
                     const nameDisplay = data.name || data.userId?.substring(0, 10) + '...' || 'Anonymous';
+                    const flag = getFlagEmoji(data.countryCode || 'BD');
                     tr.innerHTML = `
                     <td class="px-3 md:px-6 py-2 md:py-4 font-extrabold text-[#00ffcc]">${rank}</td>
                     <td class="px-3 md:px-6 py-2 md:py-4 font-mono-custom text-[10px] md:text-xs text-slate-400 flex items-center gap-2">
                         ${data.photoUrl ? `<img src="${data.photoUrl}" class="w-6 h-6 rounded-full" />` : ''}
-                        ${nameDisplay}
+                        ${flag} ${nameDisplay}
                         ${isMe ? '<span class="text-[#00ffcc] text-[8px] font-bold">(You)</span>' : ''}
                     </td>
                     <td class="px-3 md:px-6 py-2 md:py-4 font-bold text-white">${data.bestWpm || 0} WPM</td>
