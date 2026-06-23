@@ -18,8 +18,6 @@
 
     <meta name="robots"
       content="index, follow">
-    <meta property="og:description"
-      content="Professional typing platform.">
     <meta property="og:url"
       content="https://typingskill.xyz">
     <meta property="og:image"
@@ -232,6 +230,20 @@
             color: #4e556e;
             padding: 6px;
             text-align: center;
+        }
+
+        /* ─── PAGE ISOLATION LAYER ─── */
+        #app-shell.hide-shell header,
+        #app-shell.hide-shell footer,
+        #app-shell.hide-shell #left-ad,
+        #app-shell.hide-shell #right-ad,
+        #app-shell.hide-shell #bottom-banner {
+            display: none !important;
+        }
+        #app-shell.hide-shell .main-layout {
+            padding: 0 !important;
+            margin: 0 !important;
+            max-width: 100% !important;
         }
 
         .main-layout {
@@ -750,10 +762,6 @@
             padding: 4px 10px;
             font-size: 10px;
         }
-        .settings-word-option {
-            min-width: 36px;
-            text-align: center;
-        }
         .settings-save-bar {
             margin-top: 12px;
             display: flex;
@@ -954,9 +962,25 @@
             background: #060814;
             color: #f3f4f6;
         }
+        .flag-wrapper {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .flag-wrapper img {
+            width: 18px;
+            height: 12px;
+            vertical-align: middle;
+            margin-right: 4px;
+            border-radius: 2px;
+            object-fit: cover;
+        }
     </style>
 </head>
 <body>
+
+    <!-- ═══ PAGE ISOLATION SHELL ═══ -->
+    <div id="app-shell" class="min-h-screen flex flex-col">
 
     <!-- ═══ HEADER ═══ -->
     <header class="container mx-auto px-4 py-4 flex flex-wrap items-center justify-between gap-3 z-10">
@@ -1013,17 +1037,17 @@
                         <span id="dropdown-user-name">Guest User</span>
                         <small id="dropdown-user-email">guest@swifttype.com</small>
                     </div>
-                    <div class="item" onclick="openProfilePage()"><i class="fa-solid fa-id-card"></i> Profile</div>
-                    <div class="item" onclick="openStatsPage()"><i class="fa-solid fa-chart-simple"></i> Dashboard</div>
-                    <div class="item" onclick="openSettings()"><i class="fa-solid fa-sliders"></i> Settings</div>
-                    <div id="dropdown-edit-photo" class="item hidden" onclick="openPhotoEditor()"><i class="fa-solid fa-camera"></i> Edit Photo</div>
+                    <!-- Added closeDropdown() to all dropdown items -->
+                    <div class="item" onclick="closeDropdown(); openProfilePage()"><i class="fa-solid fa-id-card"></i> Profile</div>
+                    <div class="item" onclick="closeDropdown(); openStatsPage()"><i class="fa-solid fa-chart-simple"></i> Dashboard</div>
+                    <div class="item" onclick="closeDropdown(); openSettings()"><i class="fa-solid fa-sliders"></i> Settings</div>
+                    <div id="dropdown-edit-photo" class="item hidden" onclick="closeDropdown(); openPhotoEditor()"><i class="fa-solid fa-camera"></i> Edit Photo</div>
                     <div class="divider"></div>
-                    <div id="dropdown-auth-action" class="item" onclick="openAuthModal()"><i class="fa-solid fa-right-to-bracket"></i> <span>Sign In</span></div>
-                    <div id="dropdown-logout-action" class="item hidden" onclick="handleLogout()"><i class="fa-solid fa-right-from-bracket"></i> <span>Sign Out</span></div>
+                    <div id="dropdown-auth-action" class="item" onclick="closeDropdown(); openAuthModal()"><i class="fa-solid fa-right-to-bracket"></i> <span>Sign In</span></div>
+                    <div id="dropdown-logout-action" class="item hidden" onclick="closeDropdown(); handleLogout()"><i class="fa-solid fa-right-from-bracket"></i> <span>Sign Out</span></div>
                 </div>
             </div>
 
-            <!-- Removed Settings and Dashboard buttons -->
         </div>
     </header>
 
@@ -1293,18 +1317,19 @@
                 </section>
 
                 <!-- ═══ PAGE 3: STATS ═══ -->
-                <section id="page-stats" class="hidden space-y-5 md:space-y-8 animate-fade-in">
+                <section id="page-stats"class="hidden space-y-5 md:space-y-8 animate-fade-in px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
                     <div class="flex items-center justify-between border-b border-slate-800 pb-3 md:pb-4">
                         <div class="flex items-center gap-2 md:gap-3">
                             <button onclick="gotoPracticePage()" class="p-1.5 md:p-2 rounded-xl bg-slate-900 border border-slate-800 text-slate-300 hover:text-white transition">
                                 <i class="fa-solid fa-arrow-left text-sm md:text-base"></i>
                             </button>
-                            <h2 class="text-lg md:text-xl font-bold text-white">Statistics & Rankings</h2>
+                            <h2 class="text-lg md:text-xl font-bold text-white">Analytics</h2>
                         </div>
                         <div class="flex items-center gap-0.5 bg-slate-950 p-0.5 md:p-1 rounded-xl border border-slate-800">
                             <button onclick="switchStatsSubTab('history')" id="sub-history-btn" class="px-2 md:px-4 py-1 md:py-2 rounded-lg text-[9px] md:text-xs font-bold transition-all pill-active">History</button>
                             <button onclick="switchStatsSubTab('leaderboard')" id="sub-leaderboard-btn" class="px-2 md:px-4 py-1 md:py-2 rounded-lg text-[9px] md:text-xs font-bold transition-all text-slate-400 hover:text-white">Ranking</button>
-                            <button onclick="switchStatsSubTab('achievements')" id="sub-achievements-btn" class="px-2 md:px-4 py-1 md:py-2 rounded-lg text-[9px] md:text-xs font-bold transition-all text-slate-400 hover:text-white">Achievements</button>
+                            <!-- Updated "Achievements" tab to go to the dedicated page -->
+                            <button onclick="closeDropdown(); gotoPage('page-achievements'); syncAchievementsPage();" id="sub-achievements-btn" class="px-2 md:px-4 py-1 md:py-2 rounded-lg text-[9px] md:text-xs font-bold transition-all text-slate-400 hover:text-white">Achievements</button>
                         </div>
                     </div>
 
@@ -1383,24 +1408,14 @@
                                             <th class="px-3 md:px-6 py-2 md:py-4">Best WPM</th>
                                             <th class="px-3 md:px-6 py-2 md:py-4">Accuracy</th>
                                             <th class="px-3 md:px-6 py-2 md:py-4">Total Tests</th>
+                                            <th class="px-3 md:px-6 py-2 md:py-4">Reward</th>
                                         </tr>
                                     </thead>
                                     <tbody id="leaderboard-rows">
-                                        <tr><td colspan="5" class="px-3 md:px-6 py-6 md:py-10 text-center text-slate-500">Loading cloud database...</td></tr>
+                                        <tr><td colspan="6" class="px-3 md:px-6 py-6 md:py-10 text-center text-slate-500">Loading cloud database...</td></tr>
                                     </tbody>
                                 </table>
                             </div>
-                        </div>
-                    </div>
-
-                    <!-- Achievements -->
-                    <div id="stats-achievements-sub" class="space-y-3 md:space-y-4 hidden">
-                        <div class="flex justify-between items-center">
-                            <h3 class="text-[10px] md:text-xs font-bold text-slate-300 uppercase">Your Achievements</h3>
-                            <span class="text-[8px] md:text-[10px] bg-purple-500/10 text-purple-300 px-1.5 md:px-2.5 py-0.5 md:py-1 rounded-full font-bold border border-purple-500/20">Collection</span>
-                        </div>
-                        <div id="achievements-container" class="grid grid-cols-2 md:grid-cols-4 gap-3">
-                            <div class="col-span-full text-center text-slate-500 text-sm py-6">Loading achievements...</div>
                         </div>
                     </div>
                 </section>
@@ -1411,7 +1426,7 @@
                         <div class="settings-header">
                             <div>
                                 <h2><i class="fa-solid fa-sliders"></i> Settings Panel</h2>
-                                <div class="sub">Customize Your Typing Preferences — Changes will be saved automatically</div>
+                                <div class="sub">null</div>
                             </div>
                             <button onclick="closeSettings()" class="settings-back-btn flex items-center gap-2">
                                 <i class="fa-solid fa-arrow-left"></i> Go back
@@ -1433,30 +1448,27 @@
                                     <button onclick="settingsSetMode('paragraph')" id="smode-paragraph" class="settings-option-btn">Paragraph</button>
                                 </div>
                             </div>
+                            
+                            <!-- Language Dropdown -->
                             <div class="settings-group">
                                 <div class="settings-group-label"><i class="fa-solid fa-language"></i> Language</div>
-                                <div class="flex flex-wrap gap-2">
-                                    <button onclick="settingsSetLanguage('english')" id="slang-english" class="settings-option-btn pill-active">English</button>
-                                    <button onclick="settingsSetLanguage('bangla')" id="slang-bangla" class="settings-option-btn">Bangla</button>
-                                </div>
+                                <select id="language-select" class="country-select w-full" onchange="settingsSetLanguage(this.value)">
+                                    <option value="english">English</option>
+                                    <option value="bangla">Bangla</option>
+                                    <option value="hindi">Hindi</option>
+                                    <option value="arabic">Arabic</option>
+                                    <option value="urdu">Urdu</option>
+                                    <option value="spanish">Spanish</option>
+                                    <option value="french">French</option>
+                                    <option value="german">German</option>
+                                </select>
                             </div>
+
+                            <!-- Simplified: Only Time Limit -->
                             <div class="settings-group">
-                                <div class="settings-group-label"><i class="fa-solid fa-gauge-high"></i> Limit type</div>
-                                <div class="flex flex-wrap gap-2">
-                                    <button onclick="settingsSetLimitType('time')" id="slim-time" class="settings-option-btn pill-active">Time</button>
-                                    <button onclick="settingsSetLimitType('words')" id="slim-words" class="settings-option-btn">Word</button>
-                                </div>
-                            </div>
-                            <div class="settings-group" id="settings-time-options">
                                 <div class="settings-group-label"><i class="fa-solid fa-clock"></i> Time (sec) *Dynamic</div>
                                 <div class="flex flex-wrap gap-2" id="time-buttons">
                                 </div>
-                            </div>
-                            <div class="settings-group" id="settings-word-options">
-                                <div class="settings-group-label"><i class="fa-solid fa-words"></i> Word Count *Dynamic</div>
-                                <div class="flex flex-wrap gap-1.5" id="word-buttons">
-                                </div>
-                                <div class="text-[9px] text-slate-500 mt-2">* null</div>
                             </div>
                         </div>
 
@@ -1574,6 +1586,58 @@
                     </div>
                 </section>
 
+                <!-- ═══ PAGE 7: MY ACHIEVEMENTS (NEW) ═══ -->
+                <section id="page-achievements" class="hidden animate-fade-in">
+                    <div class="glass-panel rounded-3xl p-5 md:p-8 lg:p-10">
+                        <div class="flex items-center justify-between border-b border-slate-800 pb-4 mb-6">
+                            <div class="flex items-center gap-3">
+                                <button onclick="gotoPracticePage()" class="p-1.5 md:p-2 rounded-xl bg-slate-900 border border-slate-800 text-slate-300 hover:text-white transition">
+                                    <i class="fa-solid fa-arrow-left text-sm md:text-base"></i>
+                                </button>
+                                <h2 class="text-xl md:text-2xl font-bold text-white flex items-center gap-2">
+                                    <i class="fa-solid fa-trophy text-[#00ffcc]"></i> My Achievements
+                                </h2>
+                            </div>
+                            <span id="achievement-count" class="text-[10px] text-slate-400 font-mono-custom bg-slate-900/60 px-3 py-1 rounded-full border border-slate-800">0 badges</span>
+                        </div>
+
+                        <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
+                            <div class="glass-panel rounded-2xl p-4 text-center">
+                                <span class="text-[9px] font-bold text-slate-500 uppercase block mb-1">Total Badges</span>
+                                <div class="text-2xl font-black text-[#00ffcc] font-mono-custom" id="ach-total-badges">0</div>
+                            </div>
+                            <div class="glass-panel rounded-2xl p-4 text-center">
+                                <span class="text-[9px] font-bold text-slate-500 uppercase block mb-1">Total Rewards</span>
+                                <div class="text-2xl font-black text-white font-mono-custom" id="ach-total-rewards">0</div>
+                            </div>
+                            <div class="glass-panel rounded-2xl p-4 text-center">
+                                <span class="text-[9px] font-bold text-slate-500 uppercase block mb-1">Highest WPM</span>
+                                <div class="text-2xl font-black text-emerald-400 font-mono-custom" id="ach-highest-wpm">0</div>
+                            </div>
+                            <div class="glass-panel rounded-2xl p-4 text-center">
+                                <span class="text-[9px] font-bold text-slate-500 uppercase block mb-1">Latest Badge</span>
+                                <div class="text-sm font-bold text-white truncate" id="ach-latest-badge">—</div>
+                            </div>
+                        </div>
+
+                        <div class="glass-panel rounded-2xl p-4 md:p-6 mb-6">
+                            <h3 class="text-xs font-bold text-slate-300 uppercase tracking-wider flex items-center gap-2 mb-3">
+                                <i class="fa-solid fa-chart-simple text-[#00ffcc]"></i> Achievement Statistics
+                            </h3>
+                            <div class="relative w-full h-[120px]">
+                                <canvas id="achievementChart"></canvas>
+                            </div>
+                        </div>
+
+                        <div id="achievements-list-container" class="space-y-3">
+                            <h3 class="text-xs font-bold text-slate-300 uppercase tracking-wider mb-3">Achievement History</h3>
+                            <div id="achievements-history-rows">
+                                <div class="text-center text-slate-500 text-sm py-6">No achievements unlocked yet.</div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
             </div>
 
         </main>
@@ -1610,11 +1674,13 @@
         </div>
     </footer>
 
+    </div> <!-- End of #app-shell -->
+
     <!-- ═══ FIREBASE & CORE ENGINE ═══ -->
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
         import { getAuth, signInAnonymously, onAuthStateChanged, signInWithEmailAndPassword, createUserWithEmailAndPassword, GoogleAuthProvider, signInWithPopup, signOut, updateProfile } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
-        import { getFirestore, collection, doc, setDoc, getDoc, getDocs, query, where, orderBy, limit as firestoreLimit, serverTimestamp, deleteDoc, writeBatch, onSnapshot } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
+        import { getFirestore, collection, doc, setDoc, getDoc, getDocs, query, where, orderBy, limit as firestoreLimit, serverTimestamp, deleteDoc, writeBatch, onSnapshot, addDoc } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
 
         // ─── FIREBASE CONFIG ───
         const firebaseConfig = {
@@ -1633,23 +1699,32 @@
         const googleProvider = new GoogleAuthProvider();
 
         // ─── DYNAMIC DATA CACHE ───
-        let wordsCache = {
-            'english_easy': [],
-            'english_hard': [],
-            'bangla_easy': [],
-            'bangla_hard': []
-        };
         let Cache = {
             'english_easy': [],
             'english_hard': [],
             'bangla_easy': [],
-            'bangla_hard': []
+            'bangla_hard': [],
+            'hindi_easy': [],
+            'hindi_hard': [],
+            'arabic_easy': [],
+            'arabic_hard': [],
+            'urdu_easy': [],
+            'urdu_hard': [],
+            'spanish_easy': [],
+            'spanish_hard': [],
+            'french_easy': [],
+            'french_hard': [],
+            'german_easy': [],
+            'german_hard': []
         };
         let cachedTimeLimits = [];
         let cachedWordLimits = [];
 
         // ─── ANNOUNCEMENTS CACHE ───
         let announcementsCache = [];
+
+        // ─── TIME LIMITS CACHE (for dynamic filtering) ───
+        let timeLimitOptions = [];
 
         // ─── SOUND ENGINE ───
         class MechanicalAudioEngine {
@@ -1760,6 +1835,8 @@
         let isRegisteredUser = false;
         let userProfileData = null;
 
+        let achievementChartInstance = null;
+
         // ─── SETTINGS PERSISTENCE ───
         function loadSettings() {
             try {
@@ -1769,13 +1846,10 @@
                     if (s.testMode) testMode = s.testMode;
                     if (s.language) language = s.language;
                     if (s.difficulty) difficulty = s.difficulty;
-                    if (s.limitType) limitType = s.limitType;
                     if (typeof s.timeLimit === 'number') timeLimit = s.timeLimit;
-                    if (typeof s.wordLimit === 'number') wordLimit = Math.min(s.wordLimit, 100);
                     if (s.soundProfile) sound.profile = s.soundProfile;
                 }
             } catch (e) {}
-            if (wordLimit > 100) wordLimit = 100;
             syncSettingsUI();
         }
 
@@ -1785,9 +1859,7 @@
                     testMode,
                     language,
                     difficulty,
-                    limitType,
                     timeLimit,
-                    wordLimit,
                     soundProfile: sound.profile
                 }));
             } catch (e) {}
@@ -1798,24 +1870,31 @@
             document.getElementById('sdiff-hard').className = `settings-option-btn ${difficulty === 'hard' ? 'pill-active' : ''}`;
             document.getElementById('smode-').className = `settings-option-btn ${testMode === '' ? 'pill-active' : ''}`;
             document.getElementById('smode-paragraph').className = `settings-option-btn ${testMode === 'paragraph' ? 'pill-active' : ''}`;
-            document.getElementById('slang-english').className = `settings-option-btn ${language === 'english' ? 'pill-active' : ''}`;
-            document.getElementById('slang-bangla').className = `settings-option-btn ${language === 'bangla' ? 'pill-active' : ''}`;
-            document.getElementById('slim-time').className = `settings-option-btn ${limitType === 'time' ? 'pill-active' : ''}`;
-            document.getElementById('slim-words').className = `settings-option-btn ${limitType === 'words' ? 'pill-active' : ''}`;
+            
+            document.getElementById('language-select').value = language;
 
-            document.querySelectorAll('#time-buttons .settings-option-btn').forEach(btn => {
-                const t = parseInt(btn.dataset.seconds);
-                const isActive = limitType === 'time' && timeLimit === t;
-                btn.classList.toggle('pill-active', isActive);
-                btn.classList.toggle('pill-inactive', limitType !== 'time');
-            });
-
-            document.querySelectorAll('#word-buttons .settings-option-btn').forEach(btn => {
-                const w = parseInt(btn.dataset.count);
-                const isActive = limitType === 'words' && wordLimit === w;
-                btn.classList.toggle('pill-active', isActive);
-                btn.classList.toggle('pill-inactive', limitType !== 'words');
-            });
+            // Dynamic Time Buttons based on Mode
+            const container = document.getElementById('time-buttons');
+            container.innerHTML = '';
+            const filtered = timeLimitOptions.filter(t => t.type === (testMode === '' ? 'sentences' : 'paragraphs'));
+            if (filtered.length === 0) {
+                container.innerHTML = `<span class="text-[10px] text-slate-500">No time limits configured for this mode.</span>`;
+            } else {
+                // Ensure the selected timeLimit exists in the filtered list, otherwise pick the first
+                if (!filtered.some(t => t.seconds === timeLimit)) {
+                    timeLimit = filtered[0].seconds;
+                }
+                filtered.forEach(data => {
+                    const btn = document.createElement('button');
+                    btn.className = `settings-option-btn settings-option-btn-small`;
+                    btn.dataset.seconds = data.seconds;
+                    btn.textContent = `${data.seconds}s`;
+                    const isActive = timeLimit === data.seconds;
+                    btn.classList.toggle('pill-active', isActive);
+                    btn.onclick = () => { timeLimit = data.seconds; saveSettings(); syncSettingsUI(); };
+                    container.appendChild(btn);
+                });
+            }
 
             ['blue', 'brown', 'bubble'].forEach(p => {
                 const btn = document.getElementById(`sp-${p}`);
@@ -1838,18 +1917,8 @@
         window.settingsSetLanguage = function(val) { language = val;
             saveSettings();
             syncSettingsUI(); };
-        window.settingsSetLimitType = function(val) { limitType = val;
-            saveSettings();
-            syncSettingsUI(); };
-        window.settingsSetTimeLimit = function(val) { timeLimit = val;
-            saveSettings();
-            syncSettingsUI(); };
-        window.settingsSetWordLimit = function(val) { if (val > 100) val = 100;
-            wordLimit = val;
-            saveSettings();
-            syncSettingsUI(); };
 
-        // ─── NAVIGATION ───
+        // ─── NAVIGATION & PAGE ISOLATION ───
         window.closeSettings = function() { gotoPage('page-typing');
             initTest(); };
         window.openSettings = function() { syncSettingsUI();
@@ -1859,12 +1928,18 @@
         window.openAnnouncements = function() { renderAnnouncementsPage();
             gotoPage('page-announcements'); };
 
-        // ─── PAGE NAVIGATION ───
         window.gotoPage = function(pageId) {
-            ['page-typing', 'page-result', 'page-stats', 'page-settings', 'page-profile', 'page-announcements'].forEach(p => {
+            ['page-typing', 'page-result', 'page-stats', 'page-settings', 'page-profile', 'page-announcements', 'page-achievements'].forEach(p => {
                 const el = document.getElementById(p);
                 if (el) el.classList.toggle('hidden', p !== pageId);
             });
+            // Page Isolation Logic: Hide shell (header, footer, ads) if not in typing or result mode
+            const shell = document.getElementById('app-shell');
+            if (pageId === 'page-typing' || pageId === 'page-result') {
+                shell.classList.remove('hide-shell');
+            } else {
+                shell.classList.add('hide-shell');
+            }
         };
         window.gotoPracticePage = function() { initTest(); };
         window.openStatsPage = function() {
@@ -1875,11 +1950,27 @@
         window.switchStatsSubTab = function(subTab) {
             document.getElementById('stats-history-sub').classList.toggle('hidden', subTab !== 'history');
             document.getElementById('stats-leaderboard-sub').classList.toggle('hidden', subTab !== 'leaderboard');
-            document.getElementById('stats-achievements-sub').classList.toggle('hidden', subTab !== 'achievements');
             document.getElementById('sub-history-btn').classList.toggle('pill-active', subTab === 'history');
             document.getElementById('sub-leaderboard-btn').classList.toggle('pill-active', subTab === 'leaderboard');
-            document.getElementById('sub-achievements-btn').classList.toggle('pill-active', subTab === 'achievements');
         };
+
+        // ─── DROPDOWN CONTROL ───
+        window.closeDropdown = function() {
+            document.getElementById('user-dropdown').classList.remove('open');
+        };
+
+        document.getElementById('user-menu-trigger')?.addEventListener('click', function(e) {
+            e.stopPropagation();
+            document.getElementById('user-dropdown').classList.toggle('open');
+        });
+
+        document.addEventListener('click', function(e) {
+            const dd = document.getElementById('user-dropdown');
+            const trigger = document.getElementById('user-menu-trigger');
+            if (dd && trigger && !dd.contains(e.target) && !trigger.contains(e.target)) {
+                dd.classList.remove('open');
+            }
+        });
 
         // ─── AUTH FUNCTIONS ───
         window.openAuthModal = function() {
@@ -1998,13 +2089,14 @@
                     username: name.toLowerCase().replace(/\s+/g, '_') + '_' + uid.substring(0, 4),
                     email: email,
                     photoUrl: photoUrl,
-                    countryCode: 'BD', // default
+                    countryCode: 'BD',
                     totalTests: 0,
                     totalWords: 0,
                     totalTime: 0,
                     bestWpm: 0,
                     bestAccuracy: 0,
                     rank: 'Unranked',
+                    totalReward: 0,
                     createdAt: serverTimestamp(),
                     updatedAt: serverTimestamp()
                 };
@@ -2014,9 +2106,7 @@
                     language: 'english',
                     difficulty: 'easy',
                     mode: '',
-                    limitType: 'time',
                     timeLimit: 30,
-                    wordLimit: 25,
                     theme: 'cyber',
                     soundProfile: 'blue',
                     updatedAt: serverTimestamp()
@@ -2107,7 +2197,6 @@
                     if (snap.exists()) {
                         userProfileData = snap.data();
                         const d = userProfileData;
-                        // Avatar
                         const avatarEl = document.getElementById('profile-avatar');
                         if (d.photoUrl) {
                             avatarEl.innerHTML = `<img src="${d.photoUrl}" class="w-full h-full object-cover rounded-full" alt="Avatar" />`;
@@ -2121,10 +2210,8 @@
                         document.getElementById('p-tests').textContent = d.totalTests || 0;
                         document.getElementById('p-words').textContent = d.totalWords || 0;
                         document.getElementById('p-rank').textContent = d.rank || '—';
-                        // Country flag
-                        const flag = getFlagEmoji(d.countryCode || 'BD');
-                        document.getElementById('p-country').textContent = flag;
-                        // Set select value
+                        const flag = getFlagHtml(d.countryCode || 'BD');
+                        document.getElementById('p-country').innerHTML = flag;
                         const select = document.getElementById('country-select');
                         if (select) select.value = d.countryCode || 'BD';
                     }
@@ -2139,17 +2226,23 @@
                 document.getElementById('p-tests').textContent = '0';
                 document.getElementById('p-words').textContent = '0';
                 document.getElementById('p-rank').textContent = '—';
-                document.getElementById('p-country').textContent = '🌍';
+                document.getElementById('p-country').innerHTML = '🌍';
                 const select = document.getElementById('country-select');
                 if (select) select.value = 'BD';
             }
         }
 
-        // ─── FLAG EMOJI HELPER ───
-        function getFlagEmoji(countryCode) {
+        // ─── FLAG EMOJI & IMAGE FALLBACK ───
+        function getFlagHtml(countryCode) {
             if (!countryCode) return '🌍';
-            const codePoints = countryCode.toUpperCase().split('').map(char => 127397 + char.charCodeAt(0));
-            return String.fromCodePoint(...codePoints);
+            const lower = countryCode.toLowerCase();
+            // Use flagcdn for cross-browser image support. Falls back to emoji if image fails.
+            return `<span class="flag-wrapper">
+                <img src="https://flagcdn.com/24x18/${lower}.png" 
+                     onerror="this.style.display='none'; this.nextElementSibling.style.display='inline'" 
+                     alt="${countryCode}" style="vertical-align:middle; margin-right:4px; border-radius:2px;"> 
+                <span style="display:none">${String.fromCodePoint(...countryCode.toUpperCase().split('').map(c => 127397 + c.charCodeAt(0)))}</span>
+            </span>`;
         }
 
         // ─── COUNTRY UPDATE ───
@@ -2185,11 +2278,9 @@
             input.value = userProfileData?.photoUrl || '';
             updatePhotoPreview(input.value);
         };
-
         window.closePhotoEditor = function() {
             document.getElementById('photo-modal').classList.remove('open');
         };
-
         function updatePhotoPreview(url) {
             const preview = document.getElementById('photo-preview');
             if (url && url.trim() !== '') {
@@ -2198,12 +2289,9 @@
                 preview.innerHTML = '<i class="fa-solid fa-user"></i>';
             }
         }
-
-        // Listen to input changes for preview
         document.getElementById('photo-url-input')?.addEventListener('input', function(e) {
             updatePhotoPreview(e.target.value);
         });
-
         window.saveProfilePhoto = async function() {
             if (!isRegisteredUser || !currentUser) {
                 showToast('Please sign in to save photo.');
@@ -2218,7 +2306,6 @@
                 const userRef = doc(db, 'users', currentUser.uid);
                 await setDoc(userRef, { photoUrl: url }, { merge: true });
                 userProfileData.photoUrl = url;
-                // Update current user's photoURL in auth as well
                 try {
                     await updateProfile(currentUser, { photoURL: url });
                 } catch (e) { /* ignore if not possible */ }
@@ -2248,24 +2335,6 @@
             }, 3000);
         }
 
-        // ─── DROPDOWN ───
-        function closeDropdown() {
-            document.getElementById('user-dropdown').classList.remove('open');
-        }
-
-        document.getElementById('user-menu-trigger')?.addEventListener('click', function(e) {
-            e.stopPropagation();
-            document.getElementById('user-dropdown').classList.toggle('open');
-        });
-
-        document.addEventListener('click', function(e) {
-            const dd = document.getElementById('user-dropdown');
-            const trigger = document.getElementById('user-menu-trigger');
-            if (dd && trigger && !dd.contains(e.target) && !trigger.contains(e.target)) {
-                dd.classList.remove('open');
-            }
-        });
-
         // ─── AUTH STATE OBSERVER ───
         onAuthStateChanged(auth, async (user) => {
             if (user) {
@@ -2287,14 +2356,12 @@
                 updateUserUI(user);
                 syncLeaderboard();
                 syncPersonalBestDashboard();
-                // Load announcement reads for this user
                 loadAnnouncementReads(uid);
             } else {
                 currentUser = null;
                 isRegisteredUser = false;
                 userProfileData = null;
                 updateUserUI(null);
-                // Clear announcement reads cache
                 announcementReadsCache = {};
                 updateAnnouncementBadge();
             }
@@ -2336,11 +2403,8 @@
                 }
             });
 
-            // Removed stats and settings nav buttons (they are now in dropdown)
-            // Announcement bell
             document.getElementById('announcement-btn')?.addEventListener('click', () => {
                 openAnnouncements();
-                // Mark all as read when opening
                 if (currentUser) {
                     markAllAnnouncementsAsRead(currentUser.uid);
                 }
@@ -2351,13 +2415,13 @@
         async function initCloudData() {
             await loadAppConfig();
             loadAdConfig();
-            loadAnnouncements(); // ← now populates the announcements page, not the bar
+            loadAnnouncements();
             loadAchievements();
-            loadDailyChallenge();
+            // loadDailyChallenge(); // REMOVED
             loadTimeLimits();
-            loadWordLimits();
-            await loadWords();
+            loadWordLimits(); // RETRO-COMPATIBLE BUT NOT USED
             await loadSentences();
+            await loadParagraphs();
             initTest();
         }
 
@@ -2399,7 +2463,7 @@
             });
         }
 
-        // 3. Load Announcements – now only for the Announcements page (no bar)
+        // 3. Load Announcements
         function loadAnnouncements() {
             const q = query(collection(db, 'announcements'), where('active', '==', true), orderBy('sortOrder', 'asc'));
             onSnapshot(q, (snapshot) => {
@@ -2416,19 +2480,15 @@
                         updatedAt: data.updatedAt || null
                     });
                 });
-                // Sort by sortOrder (ascending), then by createdAt (newest first)
                 announcementsCache.sort((a, b) => {
                     if (a.sortOrder !== b.sortOrder) return a.sortOrder - b.sortOrder;
                     return (b.createdAt?.toMillis?.() || 0) - (a.createdAt?.toMillis?.() || 0);
                 });
-                // If user is logged in, load reads for this user
                 if (currentUser) {
                     loadAnnouncementReads(currentUser.uid);
                 } else {
-                    // If guest, badge is hidden (no reads)
                     updateAnnouncementBadge();
                 }
-                // If announcements page is open, re-render
                 if (!document.getElementById('page-announcements').classList.contains('hidden')) {
                     renderAnnouncementsPage();
                 }
@@ -2436,7 +2496,7 @@
         }
 
         // ─── ANNOUNCEMENT READ STATUS ───
-        let announcementReadsCache = {}; // key: announcementId, value: true/false
+        let announcementReadsCache = {};
 
         async function loadAnnouncementReads(userId) {
             if (!userId) return;
@@ -2474,7 +2534,6 @@
             if (!userId) return;
             const unread = announcementsCache.filter(a => !announcementReadsCache[a.id]);
             if (unread.length === 0) return;
-            // Batch write for efficiency
             const batch = writeBatch(db);
             unread.forEach(ann => {
                 const readRef = doc(collection(db, 'announcement_reads'));
@@ -2486,10 +2545,8 @@
             });
             try {
                 await batch.commit();
-                // Update cache
                 unread.forEach(ann => { announcementReadsCache[ann.id] = true; });
                 updateAnnouncementBadge();
-                // Re-render announcements page if open
                 if (!document.getElementById('page-announcements').classList.contains('hidden')) {
                     renderAnnouncementsPage();
                 }
@@ -2502,14 +2559,12 @@
             const badge = document.getElementById('announcement-badge');
             let unreadCount = 0;
             if (currentUser) {
-                // For registered users, compute unread from cache
                 announcementsCache.forEach(ann => {
                     if (!announcementReadsCache[ann.id]) {
                         unreadCount++;
                     }
                 });
             } else {
-                // Guests: no badge
                 unreadCount = 0;
             }
             if (unreadCount > 0) {
@@ -2520,7 +2575,6 @@
             }
         }
 
-        // ─── ANNOUNCEMENTS UI ───
         function renderAnnouncementsPage() {
             const container = document.getElementById('announcements-list');
             const countEl = document.getElementById('announcement-count');
@@ -2545,7 +2599,6 @@
                 const card = document.createElement('div');
                 card.className = 'announcement-card flex items-start gap-4 md:gap-5';
 
-                // Format date
                 let dateStr = 'Just now';
                 if (item.createdAt) {
                     try {
@@ -2562,13 +2615,10 @@
                     }
                 }
 
-                // Icon based on title or index
                 const icons = ['fa-solid fa-bullhorn', 'fa-solid fa-star', 'fa-solid fa-circle-info', 'fa-solid fa-gift',
                     'fa-solid fa-trophy', 'fa-solid fa-megaphone'
                 ];
                 const icon = icons[index % icons.length];
-
-                // Check read status
                 const isRead = currentUser && announcementReadsCache[item.id] === true;
 
                 card.innerHTML = `
@@ -2592,108 +2642,39 @@
             });
         }
 
-        // 4. Load Achievements
+        // 4. Load Achievements (Global)
         function loadAchievements() {
-            const container = document.getElementById('achievements-container');
-            const q = collection(db, 'achievements');
-            onSnapshot(q, (snapshot) => {
-                if (snapshot.empty) {
-                    container.innerHTML =
-                        `<div class="col-span-full text-center text-slate-500 text-sm py-6">No achievements found</div>`;
-                    return;
-                }
-                container.innerHTML = '';
-                snapshot.forEach(doc => {
-                    const data = doc.data();
-                    const card = document.createElement('div');
-                    card.className = 'glass-panel rounded-xl p-4 text-center hover:border-cyan-500/30 transition';
-                    const isUnlocked = (userProfileData?.bestWpm || 0) >= (data.requiredWpm || 0);
-                    card.innerHTML = `
-                        <div class="text-3xl mb-1 ${isUnlocked ? 'text-[#00ffcc]' : 'text-slate-600'}"><i class="${data.icon || 'fa-solid fa-trophy'}"></i></div>
-                        <div class="text-xs font-bold text-white">${data.title || 'Achievement'}</div>
-                        <div class="text-[9px] text-slate-400">${isUnlocked ? '✅ Unlocked' : `🔒 Need ${data.requiredWpm} WPM`}</div>
-                        <div class="text-[9px] text-teal-300 font-bold mt-1">Reward: ${data.reward || 'N/A'}</div>
-                    `;
-                    container.appendChild(card);
-                });
-            });
+            // Used for the Achievements Page. No need to populate container here as it's handled by syncAchievementsPage.
         }
 
-        // 5. Load Daily Challenge
-        function loadDailyChallenge() {
-            const today = new Date().toISOString().split('T')[0];
-            const q = query(collection(db, 'daily_challenges'), where('date', '>=', today));
-            onSnapshot(q, (snapshot) => {
-                snapshot.forEach(doc => {
-                    const data = doc.data();
-                    console.log(`Daily Challenge: ${data.language} - ${data.targetWpm} WPM, Reward: ${data.reward}`);
-                });
-            });
-        }
-
-        // 6. Load Time Limits
+        // 5. Load Time Limits
         function loadTimeLimits() {
             const container = document.getElementById('time-buttons');
             const q = query(collection(db, 'time_limits'), orderBy('sortOrder'));
             onSnapshot(q, (snapshot) => {
-                container.innerHTML = '';
+                timeLimitOptions = [];
                 snapshot.forEach(doc => {
                     const data = doc.data();
                     if (data.active !== false) {
-                        const btn = document.createElement('button');
-                        btn.className = `settings-option-btn settings-option-btn-small`;
-                        btn.dataset.seconds = data.seconds;
-                        btn.textContent = `${data.seconds}s`;
-                        btn.onclick = () => settingsSetTimeLimit(data.seconds);
-                        container.appendChild(btn);
+                        timeLimitOptions.push({
+                            type: data.type || 'sentences',
+                            seconds: data.seconds,
+                            sortOrder: data.sortOrder || 0
+                        });
                     }
                 });
+                // Sort by sortOrder then by seconds
+                timeLimitOptions.sort((a, b) => (a.sortOrder || 0) - (b.sortOrder || 0) || a.seconds - b.seconds);
                 syncSettingsUI();
             });
         }
 
-        // 7. Load Word Limits
+        // 6. Load Word Limits (No longer used by UI, kept for compatibility)
         function loadWordLimits() {
-            const container = document.getElementById('word-buttons');
-            const q = collection(db, 'word_limits');
-            onSnapshot(q, (snapshot) => {
-                container.innerHTML = '';
-                snapshot.forEach(doc => {
-                    const data = doc.data();
-                    if (data.active !== false) {
-                        const btn = document.createElement('button');
-                        btn.className = `settings-option-btn settings-option-btn-small settings-word-option`;
-                        btn.dataset.count = data.count;
-                        btn.textContent = data.count;
-                        btn.onclick = () => settingsSetWordLimit(data.count);
-                        container.appendChild(btn);
-                    }
-                });
-                syncSettingsUI();
-            });
+            // Deprecated
         }
 
-        // 8. Load Words
-        async function loadWords() {
-            const engQ = query(collection(db, 'english_words'), where('active', '==', true));
-            const engSnap = await getDocs(engQ);
-            engSnap.forEach(doc => {
-                const data = doc.data();
-                const key = `english_${data.type}`;
-                if (wordsCache[key]) wordsCache[key].push(data.word_name);
-            });
-
-            const banQ = query(collection(db, 'bangla_words'), where('active', '==', true));
-            const banSnap = await getDocs(banQ);
-            banSnap.forEach(doc => {
-                const data = doc.data();
-                const key = `bangla_${data.type}`;
-                if (wordsCache[key]) wordsCache[key].push(data.word_name);
-            });
-            console.log('Vocabulary synced from Firestore.');
-        }
-
-        // 9. Load Sentences
+        // 7. Load Sentences
         async function loadSentences() {
             const q = query(collection(db, 'sentences'), where('active', '==', true), orderBy('sortOrder'));
             const snap = await getDocs(q);
@@ -2716,31 +2697,44 @@
             console.log('Sentences synced from Firestore.');
         }
 
-        // ─── PARAGRAPH GENERATOR ───
-        function generateParagraphFromWords(lang, diff, count) {
-            const key = `${lang}_${diff}`;
-            const vocab = wordsCache[key] || [];
-            if (vocab.length === 0) {
-                return lang === 'english' ? "No words available in database." : "No words available in database.";
+        // 8. Load Paragraphs
+        async function loadParagraphs() {
+            const q = query(collection(db, 'paragraphs'), where('active', '==', true), orderBy('sortOrder'));
+            const snap = await getDocs(q);
+            snap.forEach(doc => {
+                const data = doc.data();
+                const key = `${data.language}_${data.difficulty}`;
+                if (Cache[key]) {
+                    Cache[key].push({
+                        text: data.text,
+                        language: data.language,
+                        difficulty: data.difficulty,
+                        sortOrder: data.sortOrder || 0,
+                        id: doc.id
+                    });
+                }
+            });
+            for (const key in Cache) {
+                Cache[key].sort((a, b) => (a.sortOrder || 0) - (b.sortOrder || 0));
             }
-            const paragraph = [];
-            for (let i = 0; i < count; i++) {
-                const randomIndex = Math.floor(Math.random() * vocab.length);
-                paragraph.push(vocab[randomIndex]);
-            }
-            let result = paragraph.join(" ");
-            if (lang === 'english') {
-                result = result.charAt(0).toUpperCase() + result.slice(1);
-            }
-            return result;
+            console.log('Paragraphs synced from Firestore.');
         }
 
-        // ─── SENTENCE LOADER ───
+        // ─── SENTENCE/PARAGRAPH LOADERS ───
         function loadSentenceFromCache(lang, diff) {
             const key = `${lang}_${diff}`;
             const s = Cache[key] || [];
             if (s.length === 0) {
                 return lang === 'english' ? "No sentences available in the database." : "No sentences available in the database.";
+            }
+            const randomIndex = Math.floor(Math.random() * s.length);
+            return s[randomIndex].text;
+        }
+        function loadParagraphFromCache(lang, diff) {
+            const key = `${lang}_${diff}`;
+            const s = Cache[key] || [];
+            if (s.length === 0) {
+                return lang === 'english' ? "No paragraphs available in the database." : "No paragraphs available in the database.";
             }
             const randomIndex = Math.floor(Math.random() * s.length);
             return s[randomIndex].text;
@@ -2763,14 +2757,11 @@
 
             if (testMode === '') {
                 currentSentenceText = loadSentenceFromCache(language, difficulty);
-                wordsArray = currentSentenceText.split(" ");
-                secondsRemaining = timeLimit;
             } else {
-                const wordCount = limitType === 'words' ? wordLimit : Math.min(wordLimit, 50);
-                currentSentenceText = generateParagraphFromWords(language, difficulty, wordCount);
-                wordsArray = currentSentenceText.split(" ");
-                secondsRemaining = limitType === 'time' ? timeLimit : 0;
+                currentSentenceText = loadParagraphFromCache(language, difficulty);
             }
+            wordsArray = currentSentenceText.split(" ");
+            secondsRemaining = timeLimit;
 
             renderWordsDisplay();
             updateLiveStatsDisplay();
@@ -2913,25 +2904,16 @@
                 timeElapsed++;
                 plotTimeline.push(timeElapsed);
                 plotWpmRecord.push(calculateWpm());
-                if (limitType === 'time' || testMode === '') {
-                    secondsRemaining--;
-                    if (secondsRemaining <= 0) finishTest();
-                } else {
-                    secondsRemaining = timeElapsed;
-                }
+                secondsRemaining--;
+                if (secondsRemaining <= 0) finishTest();
                 updateLiveStatsDisplay();
             }, 1000);
         }
 
         function updateLiveStatsDisplay() {
             let progressPct = 0;
-            if (limitType === 'time' || testMode === '') {
-                progressPct = Math.round(((timeLimit - secondsRemaining) / timeLimit) * 100);
-                document.getElementById('live-timer').textContent = secondsRemaining;
-            } else {
-                progressPct = Math.round((activeWordIndex / wordsArray.length) * 100);
-                document.getElementById('live-timer').textContent = timeElapsed;
-            }
+            progressPct = Math.round(((timeLimit - secondsRemaining) / timeLimit) * 100);
+            document.getElementById('live-timer').textContent = secondsRemaining;
             document.getElementById('live-wpm').textContent = calculateWpm();
             document.getElementById('live-accuracy').textContent = `${calculateAccuracy()}%`;
             document.getElementById('live-errors').textContent = wrongKeystrokes;
@@ -2987,7 +2969,7 @@
             saveLocalSessionLog(finalWpm, finalAccuracy, correctWordsCount, wrongWordsCount, timeElapsed);
 
             if (isRegisteredUser && currentUser) {
-                await saveResultToCloud(finalWpm, finalAccuracy, correctWordsCount, wrongWordsCount, totalKeystrokes);
+                await saveResultToCloud(finalWpm, finalAccuracy, correctWordsCount, wrongWordsCount, totalKeystrokes, timeElapsed);
             }
 
             renderPerformanceChart();
@@ -3029,8 +3011,8 @@
             });
         }
 
-        // ─── CLOUD SAVE ───
-        async function saveResultToCloud(wpm, accuracy, correctWords, wrongWords, totalChars) {
+        // ─── CLOUD SAVE & ACHIEVEMENT LOGIC ───
+        async function saveResultToCloud(wpm, accuracy, correctWords, wrongWords, totalChars, duration) {
             if (!db || !currentUser) return;
             const uid = currentUser.uid;
             try {
@@ -3044,66 +3026,101 @@
                     difficulty: String(difficulty),
                     mode: String(testMode),
                     timeLimit: Number(timeLimit),
-                    wordLimit: Number(wordLimit),
-                    duration: Number(timeElapsed),
+                    duration: Number(duration),
                     createdAt: serverTimestamp()
                 });
 
                 const userRef = doc(db, 'users', uid);
                 const snap = await getDoc(userRef);
-                if (snap.exists()) {
-                    const data = snap.data();
-                    const newBestWpm = Math.max(data.bestWpm || 0, wpm);
-                    const newBestAcc = Math.max(data.bestAccuracy || 0, accuracy);
-                    const newTotalTests = (data.totalTests || 0) + 1;
-                    const newTotalWords = (data.totalWords || 0) + correctWords + wrongWords;
-                    const newTotalTime = (data.totalTime || 0) + timeElapsed;
+                let data = snap.exists() ? snap.data() : {};
+                const newBestWpm = Math.max(data.bestWpm || 0, wpm);
+                const newBestAcc = Math.max(data.bestAccuracy || 0, accuracy);
+                const newTotalTests = (data.totalTests || 0) + 1;
+                const newTotalWords = (data.totalWords || 0) + correctWords + wrongWords;
+                const newTotalTime = (data.totalTime || 0) + duration;
 
-                    await setDoc(userRef, {
-                        bestWpm: newBestWpm,
-                        bestAccuracy: newBestAcc,
-                        totalTests: newTotalTests,
-                        totalWords: newTotalWords,
-                        totalTime: newTotalTime,
-                        updatedAt: serverTimestamp()
-                    }, { merge: true });
-                    userProfileData = { ...data, bestWpm: newBestWpm, bestAccuracy: newBestAcc, totalTests: newTotalTests,
-                        totalWords: newTotalWords, totalTime: newTotalTime };
+                // Determine final reward dynamically
+                let totalReward = 0;
+                const achSnap = await getDocs(collection(db, 'achievements'));
+                let eligibleAchievements = [];
+                achSnap.forEach(doc => {
+                    const achData = doc.data();
+                    if (achData.requiredWpm <= newBestWpm) {
+                        eligibleAchievements.push({ id: doc.id, ...achData });
+                        totalReward += (achData.reward || 0);
+                    }
+                });
+
+                // Sync user's achievement sub-collection
+                const batch = writeBatch(db);
+                const userAchRef = collection(db, 'users', uid, 'achievements');
+                const currAchSnap = await getDocs(userAchRef);
+                let currAchIds = new Set();
+                currAchSnap.forEach(doc => currAchIds.add(doc.id));
+
+                // Remove badges that are no longer eligible
+                for (let id of currAchIds) {
+                    if (!eligibleAchievements.find(a => a.id === id)) {
+                        batch.delete(doc(db, 'users', uid, 'achievements', id));
+                    }
+                }
+                // Add new badges
+                for (let ach of eligibleAchievements) {
+                    if (!currAchIds.has(ach.id)) {
+                        const newRef = doc(collection(db, 'users', uid, 'achievements'));
+                        batch.set(newRef, {
+                            achievementId: ach.id,
+                            title: ach.title,
+                            icon: ach.icon,
+                            requiredWpm: ach.requiredWpm,
+                            reward: ach.reward,
+                            sortOrder: ach.sortOrder || 0,
+                            achievedAt: serverTimestamp()
+                        });
+                    }
                 }
 
+                await setDoc(userRef, {
+                    bestWpm: newBestWpm,
+                    bestAccuracy: newBestAcc,
+                    totalTests: newTotalTests,
+                    totalWords: newTotalWords,
+                    totalTime: newTotalTime,
+                    totalReward: totalReward,
+                    updatedAt: serverTimestamp()
+                }, { merge: true });
+                await batch.commit();
+
+                userProfileData = { ...data, bestWpm: newBestWpm, bestAccuracy: newBestAcc, totalTests: newTotalTests,
+                    totalWords: newTotalWords, totalTime: newTotalTime, totalReward: totalReward };
+
+                // Update Leaderboard with Reward priority
                 const lbRef = doc(db, 'leaderboard', uid);
                 const lbSnap = await getDoc(lbRef);
-                if (lbSnap.exists()) {
-                    const lbData = lbSnap.data();
-                    const newBest = Math.max(lbData.bestWpm || 0, wpm);
-                    const newAcc = Math.max(lbData.bestAccuracy || 0, accuracy);
-                    const newTests = (lbData.totalTests || 0) + 1;
-                    const newAvg = ((lbData.averageWpm || 0) * (lbData.totalTests || 0) + wpm) / newTests;
-                    await setDoc(lbRef, {
-                        bestWpm: newBest,
-                        bestAccuracy: newAcc,
-                        averageWpm: Math.round(newAvg),
-                        totalTests: newTests,
-                        updatedAt: serverTimestamp()
-                    }, { merge: true });
-                } else {
-                    const name = userProfileData?.name || currentUser.displayName || currentUser.email?.split('@')[0] ||
-                    'User';
-                    const photo = userProfileData?.photoUrl || currentUser.photoURL || '';
-                    const countryCode = userProfileData?.countryCode || 'BD';
-                    await setDoc(lbRef, {
-                        userId: uid,
-                        name: name,
-                        photoUrl: photo,
-                        countryCode: countryCode,
-                        bestWpm: Number(wpm),
-                        bestAccuracy: Number(accuracy),
-                        averageWpm: Number(wpm),
-                        totalTests: 1,
-                        rank: 'Unranked',
-                        updatedAt: serverTimestamp()
-                    });
+                const name = userProfileData?.name || currentUser.displayName || currentUser.email?.split('@')[0] || 'User';
+                const photo = userProfileData?.photoUrl || currentUser.photoURL || '';
+                const countryCode = userProfileData?.countryCode || 'BD';
+                const newTests = (lbSnap.data()?.totalTests || 0) + 1;
+                const newAvg = ((lbSnap.data()?.averageWpm || 0) * (lbSnap.data()?.totalTests || 0) + wpm) / newTests;
+
+                await setDoc(lbRef, {
+                    userId: uid,
+                    name: name,
+                    photoUrl: photo,
+                    countryCode: countryCode,
+                    bestWpm: newBestWpm,
+                    bestAccuracy: newBestAcc,
+                    averageWpm: Math.round(newAvg),
+                    totalTests: newTests,
+                    totalReward: totalReward,
+                    updatedAt: serverTimestamp()
+                }, { merge: true });
+
+                // If the Achievements page is open, refresh it
+                if (!document.getElementById('page-achievements').classList.contains('hidden')) {
+                    syncAchievementsPage();
                 }
+
                 syncLeaderboard();
                 syncPersonalBestDashboard();
             } catch (err) {
@@ -3139,7 +3156,6 @@
             const pbsCount = document.getElementById('pbs-count');
 
             if (isRegisteredUser && currentUser) {
-                // Load from Firestore: typing_history where userId == currentUser.uid
                 try {
                     const q = query(collection(db, 'typing_history'), where('userId', '==', currentUser.uid), orderBy('createdAt', 'desc'));
                     const snap = await getDocs(q);
@@ -3185,7 +3201,6 @@
                         `<tr><td colspan="5" class="px-3 md:px-6 py-6 md:py-10 text-center text-slate-500">Error loading history.</td></tr>`;
                 }
             } else {
-                // Guest: use local storage
                 let logs = [];
                 try { logs = JSON.parse(localStorage.getItem('swifttype_v3_history') || '[]'); } catch (e) {}
                 if (logs.length === 0) {
@@ -3222,9 +3237,6 @@
 
         window.clearLocalHistory = function() {
             if (isRegisteredUser && currentUser) {
-                // For registered users, we should delete from Firestore? We'll only clear local cache.
-                // Actually, we might want to delete all typing_history for user, but we'll keep it simple.
-                // For now, we only clear local storage for guest.
                 alert('For registered users, history is stored in cloud. Use the dashboard to manage.');
                 return;
             }
@@ -3232,22 +3244,23 @@
             syncPersonalBestDashboard();
         };
 
-        // ─── LEADERBOARD ───
+        // ─── LEADERBOARD (SORT BY REWARD THEN WPM) ───
         async function syncLeaderboard() {
             const body = document.getElementById('leaderboard-rows');
             if (!db) {
                 body.innerHTML =
-                    `<tr><td colspan="5" class="px-3 md:px-6 py-6 md:py-10 text-center text-slate-500">Cloud disconnected.</td></tr>`;
+                    `<tr><td colspan="6" class="px-3 md:px-6 py-6 md:py-10 text-center text-slate-500">Cloud disconnected.</td></tr>`;
                 return;
             }
             try {
-                const q = query(collection(db, 'leaderboard'), orderBy('bestWpm', 'desc'), firestoreLimit(20));
+                // Requires Composite Index in Firestore: totalReward desc, bestWpm desc, bestAccuracy desc
+                const q = query(collection(db, 'leaderboard'), orderBy('totalReward', 'desc'), orderBy('bestWpm', 'desc'), orderBy('bestAccuracy', 'desc'), firestoreLimit(20));
                 const querySnapshot = await getDocs(q);
                 let list = [];
                 querySnapshot.forEach(doc => { list.push({ id: doc.id, ...doc.data() }); });
                 if (list.length === 0) {
                     body.innerHTML =
-                        `<tr><td colspan="5" class="px-3 md:px-6 py-6 md:py-10 text-center text-slate-500">Leaderboard is empty.</td></tr>`;
+                        `<tr><td colspan="6" class="px-3 md:px-6 py-6 md:py-10 text-center text-slate-500">Leaderboard is empty.</td></tr>`;
                     return;
                 }
                 body.innerHTML = "";
@@ -3257,7 +3270,7 @@
                     const isMe = isRegisteredUser && currentUser && data.userId === currentUser.uid;
                     tr.className = `border-b border-slate-900/60 ${isMe ? 'bg-teal-500/5' : ''}`;
                     const nameDisplay = data.name || data.userId?.substring(0, 10) + '...' || 'Anonymous';
-                    const flag = getFlagEmoji(data.countryCode || 'BD');
+                    const flag = getFlagHtml(data.countryCode || 'BD');
                     tr.innerHTML = `
                     <td class="px-3 md:px-6 py-2 md:py-4 font-extrabold text-[#00ffcc]">${rank}</td>
                     <td class="px-3 md:px-6 py-2 md:py-4 font-mono-custom text-[10px] md:text-xs text-slate-400 flex items-center gap-2">
@@ -3268,14 +3281,110 @@
                     <td class="px-3 md:px-6 py-2 md:py-4 font-bold text-white">${data.bestWpm || 0} WPM</td>
                     <td class="px-3 md:px-6 py-2 md:py-4 font-bold text-emerald-400">${data.bestAccuracy || 0}%</td>
                     <td class="px-3 md:px-6 py-2 md:py-4 text-[9px] md:text-xs font-bold uppercase text-slate-500">${data.totalTests || 0} tests</td>
+                    <td class="px-3 md:px-6 py-2 md:py-4 font-bold text-amber-400">${data.totalReward || 0}</td>
                 `;
                     body.appendChild(tr);
                 });
             } catch (err) {
                 console.error('Leaderboard error:', err);
                 body.innerHTML =
-                    `<tr><td colspan="5" class="px-3 md:px-6 py-6 md:py-10 text-center text-slate-500">Error loading leaderboard.</td></tr>`;
+                    `<tr><td colspan="6" class="px-3 md:px-6 py-6 md:py-10 text-center text-slate-500">Error loading leaderboard. (Index Required?)</td></tr>`;
             }
+        }
+
+        // ─── ACHIEVEMENTS PAGE SYNC ───
+        window.syncAchievementsPage = async function() {
+            if (!isRegisteredUser || !currentUser) {
+                document.getElementById('achievements-history-rows').innerHTML = `<div class="text-center text-slate-500 text-sm py-6">Please sign in to see your achievements.</div>`;
+                document.getElementById('ach-total-badges').textContent = '0';
+                document.getElementById('ach-total-rewards').textContent = '0';
+                document.getElementById('ach-highest-wpm').textContent = '0';
+                document.getElementById('ach-latest-badge').textContent = '—';
+                return;
+            }
+
+            const uid = currentUser.uid;
+            const userRef = doc(db, 'users', uid);
+            const userSnap = await getDoc(userRef);
+            const userData = userSnap.data() || {};
+            const highestWpm = userData.bestWpm || 0;
+
+            document.getElementById('ach-highest-wpm').textContent = highestWpm;
+
+            const achRef = collection(db, 'users', uid, 'achievements');
+            const q = query(achRef, orderBy('achievedAt', 'desc'));
+            const snap = await getDocs(q);
+
+            let totalReward = 0;
+            let latestBadge = '—';
+            let items = [];
+
+            snap.forEach(doc => {
+                const data = doc.data();
+                totalReward += (data.reward || 0);
+                items.push(data);
+                if (items.length === 1) latestBadge = data.title || 'Badge';
+            });
+
+            document.getElementById('ach-total-badges').textContent = items.length;
+            document.getElementById('ach-total-rewards').textContent = totalReward;
+            document.getElementById('ach-latest-badge').textContent = latestBadge;
+            document.getElementById('achievement-count').textContent = `${items.length} badges`;
+
+            const container = document.getElementById('achievements-history-rows');
+            if (items.length === 0) {
+                container.innerHTML = `<div class="text-center text-slate-500 text-sm py-6">No achievements unlocked yet. Keep typing to earn badges!</div>`;
+            } else {
+                container.innerHTML = '';
+                items.forEach(item => {
+                    const div = document.createElement('div');
+                    div.className = 'glass-panel rounded-2xl p-4 flex items-center gap-4 mb-3 transition hover:border-cyan-500/20';
+                    const dateStr = item.achievedAt?.toDate ? item.achievedAt.toDate().toLocaleDateString() : 'Just now';
+                    div.innerHTML = `
+                        <div class="text-3xl w-12 text-center text-[#00ffcc]"><i class="${item.icon || 'fa-solid fa-trophy'}"></i></div>
+                        <div class="flex-1">
+                            <div class="flex flex-wrap items-center gap-2">
+                                <h4 class="text-sm font-bold text-white">${item.title || 'Achievement'}</h4>
+                                <span class="text-[9px] bg-slate-800 text-slate-400 px-2 py-0.5 rounded border border-slate-700">Req: ${item.requiredWpm} WPM</span>
+                            </div>
+                            <div class="flex justify-between mt-1">
+                                <span class="text-[10px] text-slate-500">Badge ID: ${item.achievementId?.slice(0,8)}</span>
+                                <span class="text-[10px] font-bold text-amber-400">+${item.reward || 0} Points</span>
+                                <span class="text-[10px] text-slate-500 font-mono-custom">${dateStr}</span>
+                            </div>
+                        </div>
+                    `;
+                    container.appendChild(div);
+                });
+            }
+
+            renderAchievementChart(items.length, totalReward, highestWpm);
+        };
+
+        function renderAchievementChart(badges, rewards, wpm) {
+            const ctx = document.getElementById('achievementChart').getContext('2d');
+            if (achievementChartInstance) achievementChartInstance.destroy();
+            achievementChartInstance = new Chart(ctx, {
+                type: 'doughnut',
+                data: {
+                    labels: ['Badges Earned', 'Total Rewards', 'Best Speed'],
+                    datasets: [{
+                        data: [badges || 0, rewards || 0, wpm || 0],
+                        backgroundColor: ['#00ffcc', '#ffa700', '#00ff88'],
+                        borderColor: '#060814',
+                        borderWidth: 4
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            labels: { color: '#9fa9bf', font: { family: 'Plus Jakarta Sans', size: 10 } }
+                        }
+                    }
+                }
+            });
         }
 
         // ─── THEME & SOUND ───
