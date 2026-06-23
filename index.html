@@ -854,7 +854,7 @@
 
             <!-- Sound -->
             <div class="flex items-center gap-0.5 bg-slate-900/60 p-0.5 md:p-1 rounded-xl border border-slate-800">
-                <span class="text-[7px] md:text-[9px] text-slate-500 uppercase px-1.5 font-bold">সাউন্ড:</span>
+                <span class="text-[7px] md:text-[9px] text-slate-500 uppercase px-1.5 font-bold">Sound:</span>
                 <button onclick="setSoundProfile('blue')" id="sp-blue" class="px-1.5 md:px-2 py-0.5 md:py-1 rounded bg-slate-800 text-[8px] md:text-[10px] text-[#00ffcc] font-bold border border-teal-500/30 transition">Blue</button>
                 <button onclick="setSoundProfile('brown')" id="sp-brown" class="px-1.5 md:px-2 py-0.5 md:py-1 rounded text-[8px] md:text-[10px] text-slate-400 hover:text-white transition">Brown</button>
                 <button onclick="setSoundProfile('bubble')" id="sp-bubble" class="px-1.5 md:px-2 py-0.5 md:py-1 rounded text-[8px] md:text-[10px] text-slate-400 hover:text-white transition">Bubble</button>
@@ -956,7 +956,7 @@
         <div class="text-center max-w-md px-6">
             <div class="text-6xl mb-4 text-amber-400"><i class="fa-solid fa-screwdriver-wrench"></i></div>
             <h2 class="text-2xl font-black text-white mb-2">Under Maintenance</h2>
-            <p class="text-slate-400 text-sm">আমরা ওয়েবসাইটটি আপডেট করছি। খুব শীঘ্রই এটি আবার চালু হবে।</p>
+            <p class="text-slate-400 text-sm">We are updating the website. It will be back online shortly.</p>
         </div>
     </div>
 
@@ -1028,8 +1028,8 @@
                             <div class="w-10 h-10 md:w-14 md:h-14 rounded-full bg-teal-500/10 flex items-center justify-center text-xl md:text-2xl text-[#00ffcc] border border-teal-500/20 animate-bounce">
                                 <i class="fa-solid fa-gamepad"></i>
                             </div>
-                            <p class="text-base md:text-lg font-bold text-slate-200">এখানে ক্লিক করুন বা যেকোনো কি চাপুন</p>
-                            <span class="text-[9px] md:text-xs text-slate-500 font-mono-custom">ফোকাস হারিয়ে গেলে টাইপিং সাময়িকভাবে বন্ধ থাকে</span>
+                            <p class="text-base md:text-lg font-bold text-slate-200">Click here or press any key</p>
+                            <span class="text-[9px] md:text-xs text-slate-500 font-mono-custom">Typing pauses when focus is lost</span>
                         </div>
 
                         <div class="typing-box-header">
@@ -1045,7 +1045,7 @@
                         <div class="absolute bottom-3 left-4 md:bottom-4 md:left-6 flex items-center gap-1.5 md:gap-2 text-[8px] md:text-[10px] text-slate-500 font-bold">
                             <span class="inline-block w-2 h-2 md:w-2.5 md:h-2.5 rounded-full bg-[#00ffcc] animate-ping mr-0.5 md:mr-1"></span>
                             <span class="hidden sm:inline">System Ready • Personal records will be saved automatically</span>
-                            <span class="sm:hidden">প্রস্তুত • রেকর্ড সেভ হবে</span>
+                            <span class="sm:hidden">Ready & Saved</span>
                         </div>
                         <div class="absolute bottom-3 right-4 md:bottom-4 md:right-6 text-[8px] md:text-[10px] text-slate-500 font-mono-custom select-none">
                             <kbd class="px-1 md:px-1.5 py-0.5 bg-slate-900 border border-slate-800 rounded">Esc</kbd>
@@ -1079,13 +1079,13 @@
                     <div class="glass-panel rounded-3xl p-5 md:p-8 flex flex-col md:flex-row justify-between items-center gap-4 md:gap-6 relative overflow-hidden">
                         <div class="absolute -right-20 -top-20 w-60 h-60 rounded-full bg-cyan-500/5 filter blur-3xl"></div>
                         <div>
-                            <div class="text-[9px] md:text-[10px] font-black text-teal-400 uppercase tracking-widest mb-1">কনগ্রাচুলেশন্স</div>
-                            <h2 class="text-2xl md:text-3xl font-black text-white">আপনার টাইপিং এর সঠিক বিশ্লেষণ!</h2>
+                            <div class="text-[9px] md:text-[10px] font-black text-teal-400 uppercase tracking-widest mb-1">Congratulations</div>
+                            <h2 class="text-2xl md:text-3xl font-black text-white">Your Typing Analysis!</h2>
                             <p id="result-meta-subtitle" class="text-slate-400 text-[10px] md:text-xs mt-1">Language: English • Sentence Mode</p>
                         </div>
                         <div class="flex items-center gap-3 md:gap-4 bg-slate-950/80 px-4 md:px-6 py-3 md:py-4 rounded-2xl border border-slate-800">
                             <div>
-                                <span class="text-[7px] md:text-[9px] text-slate-500 uppercase tracking-wider block">টাইপিং টাইটেল</span>
+                                <span class="text-[7px] md:text-[9px] text-slate-500 uppercase tracking-wider block">Typing Title</span>
                                 <span id="grade-label" class="text-[10px] md:text-xs font-bold text-[#00ffcc] uppercase">Extreme Typer</span>
                             </div>
                             <div id="grade-badge" class="w-10 h-10 md:w-14 md:h-14 rounded-2xl bg-gradient-to-tr from-[#00ffcc] to-indigo-500 text-slate-950 flex items-center justify-center font-black text-xl md:text-2xl shadow-xl shadow-cyan-500/10">S</div>
@@ -1094,31 +1094,31 @@
 
                     <div class="grid grid-cols-2 md:grid-cols-4 gap-2 md:gap-4">
                         <div class="glass-panel rounded-2xl p-3 md:p-6 text-center">
-                            <span class="text-[9px] md:text-xs font-bold text-slate-500 uppercase block mb-0.5 md:mb-1">গতি (WPM)</span>
+                            <span class="text-[9px] md:text-xs font-bold text-slate-500 uppercase block mb-0.5 md:mb-1">Speed (WPM)</span>
                             <div class="text-3xl md:text-5xl font-black text-[#00ffcc] font-mono-custom" id="res-wpm">0</div>
-                            <span class="text-[8px] md:text-[10px] text-slate-400 mt-0.5 md:mt-1 block">নিখুঁত গতি</span>
+                            <span class="text-[8px] md:text-[10px] text-slate-400 mt-0.5 md:mt-1 block">Net Speed</span>
                         </div>
                         <div class="glass-panel rounded-2xl p-3 md:p-6 text-center">
-                            <span class="text-[9px] md:text-xs font-bold text-slate-500 uppercase block mb-0.5 md:mb-1">নির্ভুলতা</span>
+                            <span class="text-[9px] md:text-xs font-bold text-slate-500 uppercase block mb-0.5 md:mb-1">Accuracy</span>
                             <div class="text-3xl md:text-5xl font-black text-white font-mono-custom" id="res-accuracy">100%</div>
-                            <span class="text-[8px] md:text-[10px] text-slate-400 mt-0.5 md:mt-1 block">Accuracyর হার</span>
+                            <span class="text-[8px] md:text-[10px] text-slate-400 mt-0.5 md:mt-1 block">Accuracy Rate</span>
                         </div>
                         <div class="glass-panel rounded-2xl p-3 md:p-6 text-center">
-                            <span class="text-[9px] md:text-xs font-bold text-slate-500 uppercase block mb-0.5 md:mb-1">রিয়েল CPM</span>
+                            <span class="text-[9px] md:text-xs font-bold text-slate-500 uppercase block mb-0.5 md:mb-1">Real CPM</span>
                             <div class="text-3xl md:text-5xl font-black text-slate-300 font-mono-custom" id="res-cpm">0</div>
-                            <span class="text-[8px] md:text-[10px] text-slate-400 mt-0.5 md:mt-1 block">কীস্ট্রোক প্রতি মিনিট</span>
+                            <span class="text-[8px] md:text-[10px] text-slate-400 mt-0.5 md:mt-1 block">Keystrokes per minute</span>
                         </div>
                         <div class="glass-panel rounded-2xl p-3 md:p-6 text-center">
-                            <span class="text-[9px] md:text-xs font-bold text-slate-500 uppercase block mb-0.5 md:mb-1">মোট সময়</span>
+                            <span class="text-[9px] md:text-xs font-bold text-slate-500 uppercase block mb-0.5 md:mb-1">Total Time</span>
                             <div class="text-3xl md:text-5xl font-black text-rose-400 font-mono-custom" id="res-time">0s</div>
-                            <span class="text-[8px] md:text-[10px] text-slate-400 mt-0.5 md:mt-1 block">কমপ্লিশন ডিউরেশন</span>
+                            <span class="text-[8px] md:text-[10px] text-slate-400 mt-0.5 md:mt-1 block">Completion Duration</span>
                         </div>
                     </div>
 
                     <div class="grid grid-cols-1 lg:grid-cols-3 gap-4 md:gap-6">
                         <div class="glass-panel rounded-2xl p-4 md:p-6 lg:col-span-2 space-y-3 md:space-y-4">
                             <h3 class="text-xs md:text-sm font-bold text-slate-300 uppercase tracking-wider flex items-center gap-2">
-                                <i class="fa-solid fa-chart-line text-[#00ffcc]"></i> গতি ও স্ট্যাবিলিটি গ্রাফ
+                                <i class="fa-solid fa-chart-line text-[#00ffcc]"></i> Speed & Stability Graph
                             </h3>
                             <div class="relative w-full h-[160px] md:h-[200px]">
                                 <canvas id="liveGraph"></canvas>
@@ -1126,29 +1126,29 @@
                         </div>
                         <div class="glass-panel rounded-2xl p-4 md:p-6 flex flex-col justify-between space-y-3 md:space-y-4">
                             <h3 class="text-xs md:text-sm font-bold text-slate-300 uppercase tracking-wider flex items-center gap-2">
-                                <i class="fa-solid fa-folder-tree text-teal-400"></i> সূক্ষ্ম ডাটা
+                                <i class="fa-solid fa-folder-tree text-teal-400"></i> Detailed Data
                             </h3>
                             <div class="space-y-2 md:space-y-3">
                                 <div class="flex justify-between items-center text-[10px] md:text-xs border-b border-slate-800 pb-1.5 md:pb-2.5">
-                                    <span class="text-slate-400">সঠিক ক্যারেক্টার</span>
+                                    <span class="text-slate-400">Correct Characters</span>
                                     <span class="font-bold text-emerald-400 font-mono-custom" id="res-correct-chars">0</span>
                                 </div>
                                 <div class="flex justify-between items-center text-[10px] md:text-xs border-b border-slate-800 pb-1.5 md:pb-2.5">
-                                    <span class="text-slate-400">ভুল ক্যারেক্টার</span>
+                                    <span class="text-slate-400">Wrong Characters</span>
                                     <span class="font-bold text-red-400 font-mono-custom" id="res-wrong-chars">0</span>
                                 </div>
                                 <div class="flex justify-between items-center text-[10px] md:text-xs border-b border-slate-800 pb-1.5 md:pb-2.5">
-                                    <span class="text-slate-400">সঠিক Word</span>
+                                    <span class="text-slate-400">Correct Words</span>
                                     <span class="font-bold text-white font-mono-custom" id="res-correct-words">0</span>
                                 </div>
                                 <div class="flex justify-between items-center text-[10px] md:text-xs">
-                                    <span class="text-slate-400">ভুল Word</span>
+                                    <span class="text-slate-400">Wrong Words</span>
                                     <span class="font-bold text-slate-500 font-mono-custom" id="res-wrong-words">0</span>
                                 </div>
                             </div>
                             <button onclick="gotoPracticePage()" class="w-full py-3 md:py-4 rounded-xl bg-gradient-to-r from-teal-400 to-[#00ffcc] text-slate-950 font-extrabold hover:opacity-95 transition-all shadow-xl shadow-teal-500/10 flex items-center justify-center gap-2 text-sm md:text-base">
                                 <i class="fa-solid fa-play"></i>
-                                <span>পরবর্তী সেশন শুরু করুন</span>
+                                <span>Start Next Session</span>
                             </button>
                         </div>
                     </div>
@@ -1194,7 +1194,7 @@
                                 <i class="fa-solid fa-keyboard"></i>
                             </div>
                             <div>
-                                <span class="text-[8px] md:text-[10px] text-slate-500 uppercase font-bold block">Total session</span>
+                                <span class="text-[8px] md:text-[10px] text-slate-500 uppercase font-bold block">Total Sessions</span>
                                 <span id="pbs-count" class="text-xl md:text-2xl font-black text-white font-mono-custom">0 Tests</span>
                             </div>
                         </div>
@@ -1205,8 +1205,8 @@
                         <div class="flex items-center justify-between">
                             <h3 class="text-[10px] md:text-xs font-bold text-slate-300 uppercase">All Session History</h3>
                             <button onclick="clearLocalHistory()" class="px-2 md:px-3 py-1 md:py-1.5 rounded-lg bg-red-500/10 hover:bg-red-500/20 text-red-400 text-[9px] md:text-xs font-bold border border-red-500/15 transition flex items-center gap-1">
-                                <i class="fa-solid fa-trash text-xs"></i> <span class="hidden sm:inline">হিস্ট্রি মুছুন</span>
-                                <span class="sm:hidden">মুছুন</span>
+                                <i class="fa-solid fa-trash text-xs"></i> <span class="hidden sm:inline">Clear History</span>
+                                <span class="sm:hidden">Clear</span>
                             </button>
                         </div>
                         <div class="glass-panel rounded-2xl overflow-hidden">
@@ -1218,11 +1218,11 @@
                                             <th class="px-3 md:px-6 py-2 md:py-4">WPM</th>
                                             <th class="px-3 md:px-6 py-2 md:py-4">Accuracy</th>
                                             <th class="px-3 md:px-6 py-2 md:py-4">Language</th>
-                                            <th class="px-3 md:px-6 py-2 md:py-4">ভুল Word</th>
+                                            <th class="px-3 md:px-6 py-2 md:py-4">Wrong Words</th>
                                         </tr>
                                     </thead>
                                     <tbody id="history-rows">
-                                        <tr><td colspan="5" class="px-3 md:px-6 py-6 md:py-10 text-center text-slate-500">কোথাও কোনো History পাওয়া যায়নি!</td></tr>
+                                        <tr><td colspan="5" class="px-3 md:px-6 py-6 md:py-10 text-center text-slate-500">No history found!</td></tr>
                                     </tbody>
                                 </table>
                             </div>
@@ -1232,7 +1232,7 @@
                     <!-- Leaderboard -->
                     <div id="stats-leaderboard-sub" class="space-y-3 md:space-y-4 hidden">
                         <div class="flex justify-between items-center">
-                            <h3 class="text-[10px] md:text-xs font-bold text-slate-300 uppercase">বৈশ্বিক Rankingিং</h3>
+                            <h3 class="text-[10px] md:text-xs font-bold text-slate-300 uppercase">Global Ranking</h3>
                             <span class="text-[8px] md:text-[10px] bg-teal-500/10 text-teal-300 px-1.5 md:px-2.5 py-0.5 md:py-1 rounded-full font-bold border border-teal-500/20">Live Cloud</span>
                         </div>
                         <div class="glass-panel rounded-2xl overflow-hidden">
@@ -1240,15 +1240,15 @@
                                 <table class="w-full text-left text-slate-300 text-xs md:text-sm">
                                     <thead class="bg-slate-950/80 text-[9px] md:text-xs font-bold text-slate-500 uppercase border-b border-slate-800">
                                         <tr>
-                                            <th class="px-3 md:px-6 py-2 md:py-4">Ranking</th>
-                                            <th class="px-3 md:px-6 py-2 md:py-4">ইউজার</th>
-                                            <th class="px-3 md:px-6 py-2 md:py-4">WPM</th>
-                                            <th class="px-3 md:px-6 py-2 md:py-4">নির্ভুলতা</th>
-                                            <th class="px-3 md:px-6 py-2 md:py-4">Language</th>
+                                            <th class="px-3 md:px-6 py-2 md:py-4">Rank</th>
+                                            <th class="px-3 md:px-6 py-2 md:py-4">User</th>
+                                            <th class="px-3 md:px-6 py-2 md:py-4">Best WPM</th>
+                                            <th class="px-3 md:px-6 py-2 md:py-4">Accuracy</th>
+                                            <th class="px-3 md:px-6 py-2 md:py-4">Total Tests</th>
                                         </tr>
                                     </thead>
                                     <tbody id="leaderboard-rows">
-                                        <tr><td colspan="5" class="px-3 md:px-6 py-6 md:py-10 text-center text-slate-500">লোডিং ক্লাউড ডেটাবেস...</td></tr>
+                                        <tr><td colspan="5" class="px-3 md:px-6 py-6 md:py-10 text-center text-slate-500">Loading cloud database...</td></tr>
                                     </tbody>
                                 </table>
                             </div>
@@ -1262,7 +1262,7 @@
                             <span class="text-[8px] md:text-[10px] bg-purple-500/10 text-purple-300 px-1.5 md:px-2.5 py-0.5 md:py-1 rounded-full font-bold border border-purple-500/20">Collection</span>
                         </div>
                         <div id="achievements-container" class="grid grid-cols-2 md:grid-cols-4 gap-3">
-                            <div class="col-span-full text-center text-slate-500 text-sm py-6">Achievements লোড হচ্ছে...</div>
+                            <div class="col-span-full text-center text-slate-500 text-sm py-6">Loading achievements...</div>
                         </div>
                     </div>
                 </section>
@@ -1393,8 +1393,8 @@
                         <div id="announcements-list" class="space-y-3 md:space-y-4">
                             <div class="announcement-empty">
                                 <i class="fa-solid fa-bell-slash"></i>
-                                <h3>কোনো ঘোষণা নেই</h3>
-                                <p>বর্তমানে কোনো সক্রিয় ঘোষণা উপলব্ধ নেই।</p>
+                                <h3>No announcements</h3>
+                                <p>There are no active announcements at the moment.</p>
                             </div>
                         </div>
                     </div>
@@ -1995,11 +1995,16 @@
                 updateUserUI(user);
                 syncLeaderboard();
                 syncPersonalBestDashboard();
+                // Load announcement reads for this user
+                loadAnnouncementReads(uid);
             } else {
                 currentUser = null;
                 isRegisteredUser = false;
                 userProfileData = null;
                 updateUserUI(null);
+                // Clear announcement reads cache
+                announcementReadsCache = {};
+                updateAnnouncementBadge();
             }
         });
 
@@ -2045,6 +2050,10 @@
             // Announcement bell
             document.getElementById('announcement-btn')?.addEventListener('click', () => {
                 openAnnouncements();
+                // Mark all as read when opening
+                if (currentUser) {
+                    markAllAnnouncementsAsRead(currentUser.uid);
+                }
             });
         }
 
@@ -2118,11 +2127,17 @@
                     });
                 });
                 // Sort by sortOrder (ascending), then by createdAt (newest first)
-                announcementsCache.sort((a, b) => {
+                Cache.sort((a, b) => {
                     if (a.sortOrder !== b.sortOrder) return a.sortOrder - b.sortOrder;
                     return (b.createdAt?.toMillis?.() || 0) - (a.createdAt?.toMillis?.() || 0);
                 });
-                updateAnnouncementBadge();
+                // If user is logged in, load reads for this user
+                if (currentUser) {
+                    loadAnnouncementReads(currentUser.uid);
+                } else {
+                    // If guest, badge is hidden (no reads)
+                    updateAnnouncementBadge();
+                }
                 // If announcements page is open, re-render
                 if (!document.getElementById('page-announcements').classList.contains('hidden')) {
                     renderAnnouncementsPage();
@@ -2130,18 +2145,92 @@
             });
         }
 
-        // ─── ANNOUNCEMENTS UI ───
+        // ─── ANNOUNCEMENT READ STATUS ───
+        let announcementReadsCache = {}; // key: announcementId, value: true/false
+
+        async function loadAnnouncementReads(userId) {
+            if (!userId) return;
+            try {
+                const q = query(collection(db, 'announcement_reads'), where('userId', '==', userId));
+                const snap = await getDocs(q);
+                announcementReadsCache = {};
+                snap.forEach(doc => {
+                    const data = doc.data();
+                    announcementReadsCache[data.announcementId] = true;
+                });
+                updateAnnouncementBadge();
+            } catch (err) {
+                console.error('Error loading announcement reads:', err);
+            }
+        }
+
+        async function markAnnouncementAsRead(userId, announcementId) {
+            if (!userId || !announcementId) return;
+            try {
+                const readRef = doc(collection(db, 'announcement_reads'));
+                await setDoc(readRef, {
+                    userId: userId,
+                    announcementId: announcementId,
+                    readAt: serverTimestamp()
+                });
+                announcementReadsCache[announcementId] = true;
+                updateAnnouncementBadge();
+            } catch (err) {
+                console.error('Error marking announcement as read:', err);
+            }
+        }
+
+        async function markAllAnnouncementsAsRead(userId) {
+            if (!userId) return;
+            const unread = announcementsCache.filter(a => !announcementReadsCache[a.id]);
+            if (unread.length === 0) return;
+            // Batch write for efficiency
+            const batch = writeBatch(db);
+            unread.forEach(ann => {
+                const readRef = doc(collection(db, 'announcement_reads'));
+                batch.set(readRef, {
+                    userId: userId,
+                    announcementId: ann.id,
+                    readAt: serverTimestamp()
+                });
+            });
+            try {
+                await batch.commit();
+                // Update cache
+                unread.forEach(ann => { announcementReadsCache[ann.id] = true; });
+                updateAnnouncementBadge();
+                // Re-render announcements page if open
+                if (!document.getElementById('page-announcements').classList.contains('hidden')) {
+                    renderAnnouncementsPage();
+                }
+            } catch (err) {
+                console.error('Error marking all announcements as read:', err);
+            }
+        }
+
         function updateAnnouncementBadge() {
             const badge = document.getElementById('announcement-badge');
-            const count = announcementsCache.filter(a => a.active).length;
-            if (count > 0) {
-                badge.textContent = count > 9 ? '9+' : count;
+            let unreadCount = 0;
+            if (currentUser) {
+                // For registered users, compute unread from cache
+                announcementsCache.forEach(ann => {
+                    if (!announcementReadsCache[ann.id]) {
+                        unreadCount++;
+                    }
+                });
+            } else {
+                // Guests: no badge
+                unreadCount = 0;
+            }
+            if (unreadCount > 0) {
+                badge.textContent = unreadCount > 9 ? '9+' : unreadCount;
                 badge.classList.add('show');
             } else {
                 badge.classList.remove('show');
             }
         }
 
+        // ─── ANNOUNCEMENTS UI ───
         function renderAnnouncementsPage() {
             const container = document.getElementById('announcements-list');
             const countEl = document.getElementById('announcement-count');
@@ -2151,8 +2240,8 @@
                 container.innerHTML = `
                     <div class="announcement-empty">
                         <i class="fa-solid fa-bell-slash"></i>
-                        <h3>কোনো ঘোষণা নেই</h3>
-                        <p>বর্তমানে কোনো সক্রিয় ঘোষণা উপলব্ধ নেই।</p>
+                        <h3>No announcements</h3>
+                        <p>There are no active announcements at the moment.</p>
                     </div>
                 `;
                 countEl.textContent = '0 active';
@@ -2189,6 +2278,9 @@
                 ];
                 const icon = icons[index % icons.length];
 
+                // Check read status
+                const isRead = currentUser && announcementReadsCache[item.id] === true;
+
                 card.innerHTML = `
                     <div class="icon-wrap">
                         <i class="${icon}"></i>
@@ -2196,7 +2288,7 @@
                     <div class="flex-1 min-w-0">
                         <div class="flex flex-wrap items-center gap-2 mb-0.5">
                             <h4 class="text-sm md:text-base font-bold text-white truncate">${item.title}</h4>
-                            <span class="badge-active">Active</span>
+                            <span class="badge-active">${isRead ? 'Read' : 'New'}</span>
                         </div>
                         <p class="text-xs md:text-sm text-slate-400 leading-relaxed">${item.message}</p>
                         <div class="flex items-center gap-2 mt-1.5">
@@ -2217,7 +2309,7 @@
             onSnapshot(q, (snapshot) => {
                 if (snapshot.empty) {
                     container.innerHTML =
-                        `<div class="col-span-full text-center text-slate-500 text-sm py-6">কোনো Achievements পাওয়া যায়নি</div>`;
+                        `<div class="col-span-full text-center text-slate-500 text-sm py-6">No achievements found</div>`;
                     return;
                 }
                 container.innerHTML = '';
@@ -2339,7 +2431,7 @@
             const key = `${lang}_${diff}`;
             const vocab = wordsCache[key] || [];
             if (vocab.length === 0) {
-                return lang === 'english' ? "No words available in database." : "ডাটাবেসে কোনো Word পাওয়া যায়নি।";
+                return lang === 'english' ? "No words available in database." : "No words available in database.";
             }
             const paragraph = [];
             for (let i = 0; i < count; i++) {
@@ -2358,7 +2450,7 @@
             const key = `${lang}_${diff}`;
             const s = Cache[key] || [];
             if (s.length === 0) {
-                return lang === 'english' ? "No s available in the database." : "ডাটাবেসে কোনো বাক্য পাওয়া যায়নি।";
+                return lang === 'english' ? "No sentences available in the database." : "No sentences available in the database.";
             }
             const randomIndex = Math.floor(Math.random() * s.length);
             return s[randomIndex].text;
@@ -2600,7 +2692,7 @@
             document.getElementById('grade-badge').textContent = grade;
             document.getElementById('grade-label').textContent = label;
             document.getElementById('result-meta-subtitle').textContent =
-                `ক্যাবিনেট: ${difficulty.toUpperCase()} • ${language.toUpperCase()} • ${testMode.toUpperCase()}`;
+                `Cabinet: ${difficulty.toUpperCase()} • ${language.toUpperCase()} • ${testMode.toUpperCase()}`;
 
             saveLocalSessionLog(finalWpm, finalAccuracy, correctWordsCount, wrongWordsCount, timeElapsed);
 
@@ -2622,7 +2714,7 @@
                 data: {
                     labels: plotTimeline.map(s => `${s}s`),
                     datasets: [{
-                        label: 'স্পীড প্রগ্রেস (WPM)',
+                        label: 'Speed Progress (WPM)',
                         data: plotWpmRecord,
                         borderColor: accentColor,
                         backgroundColor: 'rgba(0, 255, 204, 0.04)',
@@ -2727,7 +2819,7 @@
             }
         }
 
-        // ─── LOCAL HISTORY ───
+        // ─── LOCAL HISTORY (for guest) ───
         function saveLocalSessionLog(wpm, accuracy, correctWords, wrongWords, duration) {
             let logs = [];
             try { logs = JSON.parse(localStorage.getItem('swifttype_v3_history') || '[]'); } catch (e) { logs = []; }
@@ -2747,39 +2839,103 @@
             syncPersonalBestDashboard();
         }
 
-        function syncPersonalBestDashboard() {
-            let logs = [];
-            try { logs = JSON.parse(localStorage.getItem('swifttype_v3_history') || '[]'); } catch (e) {}
+        // ─── SYNC PERSONAL BEST DASHBOARD (HISTORY) ───
+        async function syncPersonalBestDashboard() {
             const rows = document.getElementById('history-rows');
-            if (logs.length === 0) {
-                rows.innerHTML =
-                    `<tr><td colspan="5" class="px-3 md:px-6 py-6 md:py-10 text-center text-slate-500">এখনো কোনো প্র্যাকটিস সেশন সম্পন্ন করা হয়নি।</td></tr>`;
-                return;
+            const pbsWpm = document.getElementById('pbs-wpm');
+            const pbsAcc = document.getElementById('pbs-acc');
+            const pbsCount = document.getElementById('pbs-count');
+
+            if (isRegisteredUser && currentUser) {
+                // Load from Firestore: typing_history where userId == currentUser.uid
+                try {
+                    const q = query(collection(db, 'typing_history'), where('userId', '==', currentUser.uid), orderBy('createdAt', 'desc'));
+                    const snap = await getDocs(q);
+                    if (snap.empty) {
+                        rows.innerHTML =
+                            `<tr><td colspan="5" class="px-3 md:px-6 py-6 md:py-10 text-center text-slate-500">No practice sessions have been completed yet.</td></tr>`;
+                        pbsWpm.textContent = '0 WPM';
+                        pbsAcc.textContent = '0%';
+                        pbsCount.textContent = '0 Tests';
+                        return;
+                    }
+                    let history = [];
+                    let maxWpm = 0,
+                        maxAcc = 0;
+                    snap.forEach(doc => {
+                        const data = doc.data();
+                        history.push(data);
+                        if (data.wpm > maxWpm) maxWpm = data.wpm;
+                        if (data.accuracy > maxAcc) maxAcc = data.accuracy;
+                    });
+                    pbsWpm.textContent = `${maxWpm} WPM`;
+                    pbsAcc.textContent = `${maxAcc}%`;
+                    pbsCount.textContent = `${history.length} Tests`;
+
+                    rows.innerHTML = "";
+                    history.forEach(item => {
+                        const tr = document.createElement('tr');
+                        tr.className = "border-b border-slate-900/60 hover:bg-slate-900/25 transition";
+                        const d = item.createdAt?.toDate ? item.createdAt.toDate().toLocaleDateString() : 'Unknown';
+                        const modeLabel = item.mode === '' ? 'Sentence' : 'Paragraph';
+                        tr.innerHTML = `
+                            <td class="px-3 md:px-6 py-2 md:py-4 text-slate-400 font-mono-custom text-[10px] md:text-xs">${d}</td>
+                            <td class="px-3 md:px-6 py-2 md:py-4 font-bold text-white font-mono-custom">${item.wpm} WPM</td>
+                            <td class="px-3 md:px-6 py-2 md:py-4 font-bold text-teal-400 font-mono-custom">${item.accuracy}%</td>
+                            <td class="px-3 md:px-6 py-2 md:py-4 text-[9px] md:text-xs font-bold uppercase text-slate-500">${item.language} (${item.difficulty}) • ${modeLabel}</td>
+                            <td class="px-3 md:px-6 py-2 md:py-4 text-[9px] md:text-xs text-red-400 font-mono-custom">${item.errors || 0}</td>
+                        `;
+                        rows.appendChild(tr);
+                    });
+                } catch (err) {
+                    console.error('Error loading history:', err);
+                    rows.innerHTML =
+                        `<tr><td colspan="5" class="px-3 md:px-6 py-6 md:py-10 text-center text-slate-500">Error loading history.</td></tr>`;
+                }
+            } else {
+                // Guest: use local storage
+                let logs = [];
+                try { logs = JSON.parse(localStorage.getItem('swifttype_v3_history') || '[]'); } catch (e) {}
+                if (logs.length === 0) {
+                    rows.innerHTML =
+                        `<tr><td colspan="5" class="px-3 md:px-6 py-6 md:py-10 text-center text-slate-500">No practice sessions have been completed yet.</td></tr>`;
+                    pbsWpm.textContent = '0 WPM';
+                    pbsAcc.textContent = '0%';
+                    pbsCount.textContent = '0 Tests';
+                    return;
+                }
+                let maxWpm = 0,
+                    maxAcc = 0;
+                logs.forEach(l => { if (l.wpm > maxWpm) maxWpm = l.wpm; if (l.accuracy > maxAcc) maxAcc = l.accuracy; });
+                pbsWpm.textContent = `${maxWpm} WPM`;
+                pbsAcc.textContent = `${maxAcc}%`;
+                pbsCount.textContent = `${logs.length} Tests`;
+                rows.innerHTML = "";
+                logs.forEach(l => {
+                    const tr = document.createElement('tr');
+                    tr.className = "border-b border-slate-900/60 hover:bg-slate-900/25 transition";
+                    const d = new Date(l.timestamp).toLocaleDateString();
+                    const modeLabel = l.mode === '' ? 'Sentence' : 'Paragraph';
+                    tr.innerHTML = `
+                        <td class="px-3 md:px-6 py-2 md:py-4 text-slate-400 font-mono-custom text-[10px] md:text-xs">${d}</td>
+                        <td class="px-3 md:px-6 py-2 md:py-4 font-bold text-white font-mono-custom">${l.wpm} WPM</td>
+                        <td class="px-3 md:px-6 py-2 md:py-4 font-bold text-teal-400 font-mono-custom">${l.accuracy}%</td>
+                        <td class="px-3 md:px-6 py-2 md:py-4 text-[9px] md:text-xs font-bold uppercase text-slate-500">${l.lang} (${l.difficulty}) • ${modeLabel}</td>
+                        <td class="px-3 md:px-6 py-2 md:py-4 text-[9px] md:text-xs text-red-400 font-mono-custom">${l.wrongWords} </td>
+                    `;
+                    rows.appendChild(tr);
+                });
             }
-            let maxWpm = 0,
-                maxAcc = 0;
-            logs.forEach(l => { if (l.wpm > maxWpm) maxWpm = l.wpm; if (l.accuracy > maxAcc) maxAcc = l.accuracy; });
-            document.getElementById('pbs-wpm').textContent = `${maxWpm} WPM`;
-            document.getElementById('pbs-acc').textContent = `${maxAcc}%`;
-            document.getElementById('pbs-count').textContent = `${logs.length} Tests`;
-            rows.innerHTML = "";
-            logs.forEach(l => {
-                const tr = document.createElement('tr');
-                tr.className = "border-b border-slate-900/60 hover:bg-slate-900/25 transition";
-                const d = new Date(l.timestamp).toLocaleDateString();
-                const modeLabel = l.mode === '' ? 'Sentence' : 'Paragraph';
-                tr.innerHTML = `
-                <td class="px-3 md:px-6 py-2 md:py-4 text-slate-400 font-mono-custom text-[10px] md:text-xs">${d}</td>
-                <td class="px-3 md:px-6 py-2 md:py-4 font-bold text-white font-mono-custom">${l.wpm} WPM</td>
-                <td class="px-3 md:px-6 py-2 md:py-4 font-bold text-teal-400 font-mono-custom">${l.accuracy}%</td>
-                <td class="px-3 md:px-6 py-2 md:py-4 text-[9px] md:text-xs font-bold uppercase text-slate-500">${l.lang} (${l.difficulty}) • ${modeLabel}</td>
-                <td class="px-3 md:px-6 py-2 md:py-4 text-[9px] md:text-xs text-red-400 font-mono-custom">${l.wrongWords} টি</td>
-            `;
-                rows.appendChild(tr);
-            });
         }
 
         window.clearLocalHistory = function() {
+            if (isRegisteredUser && currentUser) {
+                // For registered users, we should delete from Firestore? We'll only clear local cache.
+                // Actually, we might want to delete all typing_history for user, but we'll keep it simple.
+                // For now, we only clear local storage for guest.
+                alert('For registered users, history is stored in cloud. Use the dashboard to manage.');
+                return;
+            }
             localStorage.removeItem('swifttype_v3_history');
             syncPersonalBestDashboard();
         };
@@ -2799,7 +2955,7 @@
                 querySnapshot.forEach(doc => { list.push({ id: doc.id, ...doc.data() }); });
                 if (list.length === 0) {
                     body.innerHTML =
-                        `<tr><td colspan="5" class="px-3 md:px-6 py-6 md:py-10 text-center text-slate-500">লিডারবোর্ড খালি রয়েছে।</td></tr>`;
+                        `<tr><td colspan="5" class="px-3 md:px-6 py-6 md:py-10 text-center text-slate-500">Leaderboard is empty.</td></tr>`;
                     return;
                 }
                 body.innerHTML = "";
@@ -2818,7 +2974,7 @@
                     </td>
                     <td class="px-3 md:px-6 py-2 md:py-4 font-bold text-white">${data.bestWpm || 0} WPM</td>
                     <td class="px-3 md:px-6 py-2 md:py-4 font-bold text-emerald-400">${data.bestAccuracy || 0}%</td>
-                    <td class="px-3 md:px-6 py-2 md:py-4 text-[9px] md:text-xs font-bold uppercase text-slate-500">${data.language || 'N/A'}</td>
+                    <td class="px-3 md:px-6 py-2 md:py-4 text-[9px] md:text-xs font-bold uppercase text-slate-500">${data.totalTests || 0} tests</td>
                 `;
                     body.appendChild(tr);
                 });
